@@ -439,3 +439,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bcd35730f203b4da28caf22d1f2498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minSize: 0
+  shrinkMultiplier: 7
