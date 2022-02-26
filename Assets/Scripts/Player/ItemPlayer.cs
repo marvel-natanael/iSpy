@@ -10,5 +10,6 @@ namespace Player
             Health = health;
             Amount = amount;
         }
+        
     }
 }
