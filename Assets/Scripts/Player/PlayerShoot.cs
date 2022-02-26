@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Player
@@ -15,18 +16,20 @@ namespace Player
         private float _timer;
 
         private Vector2 _position;
-
         private ItemPlayer _itemPlayer;
 
         private void Start()
         {
-            _itemPlayer = PlayerManager.Instance.ItemPlayer;
+            _itemPlayer = new ItemPlayer
+            {
+                Amount = 5
+            };
         }
 
         private void Update()
         {
             _position = origin.position;
-
+            
             Debug.DrawRay(_position, origin.TransformDirection(Vector2.up) * distance, Color.black);
             var hit = Physics2D.Raycast(_position, origin.TransformDirection(Vector2.up), distance);
 
@@ -42,7 +45,7 @@ namespace Player
             _timer += deltaTime;
 
             if ((!(_timer >= fireSpeed))) return;
-
+            
             if (_itemPlayer.Amount <= 0) return;
 
             var bulletPool = BulletPool.Instance.GetBullet();

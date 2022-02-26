@@ -12,10 +12,6 @@ namespace Player
         {
             if (Instance == null) Instance = this;
         }
-
-        private void Start()
-        {
-            ItemPlayer = new ItemPlayer(100, 5);
-        }
+        
     }
 }
