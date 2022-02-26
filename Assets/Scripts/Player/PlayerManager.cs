@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Player
@@ -11,7 +12,12 @@ namespace Player
         private void Awake()
         {
             if (Instance == null) Instance = this;
+            
+            ItemPlayer = new ItemPlayer
+            {
+                Health = 100,
+                Amount = 5
+            };
         }
-        
     }
 }
