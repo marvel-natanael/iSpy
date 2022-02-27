@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Player
@@ -20,10 +19,7 @@ namespace Player
 
         private void Start()
         {
-            _itemPlayer = new ItemPlayer
-            {
-                Amount = 5
-            };
+            _itemPlayer = PlayerManager.Instance.ItemPlayer;
         }
 
         private void Update()
@@ -36,13 +32,13 @@ namespace Player
             if (hit)
             {
                 Debug.Log(hit.collider.name);
-                Fire(Time.deltaTime);
+                Fire();
             }
         }
 
-        private void Fire(float deltaTime)
+        private void Fire()
         {
-            _timer += deltaTime;
+            _timer += Time.deltaTime;
 
             if ((!(_timer >= fireSpeed))) return;
             
