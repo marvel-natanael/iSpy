@@ -11,11 +11,14 @@ public class Soldier : NPC
     private Transform nextMove;
     private Vector2 currentPos;
 
-    private float closestPlayerDist;
     private GameObject targetPlayer;
+
+    private FieldOfView fov;
 
     private void Start()
     {
+        fov = GetComponent<FieldOfView>();
+
         currentPos = transform.position;
         currentTime = delay;
     }
@@ -42,6 +45,7 @@ public class Soldier : NPC
             {
                 nextMove.position = currentPos;
                 currentPos = transform.position;
+                Vector2 dir = nextMove.position - transform.position;
 
                 currentTime = delay;
             }
@@ -55,19 +59,6 @@ public class Soldier : NPC
     public override void Attack()
     {
         base.Attack();
-        var shootArea = GetComponentInChildren<ShootArea>();
-        var playersInArea = shootArea.PlayerInRange;
-        //closestPlayerDist = max radius area
-
-        foreach(var player in playersInArea)
-        {
-            float dist = Vector2.Distance(transform.position, player.transform.position);
-
-            if(dist < closestPlayerDist)
-            {
-                closestPlayerDist = dist;
-                targetPlayer = player;
-            }
-        }
+        targetPlayer = fov.ClosestPlayer;
     }
 }
