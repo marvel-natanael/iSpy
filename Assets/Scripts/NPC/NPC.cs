@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
+    [Header("Properties")]
     [SerializeField]
     protected float delay;
     protected float currentTime;
@@ -15,6 +16,11 @@ public class NPC : MonoBehaviour
 
     public virtual void Routine()
     {
-        Debug.Log(gameObject.name + " do routine!");
+        //Debug.Log(gameObject.name + " do routine!");
     }
+}
+public enum NPCType
+{
+    Soldier,
+    Turret
 }
