@@ -14,6 +14,9 @@ public class MenuUIManager : MonoBehaviour
 
     [SerializeField]
     RectTransform mainMenuTf, lobbyTf, enterNamePanelTf;
+
+    [SerializeField]
+    LobbyNetworkManager networkManager = null;
     void OnEnable()
     {
         PlayerNameInput.OnClicked += ShowMainMenu;
@@ -78,11 +81,14 @@ public class MenuUIManager : MonoBehaviour
 
     public void HostGame()
     {
+        networkManager.StartHost();
         ShowLobby();
     }
 
     public void JoinGame()
     {
+        networkManager.networkAddress = "localhost";
+        networkManager.StartClient();
         ShowLobby();
     }
 }
