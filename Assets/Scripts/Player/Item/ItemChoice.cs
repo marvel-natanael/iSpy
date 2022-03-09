@@ -1,4 +1,4 @@
-namespace Player
+namespace Player.Item
 {
     public enum ItemChoice
     {
