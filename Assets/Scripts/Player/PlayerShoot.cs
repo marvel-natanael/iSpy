@@ -12,6 +12,7 @@ namespace Player
 
         // Properties
         private float _timer;
+        private bool _shoot;
 
         //Component
         private Vector2 _position;
@@ -36,7 +37,7 @@ namespace Player
             Debug.DrawRay(_position, _selected.OriginShoot.TransformDirection(Vector2.up) * distance, Color.black);
             var hit = Physics2D.Raycast(_position, _selected.OriginShoot.TransformDirection(Vector2.up), distance);
 
-            if (hit)
+            if (hit && _shoot)
             {
                 Debug.Log(hit.collider.name);
                 SetWeapon();
@@ -54,7 +55,9 @@ namespace Player
 
             _itemPlayer.Amount -= 1; // decrement amount bullet weapon
 
-            _timer = 0f; // set timer to 0
+            _timer = 0f;
+            
+            // set timer to 0
         }
 
         private void Fire(float speed, float damage)
@@ -73,6 +76,11 @@ namespace Player
             bullet.Damage(damage); // set damage value
 
             transform.up = up;
+        }
+
+        public void Shoot()
+        {
+            _shoot = !_shoot;
         }
     }
 }
