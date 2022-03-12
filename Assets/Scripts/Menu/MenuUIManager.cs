@@ -8,7 +8,7 @@ using DG.Tweening;
 public class MenuUIManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject mainMenu, lobby, enterNamePanel;
+    GameObject mainMenu, enterNamePanel;
     [SerializeField]
     TMP_InputField nameInputField;
 
@@ -30,8 +30,6 @@ public class MenuUIManager : MonoBehaviour
     {
         mainMenu = GameObject.Find("Main Menu");
         mainMenu.SetActive(false);
-        lobby = GameObject.Find("Lobby");
-        lobby.SetActive(false);
         enterNamePanel = GameObject.Find("Enter Name Panel");
         nameInputField = GameObject.Find("Name Input Field").GetComponent<TMP_InputField>();
         mainMenuTf = GameObject.Find("Menu Canvas").GetComponent<RectTransform>();
@@ -68,7 +66,6 @@ public class MenuUIManager : MonoBehaviour
             Debug.Log(nameInputField.text);
             enterNamePanel.SetActive(false);
             mainMenu.SetActive(true);
-            lobby.SetActive(false);
         }
     }
 
@@ -76,7 +73,6 @@ public class MenuUIManager : MonoBehaviour
     {
         mainMenu.SetActive(false);
         enterNamePanel.SetActive(false);
-        lobby.SetActive(true);
     }
 
     public void HostGame()
