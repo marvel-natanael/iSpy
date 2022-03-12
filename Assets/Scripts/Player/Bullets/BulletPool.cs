@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Player
+namespace Player.Bullets
 {
     public class BulletPool : MonoBehaviour
     {
@@ -28,7 +28,10 @@ namespace Player
                 _listBulletPool.Add(objBullet);
             }
         }
-
+        
+        /// <summary>
+        ///   <para>Get Game Object Bullet Pool</para>
+        /// </summary>
         public GameObject GetBullet()
         {
             foreach (var bulletPool in _listBulletPool)
