@@ -9,26 +9,28 @@ public class Turret : NPC
 
     private Quaternion nextView;
 
-    private void Start()
+    public override void Start()
     {
-        currentTime = delay;
+        base.Start();
+        timerToDelay = delay;
     }
 
     private void Update()
     {
         Rotate();
+        Attack();
     }
 
     public void Rotate()
     {
-        if(currentTime <= 0)
+        if(timerToDelay <= 0)
         {
             Routine();
-            currentTime = delay;
+            timerToDelay = delay;
         }
         else
         {
-            currentTime -= Time.deltaTime;
+            timerToDelay -= Time.deltaTime;
         }
     }
 
@@ -37,5 +39,18 @@ public class Turret : NPC
         base.Routine();
         nextView = Quaternion.Euler(transform.eulerAngles + Vector3.forward * rotateDegree);
         transform.rotation = Quaternion.Slerp(transform.rotation, nextView, 1);
+    }
+
+    public override void Attack()
+    {
+        if (!fov.LowestHPPlayer)
+        {
+            targetPlayer = null;
+            return;
+        }
+
+        targetPlayer = fov.LowestHPPlayer;
+
+        base.Attack();
     }
 }

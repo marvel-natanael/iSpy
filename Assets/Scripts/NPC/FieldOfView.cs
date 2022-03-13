@@ -1,30 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 
 public class FieldOfView : MonoBehaviour
 {
     [Header("Properties")]
     public NPCType npcType;
-    private float radius;
+    [SerializeField] private float range;
     [Range(0, 360)] public float angle;
 
     [Header("Target Data")]
     public List<GameObject> playersInRange;
-    [SerializeField] private GameObject closestPlayer = null;
-    [SerializeField] private GameObject lowestPlayerHP = null;
+    private GameObject closestPlayer = null;
+    private GameObject lowestHPPlayer = null;
 
     private float closestDistance;
 
     private CircleCollider2D collider;
 
     public GameObject ClosestPlayer { get { return closestPlayer; } }
-    public GameObject LowestPlayerHP { get { return lowestPlayerHP; } }
+    public GameObject LowestHPPlayer { get { return lowestHPPlayer; } }
 
     private void Start()
     {
         collider = GetComponent<CircleCollider2D>();
-        radius = collider.radius;
+        collider.radius = range;
     }
 
     private void DetectPlayerInFieldOfView(GameObject player)
@@ -50,7 +51,7 @@ public class FieldOfView : MonoBehaviour
 
     private void FindClosestPlayer()
     {
-        closestDistance = radius;
+        closestDistance = range;
 
         foreach(GameObject g in playersInRange)
         {
@@ -59,7 +60,7 @@ public class FieldOfView : MonoBehaviour
             if (currentDistance < closestDistance)
             {
                 closestDistance = currentDistance;
-                closestPlayer = g; ;
+                closestPlayer = g;
             }
         }
     }
@@ -70,8 +71,12 @@ public class FieldOfView : MonoBehaviour
 
         foreach (GameObject g in playersInRange)
         {
-            // cek jika g.hp < lowestHP
-            //maka, lowestHP = g.hp; lowestPlayerHP = g;
+            PlayerManager player = g.GetComponent<PlayerManager>();
+            if(player.ItemPlayer.Health < lowestHP)
+            {
+                lowestHP = player.ItemPlayer.Health;
+                lowestHPPlayer = player.gameObject;
+            }
         }
     }
 
@@ -93,7 +98,7 @@ public class FieldOfView : MonoBehaviour
             {
                 FindClosestPlayer();
             } 
-            else if(npcType == NPCType.Soldier)
+            else if(npcType == NPCType.Turret)
             {
                 FindLowestHP();
             }
@@ -107,6 +112,10 @@ public class FieldOfView : MonoBehaviour
             if(collision.gameObject == closestPlayer)
             {
                 closestPlayer = null;
+            } 
+            else if(collision.gameObject == lowestHPPlayer)
+            {
+                lowestHPPlayer = null;
             }
 
             if (playersInRange.Contains(collision.gameObject))
@@ -120,14 +129,14 @@ public class FieldOfView : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, radius);
+        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, range);
 
         Vector3 angle1 = DirectionFromAngle(-transform.eulerAngles.z, -angle / 2);
         Vector3 angle2 = DirectionFromAngle(-transform.eulerAngles.z, angle / 2);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, transform.position + (angle1 * radius));
-        Gizmos.DrawLine(transform.position, transform.position + (angle2 * radius));
+        Gizmos.DrawLine(transform.position, transform.position + (angle1 * range));
+        Gizmos.DrawLine(transform.position, transform.position + (angle2 * range));
     }
 
     private Vector2 DirectionFromAngle(float eulerY, float angleDegrees)

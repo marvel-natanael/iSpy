@@ -1,31 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 
 public class Soldier : NPC
 {
     [SerializeField]
-    private float speed;
+    private float moveSpeed;
 
     [SerializeField]
     private Transform nextMove;
     private Vector2 currentPos;
 
-    private GameObject targetPlayer;
-
-    private FieldOfView fov;
-
-    private void Start()
+    public override void Start()
     {
-        fov = GetComponent<FieldOfView>();
-
+        base.Start();
         currentPos = transform.position;
-        currentTime = delay;
+        timerToDelay = delay;
     }
 
     private void Update()
     {
         Routine();
+        Attack();
     }
 
     public override void Routine()
@@ -37,28 +34,35 @@ public class Soldier : NPC
             return;
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, nextMove.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, nextMove.position, moveSpeed * Time.deltaTime);
 
         if (Vector2.Distance(transform.position, nextMove.position) <= 0)
         {
-            if (currentTime <= 0)
+            if (timerToDelay <= 0)
             {
                 nextMove.position = currentPos;
                 currentPos = transform.position;
                 Vector2 dir = nextMove.position - transform.position;
 
-                currentTime = delay;
+                timerToDelay = delay;
             }
             else
             {
-                currentTime -= Time.deltaTime;
+                timerToDelay -= Time.deltaTime;
             }
         }
     }
 
     public override void Attack()
     {
-        base.Attack();
+        if (!fov.ClosestPlayer)
+        {
+            targetPlayer = null;
+            return;
+        }
+        
         targetPlayer = fov.ClosestPlayer;
+
+        base.Attack();
     }
 }
