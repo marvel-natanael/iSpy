@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8935375243552448551}
   m_Layer: 0
   m_Name: SoldierNPC
-  m_TagString: Untagged
+  m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,8 +113,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f710c20182526b4eb5ffca1283c3e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetPlayer: {fileID: 0}
   delay: 3
-  speed: 2
+  fireSpeed: 0.5
+  moveSpeed: 2
   nextMove: {fileID: 0}
 --- !u!114 &8935375243552448551
 MonoBehaviour:
@@ -129,7 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcType: 0
+  range: 2.5
   angle: 90
   playersInRange: []
   closestPlayer: {fileID: 0}
-  lowestPlayerHP: {fileID: 0}
+  lowestHPPlayer: {fileID: 0}
