@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Player;
+using Player.Bullets;
 
 public class NPC : MonoBehaviour
 {
@@ -17,6 +17,10 @@ public class NPC : MonoBehaviour
 
     [SerializeField] private float fireSpeed;
     private float timerToFire;
+
+    [Header("Shoot Properties")]
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private float damage;
 
     public virtual void Start()
     {
@@ -39,7 +43,8 @@ public class NPC : MonoBehaviour
 
         var dir = targetPlayer.transform.position - transform.position;
         var bullet = bulletPool.GetComponent<Bullet>();
-        bullet.Move(dir);
+        bullet.Move(dir, bulletSpeed);
+        bullet.Damage(damage);
 
         timerToFire = 0;
         Debug.Log(gameObject.name + " attack!");
