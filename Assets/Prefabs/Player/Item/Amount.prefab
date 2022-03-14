@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5892829571904965111
+--- !u!1 &2820535785168317340
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5892829571904965109}
-  - component: {fileID: 5892829571904965110}
-  - component: {fileID: 7167865693665611888}
-  - component: {fileID: 5892829571904965108}
-  - component: {fileID: 8935375243552448551}
+  - component: {fileID: 2820535785168317336}
+  - component: {fileID: 2820535785168317337}
+  - component: {fileID: 2820535785168317338}
+  - component: {fileID: -1526969833207082852}
   m_Layer: 0
-  m_Name: SoldierNPC
-  m_TagString: AI
+  m_Name: Amount
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5892829571904965109
+--- !u!4 &2820535785168317336
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5892829571904965111}
+  m_GameObject: {fileID: 2820535785168317340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.3, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.59, y: 0, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5892829571904965110
+--- !u!212 &2820535785168317337
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5892829571904965111}
+  m_GameObject: {fileID: 2820535785168317340}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -74,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: 55a8d7b2152d55246a0f4a1b3b2828df, type: 3}
+  m_Color: {r: 0.14521772, g: 0.5188679, b: 0.20265198, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -85,13 +84,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &7167865693665611888
+--- !u!58 &2820535785168317338
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5892829571904965111}
+  m_GameObject: {fileID: 2820535785168317340}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -100,39 +99,18 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.5
---- !u!114 &5892829571904965108
+  m_Radius: 0.5
+--- !u!114 &-1526969833207082852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5892829571904965111}
+  m_GameObject: {fileID: 2820535785168317340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f710c20182526b4eb5ffca1283c3e7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 83011635d6f14c70840be606d79be11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlayer: {fileID: 0}
-  delay: 3
-  fireSpeed: 0.5
-  moveSpeed: 2
-  nextMove: {fileID: 0}
---- !u!114 &8935375243552448551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5892829571904965111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10410fdc4d423e540a9e1f0404613eb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcType: 0
-  range: 2.5
-  angle: 90
-  playersInRange: []
-  closestPlayer: {fileID: 0}
-  lowestHPPlayer: {fileID: 0}
+  itemChoice: 1
+  bulletType: 1

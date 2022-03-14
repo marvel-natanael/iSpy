@@ -1,20 +1,29 @@
 using System;
+using Player.Weapons;
 using UnityEngine;
 
-namespace Player
+namespace Player.Item
 {
     public class ItemPickUp : MonoBehaviour
     {
-        [SerializeField] private ItemChoice itemChoice;
+        public ItemChoice itemChoice;
+
+        public WeaponType bulletType;
+
+        private void Start()
+        {
+            Debug.Log(bulletType);
+            Debug.Log(PlayerManager.Instance.WeaponType);
+        }
 
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (!col.gameObject.CompareTag("Player")) return;
-            
+
             switch (itemChoice)
             {
                 case ItemChoice.Amount:
-                    PickUpItemAmount();
+                    PickUpItemAmount(bulletType);
                     break;
                 case ItemChoice.Health:
                     PickUpItemHealth();
@@ -22,8 +31,6 @@ namespace Player
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
-            Destroy(gameObject);
         }
 
         private void PickUpItemHealth()
@@ -34,11 +41,17 @@ namespace Player
             }
             else
                 PlayerManager.Instance.ItemPlayer.Health += 10;
+            
+            Destroy(gameObject);
         }
 
-        private void PickUpItemAmount()
+        private void PickUpItemAmount(WeaponType type)
         {
-            PlayerManager.Instance.ItemPlayer.Amount += 10;
+            if (type == PlayerManager.Instance.WeaponType)
+            {
+                PlayerManager.Instance.ItemPlayer.Amount += 1000;
+                Destroy(gameObject);
+            }
         }
     }
 }
