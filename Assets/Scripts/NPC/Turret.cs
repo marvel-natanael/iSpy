@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Turret : NPC
 {
+    [Header("Turret Properties")]
     [SerializeField]
     private float rotateDegree;
 

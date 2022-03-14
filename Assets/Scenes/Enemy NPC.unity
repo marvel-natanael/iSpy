@@ -267,6 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63929f8f557c4c6aa2e65727b4d7b236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pistol: {fileID: 0}
+  shotgun: {fileID: 0}
 --- !u!1 &870416335 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5892829571904965111, guid: 08ac701fd65b398418ba607d7b52c9d4, type: 3}
@@ -625,7 +627,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593756669}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.95, y: 2.73, z: 0}
+  m_LocalPosition: {x: -2.45, y: 3.65, z: 0}
   m_LocalScale: {x: 0.42, y: 0.42, z: 0.42}
   m_Children: []
   m_Father: {fileID: 0}
@@ -643,6 +645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63929f8f557c4c6aa2e65727b4d7b236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pistol: {fileID: 0}
+  shotgun: {fileID: 0}
 --- !u!1 &1594723991
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +745,10 @@ PrefabInstance:
       propertyPath: nextMove
       value: 
       objectReference: {fileID: 1594723992}
+    - target: {fileID: 5892829571904965108, guid: 08ac701fd65b398418ba607d7b52c9d4, type: 3}
+      propertyPath: bulletSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5892829571904965108, guid: 08ac701fd65b398418ba607d7b52c9d4, type: 3}
       propertyPath: targetPlayer
       value: 

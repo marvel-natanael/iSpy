@@ -116,6 +116,8 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   delay: 5
   fireSpeed: 0.5
+  bulletSpeed: 1
+  damage: 10
   rotateDegree: 90
 --- !u!114 &7876390319304951053
 MonoBehaviour:
@@ -133,5 +135,3 @@ MonoBehaviour:
   range: 2.5
   angle: 90
   playersInRange: []
-  closestPlayer: {fileID: 0}
-  lowestHPPlayer: {fileID: 0}
