@@ -5,6 +5,7 @@ using Player;
 
 public class Soldier : NPC
 {
+    [Header("Soldier Properties")]
     [SerializeField]
     private float moveSpeed;
 

@@ -17,6 +17,8 @@ namespace Player.Bullets
 
         private void OnTriggerEnter2D(Collider2D col)
         {
+            if (col.CompareTag("AI")) return;
+
             gameObject.SetActive(false);
 
             // if the bullet hits another player
