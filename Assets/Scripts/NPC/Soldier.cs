@@ -1,28 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 
 public class Soldier : NPC
 {
     [SerializeField]
-    private float speed;
+    private float moveSpeed;
 
     [SerializeField]
     private Transform nextMove;
     private Vector2 currentPos;
 
-    private float closestPlayerDist;
-    private GameObject targetPlayer;
-
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         currentPos = transform.position;
-        currentTime = delay;
+        timerToDelay = delay;
     }
 
     private void Update()
     {
         Routine();
+        Attack();
     }
 
     public override void Routine()
@@ -34,40 +34,35 @@ public class Soldier : NPC
             return;
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, nextMove.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, nextMove.position, moveSpeed * Time.deltaTime);
 
         if (Vector2.Distance(transform.position, nextMove.position) <= 0)
         {
-            if (currentTime <= 0)
+            if (timerToDelay <= 0)
             {
                 nextMove.position = currentPos;
                 currentPos = transform.position;
+                Vector2 dir = nextMove.position - transform.position;
 
-                currentTime = delay;
+                timerToDelay = delay;
             }
             else
             {
-                currentTime -= Time.deltaTime;
+                timerToDelay -= Time.deltaTime;
             }
         }
     }
 
     public override void Attack()
     {
-        base.Attack();
-        var shootArea = GetComponentInChildren<ShootArea>();
-        var playersInArea = shootArea.PlayerInRange;
-        //closestPlayerDist = max radius area
-
-        foreach(var player in playersInArea)
+        if (!fov.ClosestPlayer)
         {
-            float dist = Vector2.Distance(transform.position, player.transform.position);
-
-            if(dist < closestPlayerDist)
-            {
-                closestPlayerDist = dist;
-                targetPlayer = player;
-            }
+            targetPlayer = null;
+            return;
         }
+        
+        targetPlayer = fov.ClosestPlayer;
+
+        base.Attack();
     }
 }
