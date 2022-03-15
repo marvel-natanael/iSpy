@@ -1,5 +1,6 @@
-using System;
+/*using System;
 using UnityEditor;
+
 
 namespace Player.Item
 {
@@ -30,4 +31,4 @@ namespace Player.Item
             serializedObject.ApplyModifiedProperties();
         }
     }
-}
+}*/
