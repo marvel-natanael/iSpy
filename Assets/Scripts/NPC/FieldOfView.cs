@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Player;
+using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
@@ -129,7 +128,7 @@ public class FieldOfView : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, range);
+      //  UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, range);
 
         Vector3 angle1 = DirectionFromAngle(-transform.eulerAngles.z, -angle / 2);
         Vector3 angle2 = DirectionFromAngle(-transform.eulerAngles.z, angle / 2);
