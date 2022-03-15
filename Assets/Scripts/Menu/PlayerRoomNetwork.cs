@@ -120,4 +120,16 @@ public class PlayerRoomNetwork : NetworkBehaviour
         if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
         Room.StartGame();
     }
+
+    public void LeaveRoom()
+    {
+        if (NetworkServer.active && NetworkClient.isConnected)
+        {
+            Room.StopHost();
+        }
+        else if (NetworkClient.isConnected)
+        {
+            Room.StopClient();
+        }
+    }
 }

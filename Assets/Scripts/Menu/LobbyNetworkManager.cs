@@ -89,6 +89,14 @@ public class LobbyNetworkManager : NetworkManager
         RoomPlayers.Clear();
     }
 
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+
+        var lobby = GameObject.Find("MenuManager").GetComponent<MenuUIManager>();
+        lobby.ShowMainMenu();
+    }
+
     public void NotifyPlayersOfReadyState()
     {
         foreach (var player in RoomPlayers)
