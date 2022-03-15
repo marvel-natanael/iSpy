@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class LobbyNetworkManager : NetworkManager
 {
     [SerializeField]
-    int minPlayers = 2;
+    int minPlayers = 1;
 
     [Scene] [SerializeField] private string menuScene = string.Empty;
 
