@@ -37,6 +37,11 @@ public class PlayerRoomNetwork : NetworkBehaviour
         }
     }
 
+    private void Start()
+    {
+        Room.NotifyPlayersOfReadyState();
+    }
+
     public override void OnStartAuthority()
     {
         CmdSetDisplayName(PlayerNameInput.displayName);
@@ -119,5 +124,17 @@ public class PlayerRoomNetwork : NetworkBehaviour
     {
         if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
         Room.StartGame();
+    }
+
+    public void LeaveRoom()
+    {
+        if (NetworkServer.active && NetworkClient.isConnected)
+        {
+            Room.StopHost();
+        }
+        else if (NetworkClient.isConnected)
+        {
+            Room.StopClient();
+        }
     }
 }
