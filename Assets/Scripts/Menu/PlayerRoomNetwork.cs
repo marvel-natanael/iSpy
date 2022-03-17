@@ -37,6 +37,11 @@ public class PlayerRoomNetwork : NetworkBehaviour
         }
     }
 
+    private void Start()
+    {
+        Room.NotifyPlayersOfReadyState();
+    }
+
     public override void OnStartAuthority()
     {
         CmdSetDisplayName(PlayerNameInput.displayName);
