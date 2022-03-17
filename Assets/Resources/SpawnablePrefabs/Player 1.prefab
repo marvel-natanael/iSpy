@@ -1233,10 +1233,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   joystick: {fileID: 6847118184078585174}
+  canvas: {fileID: 8620754844429721933}
   camera: {fileID: 8620754844339367305}
   rigidbody2D: {fileID: 8620754845073953571}
   touch: {fileID: 8620754845622285267}
   btnShoot: {fileID: 8620754844546427517}
+  speed: 10
 --- !u!61 &8620754845073953583
 BoxCollider2D:
   m_ObjectHideFlags: 0
