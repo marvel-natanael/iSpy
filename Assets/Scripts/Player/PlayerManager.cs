@@ -42,5 +42,13 @@ namespace Player
             pistol.gameObject.SetActive(type == WeaponType.Pistol);
             shotgun.gameObject.SetActive(type == WeaponType.Shotgun);
         }
+
+        private void Update()
+        {
+            if (ItemPlayer.Health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }
