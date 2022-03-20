@@ -92,9 +92,12 @@ public class LobbyNetworkManager : NetworkManager
     public override void OnStopClient()
     {
         base.OnStopClient();
-
-        var lobby = GameObject.Find("MenuManager").GetComponent<MenuUIManager>();
-        lobby.ShowMainMenu();
+  
+        if (SceneManager.GetActiveScene().path == onlineScene)
+        {
+            var lobby = GameObject.Find("MenuManager").GetComponent<MenuUIManager>();
+            lobby.ShowMainMenu();
+        }
     }
 
     public void NotifyPlayersOfReadyState()
