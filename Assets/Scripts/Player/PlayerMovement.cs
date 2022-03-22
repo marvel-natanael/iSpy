@@ -1,8 +1,10 @@
+using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : NetworkBehaviour
     {
         [Header("Components")] [SerializeField]
         private Joystick joystick;
@@ -12,6 +14,7 @@ namespace Player
         [SerializeField] private TouchField touch;
 
         [Header("Properties")] [SerializeField]
+        public Button btnShoot;
         private float speed;
 
         private Vector2 _mousePosition;
@@ -19,6 +22,16 @@ namespace Player
 
         private void Update()
         {
+           
+            if (Input.GetKey(KeyCode.A))
+            {
+                btnShoot.onClick.Invoke();
+                Debug.Log("Test");
+                _inputMovement.x = 1;
+                
+                rigidbody2D.MovePosition(rigidbody2D.position + _inputMovement * speed * Time.fixedDeltaTime);
+
+            }
             InputMovement();
         }
 
@@ -47,6 +60,7 @@ namespace Player
             var cameraTransform = camera.transform;
             var position = transform.position;
             cameraTransform.position = new Vector3(position.x, position.y, -10f);
+            cameraTransform.rotation = Quaternion.identity;
         }
     }
 }

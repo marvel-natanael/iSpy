@@ -1,3 +1,4 @@
+using Player.Item;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ namespace Player
     {
         [SerializeField] private Text textHealth;
         [SerializeField] private Text textAmount;
+        [SerializeField] private Text textWeapon;
 
         private ItemPlayer _itemPlayer;
 
@@ -19,6 +21,7 @@ namespace Player
         {
             textAmount.text = "Amount : " + _itemPlayer.Amount;
             textHealth.text = "Health : " + _itemPlayer.Health;
+            textWeapon.text = "Weapon : " + PlayerManager.Instance.WeaponType;
         }
     }
 }
