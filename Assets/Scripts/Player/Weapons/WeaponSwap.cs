@@ -37,7 +37,7 @@ namespace Player.Weapons
         {
             if (!col.gameObject.CompareTag("Player")) return;
 
-            if (!Input.GetKeyDown(KeyCode.Q)) return;
+            if (!Input.GetKey(KeyCode.Q)) return;
 
             switch (weaponType)
             {
