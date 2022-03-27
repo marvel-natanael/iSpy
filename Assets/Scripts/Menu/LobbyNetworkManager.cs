@@ -25,6 +25,8 @@ public class LobbyNetworkManager : NetworkManager
     public List<PlayerRoomNetwork> RoomPlayers { get; } = new List<PlayerRoomNetwork>();
     public List<PlayerGameNetwork> GamePlayers { get; } = new List<PlayerGameNetwork>();
 
+    private bool isCountdown = false;
+
     public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
     public override void OnStartClient()
@@ -61,14 +63,17 @@ public class LobbyNetworkManager : NetworkManager
             conn.Disconnect();
             return;
         }
+
+        
+        //RoomPlayers.Add(conn.identity.gameObject.GetComponent<PlayerRoomNetwork>());
     }
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         if (SceneManager.GetActiveScene().path == menuScene)
         {
-            bool isLeader = RoomPlayers.Count == 0;
+            //bool isLeader = RoomPlayers.Count == 0;
             PlayerRoomNetwork roomPlayerInstance = Instantiate(playerRoomPrefab);
-            roomPlayerInstance.IsLeader = isLeader;
+            //roomPlayerInstance.IsLeader = isLeader;
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
         }
     }
@@ -100,30 +105,59 @@ public class LobbyNetworkManager : NetworkManager
         }
     }
 
+    private void Update()
+    {
+        
+    }
+
     public void NotifyPlayersOfReadyState()
     {
-        foreach (var player in RoomPlayers)
-        {
-            player.HandleReadyToStart(IsReadyToStart());
-        }
+        IsReadyToStart();
+        //foreach (var player in RoomPlayers)
+        //{
+        //    player.HandleReadyToStart(IsReadyToStart());
+        //}
     }
-    private bool IsReadyToStart()
+    private void IsReadyToStart()
     {
-        if (numPlayers < minPlayers) { return false; }
+        //var readyCount = 0;
 
+        if (numPlayers < minPlayers) { return; }
+
+        Debug.Log("room player : " + RoomPlayers.Count);
         foreach (var player in RoomPlayers)
         {
-            if (!player.IsReady) { return false; }
+            Debug.Log("foreach");
+            if (!player.IsReady) 
+            {
+                if (isCountdown)
+                {
+                    isCountdown = false;
+                    CancelInvoke("StartGame");
+                }
+               
+                return; 
+            }
+
+            //readyCount++;
+            
         }
 
-        return true;
+        //Debug.Log("readycount : " + readyCount);
+        //if (readyCount == numPlayers)
+        //{
+        //    
+        //}
+        isCountdown = true;
+
+        Invoke("StartGame", 2f);
     }
 
     public void StartGame()
     {
         if(SceneManager.GetActiveScene().path == menuScene)
         {
-            if(!IsReadyToStart()) { return; }
+            //if(!IsReadyToStart()) { return; }
             ServerChangeScene("Map");
         }
     }

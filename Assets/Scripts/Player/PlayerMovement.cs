@@ -76,7 +76,7 @@ namespace Player
 
         private void Initialize()
         {
-            if (!hasAuthority) return;
+            if (!hasAuthority && !isLocalPlayer) return;
 
             joystick = GameObject.Find("Fixed Joystick").GetComponent<Joystick>();
             touch = GameObject.Find("TouchField").GetComponent<TouchField>();

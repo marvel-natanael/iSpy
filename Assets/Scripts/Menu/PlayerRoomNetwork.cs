@@ -39,7 +39,7 @@ public class PlayerRoomNetwork : NetworkBehaviour
 
     private void Start()
     {
-        Room.NotifyPlayersOfReadyState();
+        //Room.NotifyPlayersOfReadyState();
     }
 
     public override void OnStartAuthority()
@@ -49,8 +49,22 @@ public class PlayerRoomNetwork : NetworkBehaviour
         lobbyUI.SetActive(true);
     }
 
+    [Command]
+    public void AddPlayer()
+    {
+        Room.RoomPlayers.Add(this);
+        AddPlayerResponse();
+    }
+
+    [ClientRpc]
+    public void AddPlayerResponse()
+    {
+        UpdateDisplay();
+    }
+
     public override void OnStartClient()
     {
+        //AddPlayer();
         Room.RoomPlayers.Add(this);
 
         UpdateDisplay();
