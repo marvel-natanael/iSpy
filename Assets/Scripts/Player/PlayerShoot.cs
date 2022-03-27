@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerShoot : MonoBehaviour
+    public class PlayerShoot : NetworkBehaviour
     {
         [Header("Properties")] [SerializeField]
         private float distance = 10f;
@@ -20,20 +20,32 @@ namespace Player
         private ItemPlayer _itemPlayer;
         private Weapon _selected;
 
+        private PlayerManager playerManager;
+
         private void Start()
         {
-            _selected = PlayerManager.Instance.GetWeapon();
-            _itemPlayer = PlayerManager.Instance.ItemPlayer;
-            _itemPlayer.Amount = _selected.Amount; // update ui amount bullet weapon
-        }
+            if (!hasAuthority) return;
 
+            playerManager = GetComponent<PlayerManager>();
+            _selected = playerManager.GetWeapon();
+            _itemPlayer = playerManager.ItemPlayer;
+            _itemPlayer.amount = _selected.Amount; // update ui amount bullet weapon
+
+            InGameUIManager.instance.ShootButton.SetTargetPlayer(this);
+        }
+        
         private void Update()
         {
-            _position = _selected.OriginShoot.position;
+            if (!hasAuthority) return;
+
+            if (_selected != null)
+            {
+                _position = _selected.OriginShoot.position;
+            }
 
             // updated data from player manager
-            _itemPlayer = PlayerManager.Instance.ItemPlayer; // for updated item player
-            _selected = PlayerManager.Instance.GetWeapon(); // for updated weapon player
+            _itemPlayer = playerManager.ItemPlayer;
+            _selected = playerManager.GetWeapon();
 
             Debug.DrawRay(_position, _selected.OriginShoot.TransformDirection(Vector2.up) * distance, Color.black);
             var hit = Physics2D.Raycast(_position, _selected.OriginShoot.TransformDirection(Vector2.up), distance);
@@ -50,11 +62,11 @@ namespace Player
             _timer += Time.deltaTime;
             if ((!(_timer >= _selected.FireSpeed))) return;
 
-            if (_itemPlayer.Amount <= 0) return; // if amount bullet <= 0
+            if (_itemPlayer.amount <= 0) return; // if amount bullet <= 0
 
             Fire(_selected.Speed, _selected.Damage); // method for fire weapon
 
-            _itemPlayer.Amount -= 1; // decrement amount bullet weapon
+            _itemPlayer.amount -= 1; // decrement amount bullet weapon
 
             _timer = 0f;
             
@@ -73,6 +85,7 @@ namespace Player
             up = Vector3.MoveTowards(up, _position, distance * Time.deltaTime);
 
             var bullet = bulletPool.GetComponent<Bullet>(); // get script bullet
+            bullet.SetOwner(this);
             bullet.Move(up, speed); // call method move for moving bullet 
             bullet.Damage(damage); // set damage value
 

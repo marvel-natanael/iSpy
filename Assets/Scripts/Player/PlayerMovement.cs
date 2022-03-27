@@ -22,7 +22,7 @@ namespace Player
 
         private void Start()
         {
-            Inisialize();
+            Initialize();
         }
 
         private void Update()
@@ -74,7 +74,7 @@ namespace Player
             //cameraTransform.rotation = Quaternion.identity;
         }
 
-        private void Inisialize()
+        private void Initialize()
         {
             if (!hasAuthority) return;
 
