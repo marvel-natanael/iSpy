@@ -37,11 +37,6 @@ public class PlayerRoomNetwork : NetworkBehaviour
         }
     }
 
-    private void Start()
-    {
-        //Room.NotifyPlayersOfReadyState();
-    }
-
     public override void OnStartAuthority()
     {
         CmdSetDisplayName(PlayerNameInput.displayName);
@@ -49,24 +44,9 @@ public class PlayerRoomNetwork : NetworkBehaviour
         lobbyUI.SetActive(true);
     }
 
-    [Command]
-    public void AddPlayer()
-    {
-        Room.RoomPlayers.Add(this);
-        AddPlayerResponse();
-    }
-
-    [ClientRpc]
-    public void AddPlayerResponse()
-    {
-        UpdateDisplay();
-    }
-
     public override void OnStartClient()
     {
-        //AddPlayer();
         Room.RoomPlayers.Add(this);
-
         UpdateDisplay();
     }
 
@@ -110,13 +90,29 @@ public class PlayerRoomNetwork : NetworkBehaviour
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
         }
+        Room.NotifyPlayersOfReadyState();
     }
 
-    public void HandleReadyToStart(bool readyToStart)
+    public void HandleReadyToStart(string readyToStart)
     {
-        if (!isLeader) { return; }
-
-        startGameButton.interactable = readyToStart;
+        Debug.Log(readyToStart);
+        switch (readyToStart)
+        {
+            case "not enough player!":
+                {
+                    break;
+                }
+            case "all set":
+                {
+                    CmdStartGame();
+                    break;
+                }
+            default:
+                {
+                    Debug.Log(readyToStart);
+                    break;
+                }
+        }
     }
 
     [Command]
@@ -129,14 +125,13 @@ public class PlayerRoomNetwork : NetworkBehaviour
     public void CmdReadyUp()
     {
         IsReady = !IsReady;
-
         Room.NotifyPlayersOfReadyState();
     }
 
     [Command]
     public void CmdStartGame()
     {
-        if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
+        //if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
         Room.StartGame();
     }
 

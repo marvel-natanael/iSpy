@@ -83,7 +83,7 @@ public class MenuUIManager : MonoBehaviour
 
     public void JoinGame()
     {
-        networkManager.networkAddress = "20.25.86.119";
+        networkManager.networkAddress = "localhost";
         networkManager.StartClient();
         //ShowLobby();
     }
