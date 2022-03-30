@@ -81,8 +81,7 @@ namespace Player
             InGameUIManager.instance.PlayerUI.UpdateUI(currHealth);
         }
 
-        [Command]
-        private void CmdDead(PlayerManager p)
+        public void CmdDead(PlayerManager p)
         {
             RpcShowLoseText(p.connectionToClient);
             Destroy(p.gameObject);
