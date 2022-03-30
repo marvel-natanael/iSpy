@@ -125,6 +125,7 @@ public class PlayerRoomNetwork : NetworkBehaviour
     public void CmdReadyUp()
     {
         IsReady = !IsReady;
+        
         Room.NotifyPlayersOfReadyState();
     }
 

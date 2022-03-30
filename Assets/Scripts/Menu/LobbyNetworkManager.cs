@@ -27,6 +27,9 @@ public class LobbyNetworkManager : NetworkManager
 
     private bool isCountdown = false;
 
+    private bool isStartGame = false;
+    public bool IsStartGame { get { return isStartGame; } }
+
     public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
     public override void OnStartClient()
@@ -107,28 +110,60 @@ public class LobbyNetworkManager : NetworkManager
 
     private void Update()
     {
-
+       
+     
     }
 
     public void NotifyPlayersOfReadyState()
     {
-        foreach (var player in RoomPlayers)
-        {
-            player.HandleReadyToStart(IsReadyToStart());
+        isStartGame = IsReadyToStart();
+        StartCoroutine(StartGame(isStartGame));
+        //foreach (var player in RoomPlayers)
+        //{
+        //    player.HandleReadyToStart(IsReadyToStart());
+        //
+        //}
+    }
 
+    IEnumerator StartGame(bool isStartable)
+    {
+        yield return new WaitForSeconds(.1f);
+        if (isStartable)
+        {
+            StartGame();
         }
     }
 
-    private string IsReadyToStart()
-    {
-        if (RoomPlayers.Count < minPlayers) { return "not enough player!"; }
+    //public string IsReadyToStart()
+    //{
+    //    Debug.Log("Roomplayer count : " + RoomPlayers.Count);
+    //
+    //    if (RoomPlayers.Count < minPlayers) { return "not enough player!"; }
+    //
+    //    Debug.Log("Roomplayer count : " + RoomPlayers.Count);
+    //
+    //    foreach (var player in RoomPlayers)
+    //    {
+    //        if (!player.IsReady) { return "not ready"; }
+    //    }
+    //
+    //    return "all set";
+    //}
 
+    private bool IsReadyToStart()
+    {
+        Debug.Log("Numplayer : " + numPlayers);
+
+        if (numPlayers < minPlayers) { return false; }
+    
+        Debug.Log("Roomplayer count : " + RoomPlayers.Count);
+    
         foreach (var player in RoomPlayers)
         {
-            if (!player.IsReady) { return "not ready"; }
+            if (!player.IsReady) { return false; }
         }
-
-        return "all set";
+    
+        return true;
     }
 
     public void StartGame()
@@ -151,7 +186,7 @@ public class LobbyNetworkManager : NetworkManager
                 gamePlayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
 
                 NetworkServer.Destroy(conn.identity.gameObject);
-                NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
+                NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject, true);
             }
         }
         base.ServerChangeScene(newSceneName);
