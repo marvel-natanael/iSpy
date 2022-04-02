@@ -170,6 +170,11 @@ public class LobbyNetworkManager : NetworkManager
     {
         if (SceneManager.GetActiveScene().path == menuScene && newSceneName.StartsWith("Map"))
         {
+            foreach(GameObject prn in GameObject.FindGameObjectsWithTag("RoomPlayer"))
+            {
+                var prngo = prn.GetComponent<PlayerRoomNetwork>();
+                RoomPlayers.Add(prngo);
+            }
             Debug.Log(RoomPlayers.Count);
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
@@ -197,11 +202,11 @@ public class LobbyNetworkManager : NetworkManager
     {
         base.OnServerReady(conn);
         onServerReadied?.Invoke(conn);
+        Debug.Log(conn.connectionId);
     }
     public override void OnStopServer()
     {
         OnServerStopped?.Invoke();
-
         RoomPlayers.Clear();
         GamePlayers.Clear();
     }

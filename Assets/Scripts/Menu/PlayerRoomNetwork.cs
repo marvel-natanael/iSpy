@@ -43,6 +43,11 @@ public class PlayerRoomNetwork : NetworkBehaviour
 
         lobbyUI.SetActive(true);
     }
+    [Command]
+    public void AddClient()
+    {
+        Debug.Log(Room.RoomPlayers.Count);
+    }
 
     public override void OnStartClient()
     {
