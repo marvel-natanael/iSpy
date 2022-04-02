@@ -90,12 +90,15 @@ public class PlayerRoomNetwork : NetworkBehaviour
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
         }
-        Room.NotifyPlayersOfReadyState();
+        //Room.NotifyPlayersOfReadyState();
     }
 
-    public void HandleReadyToStart(string readyToStart)
+    public void HandleReadyToStart(bool readyToStart)
     {
-        Debug.Log(readyToStart);
+        if(!readyToStart) { return; }
+        CmdStartGame();
+
+/*        Debug.Log(readyToStart);
         switch (readyToStart)
         {
             case "not enough player!":
@@ -112,7 +115,7 @@ public class PlayerRoomNetwork : NetworkBehaviour
                     Debug.Log(readyToStart);
                     break;
                 }
-        }
+        }*/
     }
 
     [Command]
