@@ -17,7 +17,7 @@ public class CircleShrink : MonoBehaviour
         }
         else
         {
-            Debug.Log("is ");
+            //Debug.Log("is ");
         }
         if(!isShrinked)
         StartCoroutine(Shrink());
@@ -25,7 +25,7 @@ public class CircleShrink : MonoBehaviour
 
     void Damage()
     {
-        Debug.Log("is damaged");
+        //Debug.Log("is damaged");
     }
 
     private void OnTriggerStay2D(Collider2D collision)

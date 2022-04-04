@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - AI
+  - RoomPlayer
+  - GamePlayer
   layers:
   - Default
   - TransparentFX

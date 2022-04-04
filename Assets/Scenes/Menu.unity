@@ -797,6 +797,7 @@ MonoBehaviour:
   lobbyTf: {fileID: 0}
   enterNamePanelTf: {fileID: 0}
   networkManager: {fileID: 1557060566}
+  address: 20.25.86.119
 --- !u!1 &969564650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,6 +1589,7 @@ GameObject:
   - component: {fileID: 1557060567}
   - component: {fileID: 1557060566}
   - component: {fileID: 1557060565}
+  - component: {fileID: 1557060568}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1641,7 +1643,7 @@ MonoBehaviour:
   networkAddress: 20.25.86.119
   maxConnections: 4
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 2916521452266307850, guid: 087a7aa2542853047b8a5d7a9b2af546, type: 3}
+  playerPrefab: {fileID: 5064837487546033569, guid: f859f4e6910e5ca42aeabc662daf02bf, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
@@ -1664,6 +1666,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1557060568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557060564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetX: 0
+  offsetY: 0
 --- !u!1 &1649105591
 GameObject:
   m_ObjectHideFlags: 0
