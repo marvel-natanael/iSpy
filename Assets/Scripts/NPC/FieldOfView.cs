@@ -76,9 +76,10 @@ public class FieldOfView : MonoBehaviour
         foreach (GameObject g in playersInRange)
         {
             PlayerManager player = g.GetComponent<PlayerManager>();
-            if (player.ItemPlayer.Health < lowestHP)
+
+            if(player.ItemPlayer.health < lowestHP)
             {
-                lowestHP = player.ItemPlayer.Health;
+                lowestHP = player.ItemPlayer.health;
                 lowestHPPlayer = player.gameObject;
             }
         }

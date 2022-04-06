@@ -1,4 +1,5 @@
 using Player.Item;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,16 +13,29 @@ namespace Player
 
         private ItemPlayer _itemPlayer;
 
+        [SerializeField] private PlayerManager playerManager;
+
         private void Start()
         {
-            _itemPlayer = PlayerManager.Instance.ItemPlayer;
+            if (playerManager)
+            {
+                _itemPlayer = playerManager.ItemPlayer;
+            }
+
+            UpdateUI(playerManager.ItemPlayer.health);
         }
 
-        private void Update()
+        public void SetTargetPlayer(PlayerManager player)
         {
-            textAmount.text = "Amount : " + _itemPlayer.Amount;
-            textHealth.text = "Health : " + _itemPlayer.Health;
-            textWeapon.text = "Weapon : " + PlayerManager.Instance.WeaponType;
+            gameObject.SetActive(true);
+            playerManager = player;
+        }
+
+        public void UpdateUI(float currentHealth)
+        {
+            textAmount.text = "Amount : " + playerManager.ItemPlayer.amount;
+            textHealth.text = "Health : " + currentHealth;
+            textWeapon.text = "Weapon : " + playerManager.WeaponType;
         }
     }
 }

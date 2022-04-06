@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - AI
+  - RoomPlayer
+  - GamePlayer
   layers:
   - Default
   - TransparentFX
@@ -39,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Bg
+    uniqueID: 3619937897
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

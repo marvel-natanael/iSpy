@@ -4,10 +4,15 @@ namespace Player.Weapons
     {
         public override void SwapWeapon(int amount)
         {
-            PlayerManager.Instance.WeaponType = WeaponType.Shotgun;
-            PlayerManager.Instance.GetWeapon();
-            PlayerManager.Instance.SetWeapon(WeaponType.Shotgun);
-            PlayerManager.Instance.ItemPlayer.Amount = amount;
+            playerManager.WeaponType = WeaponType.Shotgun;
+            playerManager.GetWeapon();
+            playerManager.SetWeapon(WeaponType.Shotgun);
+            playerManager.ItemPlayer.amount = amount;
+
+            //PlayerManager.Instance.WeaponType = WeaponType.Shotgun;
+            //PlayerManager.Instance.GetWeapon();
+            //PlayerManager.Instance.SetWeapon(WeaponType.Shotgun);
+            //PlayerManager.Instance.ItemPlayer.Amount = amount;
         }
     }
 }

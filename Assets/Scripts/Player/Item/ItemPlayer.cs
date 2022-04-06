@@ -1,23 +1,24 @@
+using Mirror;
+
 namespace Player.Item
 {
-    public class ItemPlayer
+    public class ItemPlayer : NetworkBehaviour
     {
-        public float Health { get; set; }
-        public int Amount { get; set; }
+        [SyncVar]
+        public float health;
+        [SyncVar]
+        public int amount;
 
         public ItemPlayer()
         {
-            Health = 0;
-            Amount = 0;
+            health = 0;
+            amount = 0;
         }
         
-        public ItemPlayer(float health, int amount)
+        public ItemPlayer(float _health, int _amount)
         {
-            Health = health;
-            Amount = amount;
+            health = _health;
+            amount = _amount;
         }
-        
-        
-        
     }
 }

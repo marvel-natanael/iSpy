@@ -9,6 +9,8 @@ namespace Player.Bullets
 
         private float _damage = 0;
 
+        private PlayerShoot owner = null;
+
         private void Update()
         {
             if (gameObject.activeInHierarchy)
@@ -24,7 +26,11 @@ namespace Player.Bullets
             // if the bullet hits another player
             if (col.gameObject.CompareTag("Player"))
             {
-                col.gameObject.GetComponent<PlayerManager>().ItemPlayer.Health -= _damage;
+                PlayerManager target = col.gameObject.GetComponent<PlayerManager>();
+                owner.GetComponent<PlayerManager>().DamageTo(target, _damage);
+                //col.gameObject.GetComponent<PlayerManager>().GetDamage(_damage);
+                //Debug.Log(col.gameObject.GetComponent<PlayerManager>().netId + " health : " + col.gameObject.GetComponent<PlayerManager>().ItemPlayer.health);
+                //Debug.Log("damage : " + _damage);
             }
         }
 
@@ -45,6 +51,11 @@ namespace Player.Bullets
         public void Damage(float damage)
         {
             _damage = damage;
+        }
+
+        public void SetOwner(PlayerShoot player)
+        {
+            owner = player;
         }
 
         private IEnumerator DestroyBullet()
