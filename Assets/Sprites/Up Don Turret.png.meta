@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: b2217d81d3d75f3498e33907d834ae96
+guid: dd14db7e4ebd6074c913f28c580dc5de
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6072499637182373006
-    second: Turret new_0
+      213: 7574735199920547
+    second: Up Don Turret_0
   - first:
-      213: -4590679536515676424
-    second: Turret new_1
+      213: -894850647576052143
+    second: Up Don Turret_1
   - first:
-      213: 1858720420336242732
-    second: Turret new_2
+      213: -3519683263686835837
+    second: Up Don Turret_2
   - first:
-      213: -8223462136263085416
-    second: Turret new_3
+      213: -4551201017114769358
+    second: Up Don Turret_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Turret new_0
+      name: Up Don Turret_0
       rect:
         serializedVersion: 2
-        x: 69
+        x: 0
         y: 0
-        width: 587
-        height: 470
+        width: 402
+        height: 601
       alignment: 8
       pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8c91fc1f3ad54450800000000000000
-      internalID: 6072499637182373006
+      spriteID: 3a1ebd87e29ea1000800000000000000
+      internalID: 7574735199920547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Turret new_1
+      name: Up Don Turret_1
       rect:
         serializedVersion: 2
-        x: 815
+        x: 724
         y: 0
-        width: 566
-        height: 470
+        width: 402
+        height: 601
       alignment: 8
       pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f60454b841aa40c0800000000000000
-      internalID: -4590679536515676424
+      spriteID: 15e7330c31ad493f0800000000000000
+      internalID: -894850647576052143
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Turret new_2
+      name: Up Don Turret_2
       rect:
         serializedVersion: 2
-        x: 1529
+        x: 1449
         y: 0
-        width: 577
-        height: 470
+        width: 402
+        height: 601
       alignment: 8
       pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2018e6df508bc910800000000000000
-      internalID: 1858720420336242732
+      spriteID: 3810f0248b2972fc0800000000000000
+      internalID: -3519683263686835837
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Turret new_3
+      name: Up Don Turret_3
       rect:
         serializedVersion: 2
-        x: 2203
+        x: 2173
         y: 0
-        width: 628
-        height: 470
+        width: 402
+        height: 601
       alignment: 8
       pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,8 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 892f920c1c460ed80800000000000000
-      internalID: -8223462136263085416
+      spriteID: 2384a79c9c2e6d0c0800000000000000
+      internalID: -4551201017114769358
       vertices: []
       indices: 
       edges: []
