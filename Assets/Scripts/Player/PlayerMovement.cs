@@ -20,6 +20,8 @@ namespace Player
         private Vector2 _mousePosition;
         private Vector2 _inputMovement;
 
+        public Vector2 GetInputMovement() => _inputMovement;
+
         private void Start()
         {
             Initialize();

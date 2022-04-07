@@ -22,7 +22,7 @@ namespace Player
                 _itemPlayer = playerManager.ItemPlayer;
             }
 
-            UpdateUI(playerManager.ItemPlayer.health);
+            UpdateUI(playerManager.ItemPlayer.health, playerManager.ItemPlayer.amount);
         }
 
         public void SetTargetPlayer(PlayerManager player)
@@ -31,9 +31,9 @@ namespace Player
             playerManager = player;
         }
 
-        public void UpdateUI(float currentHealth)
+        public void UpdateUI(float currentHealth, int amount)
         {
-            textAmount.text = "Amount : " + playerManager.ItemPlayer.amount;
+            textAmount.text = "Amount : " + amount;
             textHealth.text = "Health : " + currentHealth;
             textWeapon.text = "Weapon : " + playerManager.WeaponType;
         }

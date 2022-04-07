@@ -19,13 +19,16 @@ namespace Player
         {
             //if (Instance == null) Instance = this;
 
+            WeaponType = WeaponType.Pistol;
+            SetWeapon(WeaponType);
+
             ItemPlayer = new ItemPlayer
             {
                 health = 100
             };
 
-            WeaponType = WeaponType.Pistol;
-            SetWeapon(WeaponType);
+            ItemPlayer.amount = GetWeapon().Amount;
+            
         }
 
         private void Start()
@@ -52,11 +55,6 @@ namespace Player
             shotgun.gameObject.SetActive(type == WeaponType.Shotgun);
         }
 
-        private void Update()
-        {
-            
-        }
-
         public void DamageTo(PlayerManager p, float dmg)
         {
             CmdDamageTo(p, dmg);
@@ -65,20 +63,40 @@ namespace Player
         [Command]
         private void CmdDamageTo(PlayerManager p, float dmg)
         {
-            if(p.ItemPlayer.health <= 0)
+            if (p.ItemPlayer.health <= 0)
             {
                 CmdDead(p);
                 return;
             }
 
             p.ItemPlayer.health -= dmg;
-            RpcUpdateUI(p.connectionToClient, p.ItemPlayer.health);
+            RpcUpdateUIOtherPlayer(p.connectionToClient, p.ItemPlayer.health, ItemPlayer.amount);
+        }
+
+        public void DecreaseAmountBullet()
+        {
+            CmdDecreaseAmountBullet();
+        }
+
+        [Command]
+        private void CmdDecreaseAmountBullet()
+        {
+            Debug.Log(netId + " amount : " + ItemPlayer.amount);
+            ItemPlayer.amount -= 1;
+            
+            RpcUpdateUI(ItemPlayer.health, ItemPlayer.amount);
         }
 
         [TargetRpc]
-        private void RpcUpdateUI(NetworkConnection conn, float currHealth)
+        private void RpcUpdateUIOtherPlayer(NetworkConnection conn, float currHealth, int amount)
         {
-            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth);
+            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
+        }
+
+        [TargetRpc]
+        private void RpcUpdateUI(float currHealth, int amount)
+        {
+            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
         }
 
         public void CmdDead(PlayerManager p)
