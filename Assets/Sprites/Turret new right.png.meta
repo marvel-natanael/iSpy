@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: b2217d81d3d75f3498e33907d834ae96
+guid: dff7f06d60eb3a84caaa320b95796a1c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6072499637182373006
-    second: Turret new_0
+      213: 5470720326149410158
+    second: Turret new right_0
   - first:
-      213: -4590679536515676424
-    second: Turret new_1
+      213: 6425696291296710805
+    second: Turret new right_1
   - first:
-      213: 1858720420336242732
-    second: Turret new_2
+      213: -7190954850017114082
+    second: Turret new right_2
   - first:
-      213: -8223462136263085416
-    second: Turret new_3
+      213: 8922284868644495594
+    second: Turret new right_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,85 +139,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Turret new_0
+      name: Turret new right_0
       rect:
         serializedVersion: 2
-        x: 69
+        x: 0
         y: 0
         width: 587
         height: 470
-      alignment: 8
-      pivot: {x: 1, y: 0}
+      alignment: 9
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8c91fc1f3ad54450800000000000000
-      internalID: 6072499637182373006
+      spriteID: e6d05a9c627ebeb40800000000000000
+      internalID: 5470720326149410158
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Turret new_1
+      name: Turret new right_1
       rect:
         serializedVersion: 2
-        x: 815
+        x: 746
         y: 0
         width: 566
         height: 470
-      alignment: 8
-      pivot: {x: 1, y: 0}
+      alignment: 9
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f60454b841aa40c0800000000000000
-      internalID: -4590679536515676424
+      spriteID: 590194d6bb8ac2950800000000000000
+      internalID: 6425696291296710805
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Turret new_2
+      name: Turret new right_2
       rect:
         serializedVersion: 2
-        x: 1529
+        x: 1466
         y: 0
-        width: 577
+        width: 578
         height: 470
-      alignment: 8
-      pivot: {x: 1, y: 0}
+      alignment: 9
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2018e6df508bc910800000000000000
-      internalID: 1858720420336242732
+      spriteID: e188bd8c9a8943c90800000000000000
+      internalID: -7190954850017114082
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Turret new_3
+      name: Turret new right_3
       rect:
         serializedVersion: 2
-        x: 2203
+        x: 2133
         y: 0
-        width: 628
+        width: 627
         height: 470
-      alignment: 8
-      pivot: {x: 1, y: 0}
+      alignment: 9
+      pivot: {x: 0.7, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 892f920c1c460ed80800000000000000
-      internalID: -8223462136263085416
+      spriteID: ae0e564d0d252db70800000000000000
+      internalID: 8922284868644495594
       vertices: []
       indices: 
       edges: []
