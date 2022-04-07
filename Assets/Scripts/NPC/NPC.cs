@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Mirror;
 using Player.Bullets;
+using UnityEngine;
 
-public class NPC : MonoBehaviour
+public class NPC : NetworkBehaviour
 {
     [Header("Target")]
     [SerializeField] protected GameObject targetPlayer;
@@ -22,12 +21,16 @@ public class NPC : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float damage;
 
+    [SyncVar]
+    public float health = 100;
+
     public virtual void Start()
     {
         fov = GetComponent<FieldOfView>();
         timerToDelay = delay;
     }
 
+    [Command]
     public virtual void Attack()
     {
         timerToFire += Time.deltaTime;

@@ -2,29 +2,41 @@ using System;
 using Player.Item;
 using Player.Weapons;
 using UnityEngine;
+using Mirror;
 
 namespace Player
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : NetworkBehaviour
     {
         [SerializeField] private Weapon pistol, shotgun;
 
-        public static PlayerManager Instance;
+        //public static PlayerManager Instance;
 
         public ItemPlayer ItemPlayer { get; set; }
         public WeaponType WeaponType { get; set; }
 
         private void Awake()
         {
-            if (Instance == null) Instance = this;
-
-            ItemPlayer = new ItemPlayer
-            {
-                Health = 100
-            };
+            //if (Instance == null) Instance = this;
 
             WeaponType = WeaponType.Pistol;
             SetWeapon(WeaponType);
+
+            ItemPlayer = new ItemPlayer
+            {
+                health = 100
+            };
+
+            ItemPlayer.amount = GetWeapon().Amount;
+            
+        }
+
+        private void Start()
+        {
+            if (!hasAuthority) return;
+
+            InGameUIManager.instance.PlayerUI.SetTargetPlayer(this);
+
         }
 
         public Weapon GetWeapon()
@@ -43,12 +55,60 @@ namespace Player
             shotgun.gameObject.SetActive(type == WeaponType.Shotgun);
         }
 
-        private void Update()
+        public void DamageTo(PlayerManager p, float dmg)
         {
-            if (ItemPlayer.Health <= 0)
+            CmdDamageTo(p, dmg);
+        }
+
+        [Command]
+        private void CmdDamageTo(PlayerManager p, float dmg)
+        {
+            if (p.ItemPlayer.health <= 0)
             {
-                Destroy(gameObject);
+                CmdDead(p);
+                return;
             }
+
+            p.ItemPlayer.health -= dmg;
+            RpcUpdateUIOtherPlayer(p.connectionToClient, p.ItemPlayer.health, ItemPlayer.amount);
+        }
+
+        public void DecreaseAmountBullet()
+        {
+            CmdDecreaseAmountBullet();
+        }
+
+        [Command]
+        private void CmdDecreaseAmountBullet()
+        {
+            Debug.Log(netId + " amount : " + ItemPlayer.amount);
+            ItemPlayer.amount -= 1;
+            
+            RpcUpdateUI(ItemPlayer.health, ItemPlayer.amount);
+        }
+
+        [TargetRpc]
+        private void RpcUpdateUIOtherPlayer(NetworkConnection conn, float currHealth, int amount)
+        {
+            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
+        }
+
+        [TargetRpc]
+        private void RpcUpdateUI(float currHealth, int amount)
+        {
+            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
+        }
+
+        public void CmdDead(PlayerManager p)
+        {
+            RpcShowLoseText(p.connectionToClient);
+            Destroy(p.gameObject);
+        }
+
+        [TargetRpc]
+        private void RpcShowLoseText(NetworkConnection conn)
+        {
+            InGameUIManager.instance.LoseText.gameObject.SetActive(true);
         }
     }
 }

@@ -22,11 +22,6 @@ public class PlayerSpawner : NetworkBehaviour
 
     public override void OnStartServer() => LobbyNetworkManager.onServerReadied += SpawnPlayer;
 
-    public override void OnStartClient()
-    {
-
-    }
-
     [ServerCallback]
     private void OnDestroy() => LobbyNetworkManager.onServerReadied -= SpawnPlayer;
 
@@ -43,6 +38,7 @@ public class PlayerSpawner : NetworkBehaviour
 
         GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
         NetworkServer.Spawn(playerInstance, conn);
+        NetworkServer.AddPlayerForConnection(conn, playerInstance);
 
         nextIndex++;
     }
