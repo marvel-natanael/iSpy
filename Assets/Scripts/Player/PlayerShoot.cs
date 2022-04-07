@@ -22,14 +22,18 @@ namespace Player
 
         private PlayerManager playerManager;
 
+        public bool GetShoot() => _shoot;
+
         private void Start()
         {
             if (!hasAuthority) return;
 
             playerManager = GetComponent<PlayerManager>();
             _selected = playerManager.GetWeapon();
-            _itemPlayer = playerManager.ItemPlayer;
-            _itemPlayer.amount = _selected.Amount; // update ui amount bullet weapon
+            Debug.Log("amount : " + playerManager.ItemPlayer.amount);
+            //_itemPlayer = playerManager.ItemPlayer;
+            //_itemPlayer.amount = _selected.Amount; // update ui amount bullet weapon
+            //playerManager.ItemPlayer.amount = _selected.Amount;
 
             InGameUIManager.instance.ShootButton.SetTargetPlayer(this);
         }
@@ -44,7 +48,7 @@ namespace Player
             }
 
             // updated data from player manager
-            _itemPlayer = playerManager.ItemPlayer;
+            //_itemPlayer = playerManager.ItemPlayer;
             _selected = playerManager.GetWeapon();
 
             Debug.DrawRay(_position, _selected.OriginShoot.TransformDirection(Vector2.up) * distance, Color.black);
@@ -62,11 +66,15 @@ namespace Player
             _timer += Time.deltaTime;
             if ((!(_timer >= _selected.FireSpeed))) return;
 
-            if (_itemPlayer.amount <= 0) return; // if amount bullet <= 0
+            if (playerManager.ItemPlayer.amount <= 0) return; // if amount bullet <= 0
 
             Fire(_selected.Speed, _selected.Damage); // method for fire weapon
 
-            _itemPlayer.amount -= 1; // decrement amount bullet weapon
+            playerManager.DecreaseAmountBullet(); //amount belum bisa berkurang di UI
+            _selected.Amount = playerManager.ItemPlayer.amount;
+            
+            //Debug.Log(netId +  " itemplayer amount bullet : " + playerManager.ItemPlayer.amount);
+            //Debug.Log(netId + " selected amount bullet : " + _selected.Amount);
 
             _timer = 0f;
             

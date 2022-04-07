@@ -20,9 +20,11 @@ namespace Player
 
         private void Update()
         {
+            if (!hasAuthority) return;
             Animation();
         }
 
+        [ClientCallback]
         private void Animation()
         {
             if (_playerShoot.GetShoot() && _playerMovement.GetInputMovement() != Vector2.zero)
