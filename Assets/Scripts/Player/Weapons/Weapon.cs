@@ -14,6 +14,13 @@ namespace Player.Weapons
         [SerializeField] protected int amount;
         [SerializeField] protected float fireSpeed;
 
+        protected PlayerManager playerManager;
+
+        private void Start()
+        {
+            playerManager = GetComponentInParent<PlayerManager>();
+        }
+
         public virtual float Damage => damage;
         public virtual float Speed => speed;
 
@@ -29,7 +36,7 @@ namespace Player.Weapons
 
         public virtual void SwapWeapon(int amount)
         {
-            PlayerManager.Instance.WeaponType = weaponType;
+            playerManager.WeaponType = weaponType;
         }
         
         public WeaponType WeaponType => weaponType;
