@@ -830,7 +830,7 @@ MonoBehaviour:
   lobbyTf: {fileID: 0}
   enterNamePanelTf: {fileID: 0}
   networkManager: {fileID: 1557060566}
-  address: service3.gloing.net
+  address: localhost
 --- !u!1 &969564650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,7 +1673,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/Menu.unity
   onlineScene: Assets/Scenes/Lobby.unity
   transport: {fileID: 1557060565}
-  networkAddress: service3.gloing.net
+  networkAddress: localhost
   maxConnections: 4
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 5064837487546033569, guid: f859f4e6910e5ca42aeabc662daf02bf, type: 3}
