@@ -1,0 +1,405 @@
+fileFormatVersion: 2
+guid: 739e7068cabaeb944a6cf83004cf91c4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7999252783119738167
+    second: Harper death-01_0
+  - first:
+      213: 6989989605114449178
+    second: Harper death-01_1
+  - first:
+      213: 6782551144978269999
+    second: Harper death-01_2
+  - first:
+      213: 1152147643293580391
+    second: Harper death-01_3
+  - first:
+      213: -735207971811404479
+    second: Harper death-01_4
+  - first:
+      213: -3829682814572397321
+    second: Harper death-01_5
+  - first:
+      213: -5911887559801259128
+    second: Harper death-01_6
+  - first:
+      213: -9064011894736454210
+    second: Harper death-01_7
+  - first:
+      213: -6350933791122368439
+    second: Harper death-01_8
+  - first:
+      213: -3662109473560217444
+    second: Harper death-01_9
+  - first:
+      213: -7604577918993116711
+    second: Harper death-01_10
+  - first:
+      213: -5655927077075851342
+    second: Harper death-01_11
+  - first:
+      213: 198123293467053521
+    second: Harper death-01_12
+  - first:
+      213: -5918596853302273258
+    second: Harper death-01_13
+  - first:
+      213: 1695975980247928883
+    second: Harper death-01_14
+  - first:
+      213: 7419076595293463830
+    second: Harper death-01_15
+  - first:
+      213: -1850370570844397489
+    second: Harper death-01_16
+  - first:
+      213: -2931019450891099745
+    second: Harper death-01_17
+  - first:
+      213: 3836962069916067308
+    second: Harper death-01_18
+  - first:
+      213: 3060001456344323842
+    second: Harper death-01_19
+  - first:
+      213: -4585071352746048942
+    second: Harper death-01_20
+  - first:
+      213: 5592101206705446482
+    second: Harper death-01_21
+  - first:
+      213: -6284174720160909639
+    second: Harper death-01_22
+  - first:
+      213: -2945355584072545511
+    second: Harper death-01_23
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Harper death-01_0
+      rect:
+        serializedVersion: 2
+        x: 2382
+        y: 124
+        width: 669
+        height: 824
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cad791c9f1fcf090800000000000000
+      internalID: -7999252783119738167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Harper death-01_2
+      rect:
+        serializedVersion: 2
+        x: 3533
+        y: 897
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f274953b456702e50800000000000000
+      internalID: 6782551144978269999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Harper death-01_6
+      rect:
+        serializedVersion: 2
+        x: 3381
+        y: 38
+        width: 815
+        height: 1013
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88bbefd3691c4fda0800000000000000
+      internalID: -5911887559801259128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Harper death-01_8
+      rect:
+        serializedVersion: 2
+        x: 4528
+        y: 44
+        width: 715
+        height: 984
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 948502c9d53fcd7a0800000000000000
+      internalID: -6350933791122368439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Harper death-01_9
+      rect:
+        serializedVersion: 2
+        x: 5650
+        y: 170
+        width: 584
+        height: 761
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c98b9d326d29d2dc0800000000000000
+      internalID: -3662109473560217444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Harper death-01_11
+      rect:
+        serializedVersion: 2
+        x: 6754
+        y: 164
+        width: 533
+        height: 711
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b7616f2a4c1281b0800000000000000
+      internalID: -5655927077075851342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Harper death-01_12
+      rect:
+        serializedVersion: 2
+        x: 7874
+        y: 209
+        width: 452
+        height: 666
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dd85d0f510efb200800000000000000
+      internalID: 198123293467053521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Harper death-01_13
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 424
+        width: 164
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61b5c2e158becdda0800000000000000
+      internalID: -5918596853302273258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Harper death-01_14
+      rect:
+        serializedVersion: 2
+        x: 1445
+        y: 344
+        width: 350
+        height: 392
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 330d54a1b21598710800000000000000
+      internalID: 1695975980247928883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
