@@ -11,17 +11,20 @@ using UnityEngine.SceneManagement;
 public class LobbyNetworkManager : NetworkManager
 {
     [SerializeField]
-    int minPlayers = 1;
+    private int minPlayers = 1;
 
     [Scene] [SerializeField] private string menuScene = string.Empty;
 
-    [SerializeField] PlayerRoomNetwork playerRoomPrefab = null;
-    [SerializeField] PlayerGameNetwork playerGamePrefab = null;
-    [SerializeField] GameObject playerSpawner = null;
+    [SerializeField] private PlayerRoomNetwork playerRoomPrefab = null;
+    [SerializeField] private PlayerGameNetwork playerGamePrefab = null;
+    [SerializeField] private GameObject playerSpawner = null;
 
     public static event Action OnClientConnected;
+
     public static event Action OnClientDisconnected;
+
     public static event Action<NetworkConnection> onServerReadied;
+
     public static event Action OnServerStopped;
 
     public List<PlayerRoomNetwork> RoomPlayers { get; } = new List<PlayerRoomNetwork>();
@@ -30,7 +33,25 @@ public class LobbyNetworkManager : NetworkManager
     private bool isCountdown = false;
 
     private bool isStartGame = false;
-    public bool IsStartGame { get { return isStartGame; } }
+
+    public bool IsStartGame
+    { get { return isStartGame; } }
+
+    public override void Start()
+    {
+#if UNITY_SERVER
+        if (transport.GetType() == typeof(TelepathyTransport))
+        {
+            var args = Environment.GetCommandLineArgs();
+            if (args.Contains<string>("-port"))
+            {
+                ushort newPort = ushort.Parse(args[Array.FindIndex<string>(args, m => m == "-port") + 1]);
+                GetComponent<TelepathyTransport>().port = newPort;
+            }
+        }
+#endif
+        base.Start();
+    }
 
     public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
@@ -42,19 +63,21 @@ public class LobbyNetworkManager : NetworkManager
             NetworkClient.RegisterPrefab(prefab);
         }
     }
-    public override void OnClientConnect(NetworkConnection conn)
+
+    public override void OnClientConnect()
     {
-        base.OnClientConnect(conn);
+        base.OnClientConnect(NetworkClient.connection);
 
         OnClientConnected?.Invoke();
     }
 
-    public override void OnClientDisconnect(NetworkConnection conn)
+    public override void OnClientDisconnect()
     {
-        base.OnClientDisconnect(conn);
+        base.OnClientDisconnect(NetworkClient.connection);
 
         OnClientDisconnected?.Invoke();
     }
+
     public override void OnServerConnect(NetworkConnection conn)
     {
         if (numPlayers >= maxConnections)
@@ -69,9 +92,9 @@ public class LobbyNetworkManager : NetworkManager
             return;
         }
 
-
         //RoomPlayers.Add(conn.identity.gameObject.GetComponent<PlayerRoomNetwork>());
     }
+
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         if (SceneManager.GetActiveScene().path == menuScene)
@@ -115,7 +138,7 @@ public class LobbyNetworkManager : NetworkManager
         //}
     }
 
-    IEnumerator StartGame(bool isStartable)
+    private IEnumerator StartGame(bool isStartable)
     {
         yield return new WaitForSeconds(.1f);
         if (isStartable)
@@ -146,14 +169,14 @@ public class LobbyNetworkManager : NetworkManager
 
         int numberOfReadyPlayers = NetworkServer.connections.Count(conn => conn.Value != null && conn.Value.identity.gameObject.GetComponent<PlayerRoomNetwork>().IsReady);
         if (numberOfReadyPlayers < minPlayers) { return false; }
-    
+
         //Debug.Log("Roomplayer count : " + RoomPlayers.Count);
-    
+
         foreach (var player in RoomPlayers)
         {
             if (!player.IsReady) { return false; }
         }
-    
+
         return true;
     }
 
@@ -161,7 +184,7 @@ public class LobbyNetworkManager : NetworkManager
     {
         if (SceneManager.GetActiveScene().path == menuScene)
         {
-            if(!IsReadyToStart()) { return; }
+            if (!IsReadyToStart()) { return; }
             ServerChangeScene("Map");
         }
     }
@@ -170,7 +193,7 @@ public class LobbyNetworkManager : NetworkManager
     {
         if (SceneManager.GetActiveScene().path == menuScene && newSceneName.StartsWith("Map"))
         {
-            foreach(GameObject prn in GameObject.FindGameObjectsWithTag("RoomPlayer"))
+            foreach (GameObject prn in GameObject.FindGameObjectsWithTag("RoomPlayer"))
             {
                 var prngo = prn.GetComponent<PlayerRoomNetwork>();
                 RoomPlayers.Add(prngo);
@@ -204,6 +227,7 @@ public class LobbyNetworkManager : NetworkManager
         onServerReadied?.Invoke(conn);
         Debug.Log(conn.connectionId);
     }
+
     public override void OnStopServer()
     {
         OnServerStopped?.Invoke();
