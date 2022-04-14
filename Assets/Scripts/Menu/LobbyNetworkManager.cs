@@ -27,8 +27,7 @@ public class LobbyNetworkManager : NetworkManager
     public List<PlayerRoomNetwork> RoomPlayers { get; } = new List<PlayerRoomNetwork>();
     public List<PlayerGameNetwork> GamePlayers { get; } = new List<PlayerGameNetwork>();
 
-    [SerializeField]
-    private int changedScenePlayers = 0;
+    public int changedScenePlayers = 0;
 
     public bool IsStartGame { get; private set; } = false;
 
@@ -203,11 +202,14 @@ public class LobbyNetworkManager : NetworkManager
         if (IsSceneActive("Map"))
         {
             var player = conn.identity.gameObject.GetComponent<PlayerGameNetwork>();
-            if(changedScenePlayers == NetworkServer.connections.Count)
+            if(changedScenePlayers == GamePlayers.Count)
             {
-                player.CmdSceneChanged();
+                foreach(var gamePlayer in GamePlayers)
+                {
+                    gamePlayer.CmdSceneChanged();
+                }
             }
-            Debug.Log(loadingSceneAsync.allowSceneActivation);
+            Debug.Log(changedScenePlayers + " " + GamePlayers.Count);
         }
         base.OnClientSceneChanged();
     }

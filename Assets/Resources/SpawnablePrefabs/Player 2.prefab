@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 4255690335507957683}
   - component: {fileID: 6663559026169316903}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player 2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 2638831848681146683, guid: 96f2aa61df3858b46ac9f349c840b05f, type: 3}
+  m_Sprite: {fileID: -2674710748171498897, guid: e8d9563fb16e7f94fa09befbbd4cec8e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -314,7 +314,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.5, y: 4.47}
+    oldSize: {x: 6.2900004, y: 4.94}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -338,7 +338,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 087a7aa2542853047b8a5d7a9b2af546
+  m_AssetId: 7d9509a7353d2774b8ae940668954747
   hasSpawned: 0
 --- !u!114 &6806505294235664091
 MonoBehaviour:
@@ -435,7 +435,7 @@ Animator:
   m_GameObject: {fileID: 4607003322616202644}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 61024b7a7a12a1c4e9b97064dfd6e3e7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8fbeada8d2171a84cae893856e4771c8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
