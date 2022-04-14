@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 163231531}
   - component: {fileID: 163231530}
   - component: {fileID: 163231529}
+  - component: {fileID: 163231532}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -340,6 +341,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &163231532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163231528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &391159024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,7 +1643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 7777
-  NoDelay: 1
+  NoDelay: 0
   SendTimeout: 5000
   ReceiveTimeout: 30000
   serverMaxMessageSize: 16384
@@ -1636,7 +1669,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 1
   runInBackground: 1
   autoStartServerBuild: 1
-  serverTickRate: 30
+  serverTickRate: 1
   offlineScene: Assets/Scenes/Menu.unity
   onlineScene: Assets/Scenes/Lobby.unity
   transport: {fileID: 1557060565}
@@ -1647,11 +1680,12 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
-  minPlayers: 2
+  minPlayers: 1
   menuScene: Assets/Scenes/Lobby.unity
   playerRoomPrefab: {fileID: -6924883875523655726, guid: 331a25ce7cf1d2f40b9fc2e9f95a8327, type: 3}
   playerGamePrefab: {fileID: -5761162839038430668, guid: af33e60e5d24cfe43ad5c375c7d784bc, type: 3}
   playerSpawner: {fileID: 9140647565833875485, guid: 151b134464e13ff4b93f6e0675e39d65, type: 3}
+  changedScenePlayers: 0
 --- !u!4 &1557060567
 Transform:
   m_ObjectHideFlags: 0

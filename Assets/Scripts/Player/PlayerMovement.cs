@@ -58,9 +58,11 @@ namespace Player
         {
             if (!hasAuthority) return;
 
-            rigidbody2D.MovePosition(rigidbody2D.position + _inputMovement * speed * Time.fixedDeltaTime);
-
-            rigidbody2D.rotation = _mousePosition.x;
+            //rigidbody2D.MovePosition(rigidbody2D.position + _inputMovement * speed * Time.fixedDeltaTime);
+            var input = new Vector3(_inputMovement.x, _inputMovement.y, 0);
+            transform.Translate(input * speed * Time.fixedDeltaTime, Space.Self);
+            rigidbody2D.rotation = _mousePosition.x; ;
+            
         }
 
         private void FixedUpdate()

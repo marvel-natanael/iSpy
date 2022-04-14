@@ -1,14 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Turret : NPC
 {
-    [Header("Turret Properties")]
-    [SerializeField]
+    [Header("Turret Properties")] [SerializeField]
     private float rotateDegree;
 
     private Quaternion nextView;
+
+    private int _indexState = 0;
+    private TurretAnimation.State _state;
+
+    public Turret()
+    {
+        _state = (TurretAnimation.State) _indexState;
+    }
 
     public override void Start()
     {
@@ -24,10 +29,14 @@ public class Turret : NPC
 
     public void Rotate()
     {
-        if(timerToDelay <= 0)
+        if (timerToDelay <= 0)
         {
-            Routine();
+            // Routine();
+            _state = (TurretAnimation.State) _indexState;
             timerToDelay = delay;
+            _indexState++;
+
+            if (_indexState == 4) _indexState = 0;
         }
         else
         {
@@ -54,4 +63,6 @@ public class Turret : NPC
 
         base.Attack();
     }
+
+    public TurretAnimation.State GetState => _state;
 }
