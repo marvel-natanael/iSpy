@@ -72,9 +72,6 @@ namespace Player
 
             playerManager.DecreaseAmountBullet(); //amount belum bisa berkurang di UI
             _selected.Amount = playerManager.ItemPlayer.amount;
-            
-            //Debug.Log(netId +  " itemplayer amount bullet : " + playerManager.ItemPlayer.amount);
-            //Debug.Log(netId + " selected amount bullet : " + _selected.Amount);
 
             _timer = 0f;
             
@@ -89,9 +86,8 @@ namespace Player
             bulletPool.SetActive(true); // set active 
             bulletPool.transform.position = _position;
 
-            var up = transform.up;
+            var up = -transform.up;
             up = Vector3.MoveTowards(up, _position, distance * Time.deltaTime);
-
             var bullet = bulletPool.GetComponent<Bullet>(); // get script bullet
             bullet.SetOwner(this);
             bullet.Move(up, speed); // call method move for moving bullet 

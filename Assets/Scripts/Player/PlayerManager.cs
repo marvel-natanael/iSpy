@@ -10,15 +10,11 @@ namespace Player
     {
         [SerializeField] private Weapon pistol, shotgun;
 
-        //public static PlayerManager Instance;
-
         public ItemPlayer ItemPlayer { get; set; }
         public WeaponType WeaponType { get; set; }
 
         private void Awake()
         {
-            //if (Instance == null) Instance = this;
-
             WeaponType = WeaponType.Pistol;
             SetWeapon(WeaponType);
 
@@ -55,6 +51,7 @@ namespace Player
             shotgun.gameObject.SetActive(type == WeaponType.Shotgun);
         }
 
+        #region Attack
         public void DamageTo(PlayerManager p, float dmg)
         {
             CmdDamageTo(p, dmg);
@@ -72,9 +69,29 @@ namespace Player
             p.ItemPlayer.health -= dmg;
             RpcUpdateUIOtherPlayer(p.connectionToClient, p.ItemPlayer.health, ItemPlayer.amount);
         }
+        #endregion
 
+        #region Heal
+        public void Heal(float health)
+        {
+            if (isServer) return;
+
+            CmdHeal(health);
+        }
+
+        [Command]
+        private void CmdHeal(float health)
+        {
+            if (ItemPlayer.health >= 100) return;
+            ItemPlayer.health += health;
+            RpcUpdateUI(ItemPlayer.health, ItemPlayer.amount); 
+        }
+        #endregion
+
+        #region Bullet
         public void DecreaseAmountBullet()
         {
+            Debug.Log(netId + " client amount : " + ItemPlayer.amount);
             CmdDecreaseAmountBullet();
         }
 
@@ -86,19 +103,9 @@ namespace Player
             
             RpcUpdateUI(ItemPlayer.health, ItemPlayer.amount);
         }
+        #endregion
 
-        [TargetRpc]
-        private void RpcUpdateUIOtherPlayer(NetworkConnection conn, float currHealth, int amount)
-        {
-            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
-        }
-
-        [TargetRpc]
-        private void RpcUpdateUI(float currHealth, int amount)
-        {
-            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
-        }
-
+        #region Lose
         public void CmdDead(PlayerManager p)
         {
             RpcShowLoseText(p.connectionToClient);
@@ -110,5 +117,20 @@ namespace Player
         {
             InGameUIManager.instance.LoseText.gameObject.SetActive(true);
         }
+        #endregion
+
+        #region RPC UI
+        [TargetRpc]
+        private void RpcUpdateUIOtherPlayer(NetworkConnection conn, float currHealth, int amount)
+        {
+            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
+        }
+
+        [TargetRpc]
+        private void RpcUpdateUI(float currHealth, int amount)
+        {
+            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
+        }
+        #endregion
     }
 }
