@@ -17,7 +17,6 @@ namespace Player
         private void Awake()
         {
             if (Instance == null) Instance = this;
-
             ItemPlayer = new ItemPlayer
             {
                 Health = 100
