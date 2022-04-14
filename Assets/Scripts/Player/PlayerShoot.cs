@@ -21,6 +21,7 @@ namespace Player
         private Weapon _selected;
 
         private PlayerManager playerManager;
+        private WeaponSwap weapon;
 
         public bool GetShoot() => _shoot;
 
@@ -29,8 +30,9 @@ namespace Player
             if (!hasAuthority) return;
 
             playerManager = GetComponent<PlayerManager>();
-            _selected = playerManager.GetWeapon();
-            Debug.Log("amount : " + playerManager.ItemPlayer.amount);
+            weapon = GetComponent<WeaponSwap>();
+            _selected = weapon.GetWeapon();
+            
             //_itemPlayer = playerManager.ItemPlayer;
             //_itemPlayer.amount = _selected.Amount; // update ui amount bullet weapon
             //playerManager.ItemPlayer.amount = _selected.Amount;
@@ -49,15 +51,19 @@ namespace Player
 
             // updated data from player manager
             //_itemPlayer = playerManager.ItemPlayer;
-            _selected = playerManager.GetWeapon();
+            _selected = weapon.GetWeapon();
 
-            Debug.DrawRay(_position, _selected.OriginShoot.TransformDirection(Vector2.up) * distance, Color.black);
-            var hit = Physics2D.Raycast(_position, _selected.OriginShoot.TransformDirection(Vector2.up), distance);
-
-            if (hit && _shoot)
+            if (_selected)
             {
-                Debug.Log(hit.collider.name);
-                SetWeapon();
+                Debug.DrawRay(_position, _selected.OriginShoot.TransformDirection(Vector2.up) * distance, Color.black);
+
+                var hit = Physics2D.Raycast(_position, _selected.OriginShoot.TransformDirection(Vector2.up), distance);
+
+                if (hit && _shoot)
+                {
+                    Debug.Log(hit.collider.name);
+                    SetWeapon();
+                }
             }
         }
 
@@ -66,15 +72,13 @@ namespace Player
             _timer += Time.deltaTime;
             if ((!(_timer >= _selected.FireSpeed))) return;
 
-            if (playerManager.ItemPlayer.amount <= 0) return; // if amount bullet <= 0
+            if (_selected.amount <= 0) return; // if amount bullet <= 0
 
             Fire(_selected.Speed, _selected.Damage); // method for fire weapon
 
-            playerManager.DecreaseAmountBullet(); //amount belum bisa berkurang di UI
-            _selected.Amount = playerManager.ItemPlayer.amount;
-            
-            //Debug.Log(netId +  " itemplayer amount bullet : " + playerManager.ItemPlayer.amount);
-            //Debug.Log(netId + " selected amount bullet : " + _selected.Amount);
+            //playerManager.DecreaseAmountBullet(); 
+            weapon.GetWeapon().amount -= 1;
+            Debug.Log(netId + " Sisa peluru : " + weapon.GetWeapon().amount);
 
             _timer = 0f;
             
@@ -89,9 +93,8 @@ namespace Player
             bulletPool.SetActive(true); // set active 
             bulletPool.transform.position = _position;
 
-            var up = transform.up;
+            var up = -transform.up;
             up = Vector3.MoveTowards(up, _position, distance * Time.deltaTime);
-
             var bullet = bulletPool.GetComponent<Bullet>(); // get script bullet
             bullet.SetOwner(this);
             bullet.Move(up, speed); // call method move for moving bullet 
