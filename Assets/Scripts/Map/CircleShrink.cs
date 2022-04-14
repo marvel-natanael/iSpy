@@ -51,7 +51,7 @@ public class CircleShrink : MonoBehaviour
         float timer = 0f;
         while(transform.localScale.x > minSize)
         {
-            transform.localScale = Vector3.Lerp(startScale, minScale, timer/shrinkMultiplier);
+            transform.localScale = Vector3.Lerp(startScale, minScale, timer/shrinkMultiplier/50f);
             timer += Time.deltaTime;
             yield return null;
         }
