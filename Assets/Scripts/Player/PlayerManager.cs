@@ -8,22 +8,25 @@ namespace Player
 {
     public class PlayerManager : NetworkBehaviour
     {
-        [SerializeField] private Weapon pistol, shotgun;
+        //[SerializeField] private Weapon pistol, shotgun;
 
         public ItemPlayer ItemPlayer { get; set; }
         public WeaponType WeaponType { get; set; }
 
+        private WeaponSwap weapon;
+
         private void Awake()
         {
-            WeaponType = WeaponType.Pistol;
-            SetWeapon(WeaponType);
+            //WeaponType = WeaponType.Pistol;
+            //SetWeapon(WeaponType);
+            //weapon = gameObject.GetComponent<WeaponSwap>();
 
             ItemPlayer = new ItemPlayer
             {
                 health = 100
             };
 
-            ItemPlayer.amount = GetWeapon().Amount;
+            //ItemPlayer.amount = weapon.GetWeapon().amount;
             
         }
 
@@ -35,21 +38,21 @@ namespace Player
 
         }
 
-        public Weapon GetWeapon()
-        {
-            return WeaponType switch
-            {
-                WeaponType.Pistol => pistol,
-                WeaponType.Shotgun => shotgun,
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
+        //public Weapon GetWeapon()
+        //{
+        //    return WeaponType switch
+        //    {
+        //        WeaponType.Pistol => pistol,
+        //        WeaponType.Shotgun => shotgun,
+        //        _ => throw new ArgumentOutOfRangeException()
+        //    };
+        //}
 
-        public void SetWeapon(WeaponType type)
-        {
-            pistol.gameObject.SetActive(type == WeaponType.Pistol);
-            shotgun.gameObject.SetActive(type == WeaponType.Shotgun);
-        }
+        //public void SetWeapon(Weapon weapon)
+        //{
+        //    //pistol.gameObject.SetActive(type == WeaponType.Pistol);
+        //    //shotgun.gameObject.SetActive(type == WeaponType.Shotgun);
+        //}
 
         #region Attack
         public void DamageTo(PlayerManager p, float dmg)

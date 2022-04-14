@@ -7,22 +7,22 @@ namespace Player.Item
     public class ItemPickUp : MonoBehaviour
     {
         public ItemChoice itemChoice;
-        
+
         public WeaponType bulletType;
-        
+
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (!col.gameObject.CompareTag("Player")) return;
 
-            PlayerManager player = col.GetComponent<PlayerManager>();
+            var player = col.gameObject;
         
             switch (itemChoice)
             {
                 case ItemChoice.Amount:
-                    PickUpItemAmount(bulletType, player);
+                    PickUpItemAmount(player.GetComponent<WeaponSwap>());
                     break;
                 case ItemChoice.Health:
-                    PickUpItemHealth(player);
+                    PickUpItemHealth(player.GetComponent<PlayerManager>());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -35,10 +35,9 @@ namespace Player.Item
             Destroy(gameObject);
         }
         
-        private void PickUpItemAmount(WeaponType type, PlayerManager player)
+        private void PickUpItemAmount(WeaponSwap player)
         {
-            player.SetWeapon(type);
-            Destroy(gameObject);
+            player.SetWeapon(gameObject.GetComponent<Weapon>());
         }
     }
 }

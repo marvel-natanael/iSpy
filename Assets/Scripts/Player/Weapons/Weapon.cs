@@ -11,7 +11,7 @@ namespace Player.Weapons
         [Header("Properties")]
         [SerializeField] protected float damage;
         [SerializeField] protected float speed;
-        [SerializeField] protected int amount;
+        public int amount;
         [SerializeField] protected float fireSpeed;
 
         protected PlayerManager playerManager;

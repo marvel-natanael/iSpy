@@ -1652,7 +1652,6 @@ MonoBehaviour:
   playerRoomPrefab: {fileID: -6924883875523655726, guid: 331a25ce7cf1d2f40b9fc2e9f95a8327, type: 3}
   playerGamePrefab: {fileID: -5761162839038430668, guid: af33e60e5d24cfe43ad5c375c7d784bc, type: 3}
   playerSpawner: {fileID: 9140647565833875485, guid: 151b134464e13ff4b93f6e0675e39d65, type: 3}
-  bulletPool: {fileID: 6316808964663929540, guid: 9faafbf8adb00e148a012d9151354526, type: 3}
 --- !u!4 &1557060567
 Transform:
   m_ObjectHideFlags: 0
