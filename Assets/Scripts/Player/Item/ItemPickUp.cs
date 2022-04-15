@@ -38,6 +38,7 @@ namespace Player.Item
         private void PickUpItemAmount(WeaponSwap player)
         {
             player.SetWeapon(gameObject.GetComponent<Weapon>());
+            gameObject.GetComponent<Collider2D>().enabled = false;
         }
     }
 }
