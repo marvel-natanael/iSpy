@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using Mirror;
 
 namespace Player.Weapons
 {
-    public class WeaponSwap : MonoBehaviour
+    public class WeaponSwap : NetworkBehaviour
     {
         [SerializeField] private Transform parent;
         [SerializeField] private Weapon currentWeapon;
@@ -18,6 +19,7 @@ namespace Player.Weapons
             if(currentWeapon != null)
             {
                 parent.DetachChildren();
+                currentWeapon.GetComponent<Collider2D>().enabled = true;
             }
 
             currentWeapon = weapon;
@@ -30,10 +32,6 @@ namespace Player.Weapons
         {
             return currentWeapon;
         }
-
-        //yang kurang :
-        //jumlah peluru tidak terupdate di setiap client
-        //weapon yang digunakan player lain tetap bisa diambil dan ditukar 
 
         //[SerializeField] private WeaponType weaponType;
         //[SerializeField] private Pistol pistol;

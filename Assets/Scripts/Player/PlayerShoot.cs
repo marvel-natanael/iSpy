@@ -77,8 +77,7 @@ namespace Player
             Fire(_selected.Speed, _selected.Damage); // method for fire weapon
 
             //playerManager.DecreaseAmountBullet(); 
-            weapon.GetWeapon().amount -= 1;
-            Debug.Log(netId + " Sisa peluru : " + weapon.GetWeapon().amount);
+            weapon.GetWeapon().DecreaseBullet(1);
 
             _timer = 0f;
             
