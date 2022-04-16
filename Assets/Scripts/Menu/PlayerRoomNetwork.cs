@@ -11,7 +11,6 @@ public class PlayerRoomNetwork : NetworkBehaviour
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
     [SerializeField] private Button startGameButton = null;
     [SerializeField] private Canvas canvas;
-    [SerializeField] private int[] avatarIndex;
     [SerializeField] private GameObject[] avatars;
 
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
@@ -20,6 +19,8 @@ public class PlayerRoomNetwork : NetworkBehaviour
     public int avatar = 0;
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
+
+    int temp;
 
     private bool isLeader;
     public bool IsLeader
@@ -44,6 +45,7 @@ public class PlayerRoomNetwork : NetworkBehaviour
     public override void OnStartAuthority()
     {
         CmdSetDisplayName(PlayerNameInput.displayName);
+        CmdSetAvatar(Room.RoomPlayers.Count);
         lobbyUI.SetActive(true);
     }
 
@@ -70,7 +72,6 @@ public class PlayerRoomNetwork : NetworkBehaviour
             {
                 if (player.hasAuthority)
                 {
-                    CmdSetAvatar(Room.RoomPlayers.Count);
                     player.UpdateDisplay();
                     break;
                 }
@@ -82,30 +83,26 @@ public class PlayerRoomNetwork : NetworkBehaviour
         {
             playerNameTexts[i].text = "Waiting For Player...";
             playerReadyTexts[i].text = string.Empty;
-            avatarIndex[i] = 0;
         }
 
         for (int i = 0; i < Room.RoomPlayers.Count; i++)
         {
             canvas.sortingOrder = 4 - i;
-            avatarIndex[i] = Room.RoomPlayers[i].avatar;
+            avatars[i].SetActive(i == avatar);
             playerNameTexts[i].text = Room.RoomPlayers[i].DisplayName;
             playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ?
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
-            SetAvatar(i);
         }
         //Room.NotifyPlayersOfReadyState();
+        //SetAvatar(avatar);
     }
 
     void SetAvatar(int index)
     {
         for (int i=0; i< avatars.Length; i++)
         {
-            if(i == index)
-            {
-                avatars[i].SetActive(true);
-            }
+            avatars[i].SetActive(i == index);
         }
     }
     public void HandleReadyToStart(bool readyToStart)
