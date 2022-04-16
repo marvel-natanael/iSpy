@@ -6,8 +6,8 @@ namespace Player.Weapons
         {
             playerManager.WeaponType = WeaponType.Pistol;
 
-            playerManager.GetWeapon();
-            playerManager.SetWeapon(WeaponType.Pistol);
+            //playerManager.GetWeapon();
+            //playerManager.SetWeapon(WeaponType.Pistol);
             playerManager.ItemPlayer.amount = amount;
 
             //PlayerManager.Instance.WeaponType = WeaponType.Pistol;

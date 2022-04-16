@@ -28,9 +28,6 @@ namespace Player.Bullets
             {
                 PlayerManager target = col.gameObject.GetComponent<PlayerManager>();
                 owner.GetComponent<PlayerManager>().DamageTo(target, _damage);
-                //col.gameObject.GetComponent<PlayerManager>().GetDamage(_damage);
-                //Debug.Log(col.gameObject.GetComponent<PlayerManager>().netId + " health : " + col.gameObject.GetComponent<PlayerManager>().ItemPlayer.health);
-                //Debug.Log("damage : " + _damage);
             }
         }
 

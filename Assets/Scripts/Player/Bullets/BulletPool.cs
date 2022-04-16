@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 namespace Player.Bullets
 {
@@ -20,6 +21,11 @@ namespace Player.Bullets
         }
 
         private void Start()
+        {
+            SpawnBullet();
+        }
+
+        public void SpawnBullet()
         {
             for (var i = 0; i < AmountPool; i++)
             {

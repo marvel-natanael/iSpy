@@ -27,10 +27,9 @@ public class LobbyNetworkManager : NetworkManager
     public List<PlayerRoomNetwork> RoomPlayers { get; } = new List<PlayerRoomNetwork>();
     public List<PlayerGameNetwork> GamePlayers { get; } = new List<PlayerGameNetwork>();
 
-    private bool isCountdown = false;
+    public int changedScenePlayers = 0;
 
-    private bool isStartGame = false;
-    public bool IsStartGame { get { return isStartGame; } }
+    public bool IsStartGame { get; private set; } = false;
 
     public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
@@ -106,8 +105,8 @@ public class LobbyNetworkManager : NetworkManager
 
     public void NotifyPlayersOfReadyState()
     {
-        isStartGame = IsReadyToStart();
-        StartCoroutine(StartGame(isStartGame));
+        IsStartGame = IsReadyToStart();
+        StartCoroutine(StartGame(IsStartGame));
         //foreach (var player in RoomPlayers)
         //{
         //    player.HandleReadyToStart(IsReadyToStart());
@@ -175,7 +174,6 @@ public class LobbyNetworkManager : NetworkManager
                 var prngo = prn.GetComponent<PlayerRoomNetwork>();
                 RoomPlayers.Add(prngo);
             }
-            Debug.Log(RoomPlayers.Count);
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
                 var conn = RoomPlayers[i].connectionToClient;
@@ -185,6 +183,7 @@ public class LobbyNetworkManager : NetworkManager
                 NetworkServer.Destroy(conn.identity.gameObject);
                 NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
             }
+
         }
         base.ServerChangeScene(newSceneName);
     }
@@ -198,11 +197,27 @@ public class LobbyNetworkManager : NetworkManager
         }
     }
 
+    public override void OnClientSceneChanged(NetworkConnection conn)
+    {
+        if (IsSceneActive("Map"))
+        {
+            var player = conn.identity.gameObject.GetComponent<PlayerGameNetwork>();
+            if(changedScenePlayers == GamePlayers.Count)
+            {
+                foreach(var gamePlayer in GamePlayers)
+                {
+                    gamePlayer.CmdSceneChanged();
+                }
+            }
+            Debug.Log(changedScenePlayers + " " + GamePlayers.Count);
+        }
+        base.OnClientSceneChanged();
+    }
+
     public override void OnServerReady(NetworkConnection conn)
     {
         base.OnServerReady(conn);
         onServerReadied?.Invoke(conn);
-        Debug.Log(conn.connectionId);
     }
     public override void OnStopServer()
     {

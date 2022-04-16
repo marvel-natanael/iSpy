@@ -17,6 +17,7 @@ public class PlayerRoomNetwork : NetworkBehaviour
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
 
+
     private bool isLeader;
     public bool IsLeader
     {
@@ -43,11 +44,6 @@ public class PlayerRoomNetwork : NetworkBehaviour
 
         lobbyUI.SetActive(true);
     }
-    [Command]
-    public void AddClient()
-    {
-        Debug.Log(Room.RoomPlayers.Count);
-    }
 
     public override void OnStartClient()
     {
@@ -64,7 +60,6 @@ public class PlayerRoomNetwork : NetworkBehaviour
 
     public void HandleReadyStatusChanged(bool oldValue, bool newValue) => UpdateDisplay();
     public void HandleDisplayNameChanged(string oldValue, string newValue) => UpdateDisplay();
-
     private void UpdateDisplay()
     {
         if (!hasAuthority)

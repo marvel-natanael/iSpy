@@ -1,12 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using Mirror;
+using TMPro;
 
 public class PlayerGameNetwork : NetworkBehaviour
 {
     [SyncVar]
     private string displayName = "Loading...";
+    [SerializeField]
+    Image loadingPanel;
 
     private LobbyNetworkManager room;
     private LobbyNetworkManager Room
@@ -21,12 +24,19 @@ public class PlayerGameNetwork : NetworkBehaviour
     public override void OnStartClient()
     {
         DontDestroyOnLoad(gameObject);
-        Room.GamePlayers.Add(this); 
+        Room.GamePlayers.Add(this);
+        Room.changedScenePlayers++;
     }
     public override void OnStopClient()
     {
         Room.GamePlayers.Remove(this);
     }
+
+    public void CmdSceneChanged()
+    {
+        loadingPanel.gameObject.SetActive(false);
+    }
+
     [Server]
     public void SetDisplayName(string name)
     {

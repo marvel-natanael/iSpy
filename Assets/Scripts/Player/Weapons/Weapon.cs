@@ -1,8 +1,9 @@
 using UnityEngine;
+using Mirror;
 
 namespace Player.Weapons
 {
-    public class Weapon : MonoBehaviour
+    public class Weapon : NetworkBehaviour
     {
         [Header("Components")] [SerializeField]
         private WeaponType weaponType;
@@ -11,7 +12,9 @@ namespace Player.Weapons
         [Header("Properties")]
         [SerializeField] protected float damage;
         [SerializeField] protected float speed;
-        [SerializeField] protected int amount;
+
+        [SyncVar]
+        public int amount;
         [SerializeField] protected float fireSpeed;
 
         protected PlayerManager playerManager;
@@ -38,7 +41,19 @@ namespace Player.Weapons
         {
             playerManager.WeaponType = weaponType;
         }
+
+        [Command(requiresAuthority =false)]
+        private void CmdDecreaseBullet(int number)
+        {
+            Debug.Log(netId + " sisa peluru : " + amount);
+            amount -= number;
+        }
         
+        public void DecreaseBullet(int number)
+        {
+            CmdDecreaseBullet(number);
+        }
+
         public WeaponType WeaponType => weaponType;
     }
 }
