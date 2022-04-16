@@ -249,7 +249,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 482996269}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1809d54d6845d19459e5777a35f83563, type: 3}
   m_Name: 
@@ -417,8 +417,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  pistol: {fileID: 0}
-  shotgun: {fileID: 0}
 --- !u!114 &862107748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -827,8 +825,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  pistol: {fileID: 0}
-  shotgun: {fileID: 0}
 --- !u!114 &1593756675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,9 +936,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7876390319304951280, guid: e93f23b4460af1d43aeaacf49c19035e, type: 3}
+      propertyPath: m_Size.x
+      value: 4.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 7876390319304951280, guid: e93f23b4460af1d43aeaacf49c19035e, type: 3}
+      propertyPath: m_Size.y
+      value: 4.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 7876390319304951280, guid: e93f23b4460af1d43aeaacf49c19035e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 6072499637182373006, guid: b2217d81d3d75f3498e33907d834ae96, type: 3}
+      objectReference: {fileID: 6987520164658025396, guid: 9290fda9ac2acb3438d9cf7090fb6db6, type: 3}
     - target: {fileID: 7876390319304951281, guid: e93f23b4460af1d43aeaacf49c19035e, type: 3}
       propertyPath: m_Name
       value: TurretNPC

@@ -101,7 +101,8 @@ public class PlayerRoomNetwork : NetworkBehaviour
     
     private void SetAvatar(int i)
     {
-        if (!Room.RoomPlayers[i])
+        
+        if (!hasAuthority)
         {
             renderAvatar.gameObject.SetActive(false);
             return;

@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerNameInput : MonoBehaviour
 {
     [SerializeField]
     TMP_InputField nameInputField;
+
+    [SerializeField] private TMP_Text messageError;
     private const string PlayerPrefsNameKey = "PlayerName";
     public static string displayName { get; private set; }
 
@@ -20,8 +23,16 @@ public class PlayerNameInput : MonoBehaviour
 
     public void SetPlayerName()
     {
-        displayName = nameInputField.text;
-        PlayerPrefs.SetString(PlayerPrefsNameKey, displayName);
-        OnClicked();
+        if (nameInputField.text != "")
+        {
+            displayName = nameInputField.text;
+            PlayerPrefs.SetString(PlayerPrefsNameKey, displayName);
+            //OnClicked();
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            messageError.text = "Username must be filled";
+        }
     }
 }
