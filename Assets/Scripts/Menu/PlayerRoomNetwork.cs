@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -11,6 +12,9 @@ public class PlayerRoomNetwork : NetworkBehaviour
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
     [SerializeField] private Button startGameButton = null;
     [SerializeField] private Canvas canvas;
+
+    [SerializeField] private List<Sprite> listAvatar = new List<Sprite>();
+    [SerializeField] private Image renderAvatar;
 
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
     public string DisplayName = "Loading...";
@@ -89,8 +93,21 @@ public class PlayerRoomNetwork : NetworkBehaviour
             playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ?
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
+            
+            SetAvatar(i);
         }
         //Room.NotifyPlayersOfReadyState();
+    }
+    
+    private void SetAvatar(int i)
+    {
+        if (!Room.RoomPlayers[i])
+        {
+            renderAvatar.gameObject.SetActive(false);
+            return;
+        }
+        
+        renderAvatar.sprite = listAvatar[i];
     }
 
     public void HandleReadyToStart(bool readyToStart)
