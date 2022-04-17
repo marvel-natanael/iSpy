@@ -34,26 +34,50 @@ public class LobbyNetworkManager : NetworkManager
 
     private bool isStartGame = false;
 
+    //Matchmaker variabes
+#if UNITY_SERVER
+
+#endif
+
+    private ServerDataEntry serverData;
+    private bool isMatchmakerLaunched = false;
+
     public bool IsStartGame
     { get { return isStartGame; } }
 
-    public override void Start()
+    public override void Awake()
     {
-#if UNITY_SERVER
+        //#if UNITY_SERVER
+        //Check if we're using Telepathy
         if (transport.GetType() == typeof(TelepathyTransport))
         {
+            //Check if server is run by a matchmaker
             var args = Environment.GetCommandLineArgs();
             if (args.Contains<string>("-port"))
             {
-                ushort newPort = ushort.Parse(args[Array.FindIndex<string>(args, m => m == "-port") + 1]);
-                GetComponent<TelepathyTransport>().port = newPort;
+                try
+                {
+                    ushort newPort = ushort.Parse(args[Array.FindIndex<string>(args, m => m == "-port") + 1]);
+                    GetComponent<TelepathyTransport>().port = newPort;
+                    isMatchmakerLaunched = true;
+
+                    serverData = new ServerDataEntry(newPort);
+                    ClientSend.SendInit();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"Argument port is invalid {e}");
+                }
             }
         }
-#endif
-        base.Start();
+        //#endif
+        base.Awake();
     }
 
-    public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
+    public override void OnStartServer()
+    {
+        spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
+    }
 
     public override void OnStartClient()
     {
@@ -66,14 +90,14 @@ public class LobbyNetworkManager : NetworkManager
 
     public override void OnClientConnect()
     {
-        base.OnClientConnect(NetworkClient.connection);
+        base.OnClientConnect();
 
         OnClientConnected?.Invoke();
     }
 
     public override void OnClientDisconnect()
     {
-        base.OnClientDisconnect(NetworkClient.connection);
+        base.OnClientDisconnect();
 
         OnClientDisconnected?.Invoke();
     }
@@ -90,6 +114,13 @@ public class LobbyNetworkManager : NetworkManager
         {
             conn.Disconnect();
             return;
+        }
+
+        //Do a recount of connected clients, update server data
+        if (isMatchmakerLaunched)
+        {
+            serverData.UpdateEntry(NetworkServer.connections.Count);
+            ClientSend.SendUpdate(serverData);
         }
 
         //RoomPlayers.Add(conn.identity.gameObject.GetComponent<PlayerRoomNetwork>());
@@ -114,6 +145,13 @@ public class LobbyNetworkManager : NetworkManager
             RoomPlayers.Remove(player);
         }
         base.OnServerDisconnect(conn);
+
+        //Todo, Network-Matchmaker: Do a recount on connected client, update matchmaker
+        if (isMatchmakerLaunched)
+        {
+            serverData.UpdateEntry(NetworkServer.connections.Count);
+            ClientSend.SendUpdate(serverData);
+        }
     }
 
     public override void OnStopClient()
@@ -186,6 +224,13 @@ public class LobbyNetworkManager : NetworkManager
         {
             if (!IsReadyToStart()) { return; }
             ServerChangeScene("Map");
+        }
+
+        //Todo, Network-Matchmaker: Update matchmaker, set ServerDataEntry.running = true
+        if (isMatchmakerLaunched)
+        {
+            serverData.UpdateEntry(true);
+            ClientSend.SendUpdate(serverData);
         }
     }
 

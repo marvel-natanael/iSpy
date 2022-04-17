@@ -1,24 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ServerDataEntry
+public class ServerDataEntry : MonoBehaviour
 {
-    private ushort playerCount;
     private ushort port;
+    private int playerCount;
+    private bool running;
 
-    public ushort PlayerCount => playerCount;
+    public int PlayerCount => playerCount;
     public ushort Port => port;
+    public bool Running => running;
 
-    public ServerDataEntry()
+    public ServerDataEntry(ushort newPort)
     {
+        port = newPort;
         playerCount = 0;
-        port = 0;
+        running = false;
     }
 
-    public ServerDataEntry(ushort newCount, ushort newPort)
+    public void UpdateEntry(int newCount)
     {
         playerCount = newCount;
-        port = newPort;
+    }
+
+    public void UpdateEntry(bool isRunning)
+    {
+        running = isRunning;
     }
 }
