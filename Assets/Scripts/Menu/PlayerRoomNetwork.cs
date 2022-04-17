@@ -88,19 +88,20 @@ public class PlayerRoomNetwork : NetworkBehaviour
         for (int i = 0; i < Room.RoomPlayers.Count; i++)
         {
             canvas.sortingOrder = 4 - i;
-            avatars[i].SetActive(i == avatar);
+            SetAvatar(avatar);
             playerNameTexts[i].text = Room.RoomPlayers[i].DisplayName;
             playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ?
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
         }
+        //avatar = Room.RoomPlayers.Count;
         //Room.NotifyPlayersOfReadyState();
         //SetAvatar(avatar);
     }
 
     void SetAvatar(int index)
     {
-        for (int i=0; i< avatars.Length; i++)
+        for (int i=0; i< Room.RoomPlayers.Count; i++)
         {
             avatars[i].SetActive(i == index);
         }
