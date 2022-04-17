@@ -34,6 +34,7 @@ namespace Player
         {
             if (!hasAuthority) return;
 
+            CmdAddPlayerToServer();
             InGameUIManager.instance.PlayerUI.SetTargetPlayer(this);
 
         }
@@ -53,6 +54,12 @@ namespace Player
         //    //pistol.gameObject.SetActive(type == WeaponType.Pistol);
         //    //shotgun.gameObject.SetActive(type == WeaponType.Shotgun);
         //}
+
+        [Command]
+        private void CmdAddPlayerToServer()
+        {
+            GameManager.instance.playersCount += 1;
+        }
 
         #region Attack
         public void DamageTo(PlayerManager p, float dmg)
@@ -111,7 +118,9 @@ namespace Player
         #region Lose
         public void CmdDead(PlayerManager p)
         {
+            GameManager.instance.playersCount -= 1;
             RpcShowLoseText(p.connectionToClient);
+            GameManager.instance.GameOver();
             Destroy(p.gameObject);
         }
 
