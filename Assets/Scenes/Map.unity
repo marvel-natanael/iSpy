@@ -1594,6 +1594,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7563529548991478265, guid: 13d7d0ba5894bbb4785c76d8d363ec22, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563529548991478265, guid: 13d7d0ba5894bbb4785c76d8d363ec22, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563529548991478265, guid: 13d7d0ba5894bbb4785c76d8d363ec22, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563529548991478265, guid: 13d7d0ba5894bbb4785c76d8d363ec22, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -180
+      objectReference: {fileID: 0}
     - target: {fileID: 7563529549242057628, guid: 13d7d0ba5894bbb4785c76d8d363ec22, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -2058,6 +2074,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playersCount: 0
+  gameOver: 0
 --- !u!4 &984021662
 Transform:
   m_ObjectHideFlags: 0
@@ -2609,7 +2626,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352639033}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
