@@ -7,27 +7,29 @@ public class CircleShrink : NetworkBehaviour
 {
     bool isOutside = false;
     [SerializeField]
-    float minSize, shrinkMultiplier, damage = 1, timer;
-    bool isShrinked = false;
+    float minSize, shrinkMultiplier, damage = 1;
+    bool isShrinked = false, takeDamage = true;
     PlayerManager playerToDamage = null;
 
     void Update()
     {
-        timer = 0;
         if (isOutside)
         {
-            if (playerToDamage != null && Time.time >= timer)
+            if (playerToDamage != null && takeDamage)
             {
+                StartCoroutine(delay());
                 Damage(playerToDamage);
-                timer = Time.time + 1.0f;
             }
-        }
-        else
-        {
-            timer = 0;
         }
         if (!isShrinked)
             StartCoroutine(Shrink());
+    }
+
+    IEnumerator delay()
+    {
+        takeDamage = false;
+        yield return new WaitForSeconds(1);
+        takeDamage = true;
     }
 
     void Damage(PlayerManager player)
