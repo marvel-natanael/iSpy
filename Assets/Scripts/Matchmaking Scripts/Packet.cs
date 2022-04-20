@@ -2,15 +2,45 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-public enum MatchmakerPackets
+#region Server-Matchmaker Packets
+
+/// <summary>
+/// Packets from matchmaker to servers
+/// </summary>
+public enum MatchmakerServerPackets
 {
-    initRequest, updateRequest, terminateRequest
+    terminationRequest
 }
 
-public enum ClientPackets
+/// <summary>
+/// Packets from server to matchmaker
+/// </summary>
+public enum ServerMatchmakerPackets
 {
-    init, update, disconnect
+    initialization, update, terminationReply
 }
+
+#endregion Server-Matchmaker Packets
+
+#region Client-Matchmaker Packets
+
+/// <summary>
+/// Packets from matchmaker to clients
+/// </summary>
+public enum MatchmakerClientPackets
+{
+    updateReply
+}
+
+/// <summary>
+/// Packets from clients to matchamaker
+/// </summary>
+public enum ClientMatchmakerPackets
+{
+    updateRequest
+}
+
+#endregion Client-Matchmaker Packets
 
 public class Packet : IDisposable
 {

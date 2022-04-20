@@ -2,20 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class is to handle matchmaker-client packets
+/// </summary>
 public class ClientHandle : MonoBehaviour
 {
-    public static void HandleInit(Packet _packet)
+    public static void HandleUpdate(Packet _packet)
     {
-        // todo, Networking-Matchmaking: Handle initialization request from matchmaker.
-    }
-
-    public static void HandleUpdateReq(Packet _packet)
-    {
-        // todo, Networking-Matchmaking: Handle update request from matchmaker.
-    }
-
-    public static void HandleTerminationReq(Packet _packet)
-    {
-        // todo, Networking-Matchmaking: Handle termination request from matchmaker.
+        // todo, Networking-Matchmaking: handle matchmaker-client update
     }
 }

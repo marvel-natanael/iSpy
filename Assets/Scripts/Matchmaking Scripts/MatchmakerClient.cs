@@ -11,13 +11,15 @@ public class MatchmakerClient : MonoBehaviour
     public static MatchmakerClient instance;
     public static int dataBufferSize = 4096;
 
-    public readonly ushort id;
-    public readonly ushort port;
+    private readonly int id;
+    private readonly ushort port;
     public TCP transport;
 
     private delegate void PacketHandler(Packet _packet);
 
-    private static Dictionary<int, PacketHandler> packetHandlers;
+    private static Dictionary<int, PacketHandler> packetHandle;
+
+    public int ID => id;
 
     private void Awake()
     {
@@ -37,18 +39,36 @@ public class MatchmakerClient : MonoBehaviour
         transport = new TCP();
     }
 
+    /// <summary>
+    /// Hidden
+    /// </summary>
     private MatchmakerClient()
     {
     }
 
-    public MatchmakerClient(ushort _id)
+    /// <summary>
+    /// Create a new instance of <c>MatchmakerClient</c> with an id
+    /// </summary>
+    public MatchmakerClient(int _id)
     {
         id = _id;
     }
 
+    /// <summary>
+    /// Create a new instance of <c>MatchmakerClient</c> with an id and port
+    /// </summary>
+    public MatchmakerClient(int _id, ushort _port)
+    {
+        id = _id;
+        port = _port;
+    }
+
+    /// <summary>
+    /// Connect to the matchmaker program
+    /// </summary>
     public void Connect()
     {
-        InitializeClientData();
+        InitializeServerMatchmakerPackets();
         try
         {
             using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
@@ -64,6 +84,9 @@ public class MatchmakerClient : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This class handles the TCP connection between matchmaker and client
+    /// </summary>
     public class TCP
     {
         public TcpClient socket;
@@ -74,11 +97,11 @@ public class MatchmakerClient : MonoBehaviour
         private Packet receivedPacket;
 
         /// <summary>
-        /// This function connects the server to the matchmaker as a client.
+        /// Opens a connection to matchamker.
         /// </summary>
         /// <remarks>
-        /// This function acts as a connection opener for the server to the matchmaker.
-        /// Once the server is connected to the matchmaker, it will begin to read any incoming data from the matchmaker.
+        /// This function acts as a connection opener for the client to the matchmaker.
+        /// Once the client is connected to the matchmaker, it will begin to read any incoming data from the matchmaker.
         /// If data is received, <c>ReceiveCallback</c> will be called.
         /// </remarks>
         /// <param name="_socket">Socket to connect to</param>
@@ -96,7 +119,7 @@ public class MatchmakerClient : MonoBehaviour
         }
 
         /// <summary>
-        /// This function is called when the client's NetworkStream has received a stream
+        /// This function is called when the client's <c>stream</c> has received a stream
         /// </summary>
         /// <remarks>
         /// If a stream is received by the server, it will try to copy the stream into <c>receiveBuffer</c>.
@@ -109,6 +132,7 @@ public class MatchmakerClient : MonoBehaviour
                 int _bytelength = stream.EndRead(_result);
                 if (_bytelength <= 0)
                 {
+                    // todo: Disconnect
                     return;
                 }
 
@@ -122,7 +146,7 @@ public class MatchmakerClient : MonoBehaviour
             catch (Exception e)
             {
                 Console.WriteLine($"Exception thrown: {e}");
-                //todo: disconnect
+                //todo: Disconnect
             }
         }
 
@@ -178,7 +202,7 @@ public class MatchmakerClient : MonoBehaviour
                     using (Packet _packet = new Packet(packetBytes))
                     {
                         int _packetID = _packet.ReadInt();
-                        packetHandlers[_packetID](_packet);
+                        packetHandle[_packetID](_packet);
                     }
                 });
 
@@ -202,16 +226,25 @@ public class MatchmakerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Initialize the different types of client packets.
+    /// Initialize server - matchmaker packets
     /// </summary>
-    private void InitializeClientData()
+    private void InitializeServerMatchmakerPackets()
     {
-        packetHandlers = new Dictionary<int, PacketHandler>()
+        packetHandle = new Dictionary<int, PacketHandler>()
         {
-            {(int) MatchmakerPackets.initRequest, ClientHandle.HandleInit},
-            {(int) MatchmakerPackets.updateRequest, ClientHandle.HandleUpdateReq},
-            {(int) MatchmakerPackets.terminateRequest, ClientHandle.HandleTerminationReq}
+            {(int) MatchmakerServerPackets.terminationRequest, ServerHandle.HandleTerminationReq}
         };
         Debug.Log($"Initialized packets...");
+    }
+
+    /// <summary>
+    /// Initialize client - matchmaker packets
+    /// </summary>
+    private void InitializeClientMatchmakerPackets()
+    {
+        packetHandle = new Dictionary<int, PacketHandler>()
+        {
+            {(int) MatchmakerClientPackets.updateReply, ClientHandle.HandleUpdate }
+        };
     }
 }

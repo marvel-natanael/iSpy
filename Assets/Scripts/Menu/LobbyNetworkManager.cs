@@ -23,7 +23,7 @@ public class LobbyNetworkManager : NetworkManager
 
     public static event Action OnClientDisconnected;
 
-    public static event Action<NetworkConnection> onServerReadied;
+    public static event Action<NetworkConnection> OnServerReadied;
 
     public static event Action OnServerStopped;
 
@@ -47,7 +47,7 @@ public class LobbyNetworkManager : NetworkManager
 
     public override void Awake()
     {
-        //#if UNITY_SERVER
+#if UNITY_SERVER
         //Check if we're using Telepathy
         if (transport.GetType() == typeof(TelepathyTransport))
         {
@@ -70,7 +70,7 @@ public class LobbyNetworkManager : NetworkManager
                 }
             }
         }
-        //#endif
+#endif
         base.Awake();
     }
 
@@ -120,7 +120,7 @@ public class LobbyNetworkManager : NetworkManager
         if (isMatchmakerLaunched)
         {
             serverData.UpdateEntry(NetworkServer.connections.Count);
-            ClientSend.SendUpdate(serverData);
+            ServerSend.SendUpdate(serverData);
         }
 
         //RoomPlayers.Add(conn.identity.gameObject.GetComponent<PlayerRoomNetwork>());
@@ -146,11 +146,10 @@ public class LobbyNetworkManager : NetworkManager
         }
         base.OnServerDisconnect(conn);
 
-        //Todo, Network-Matchmaker: Do a recount on connected client, update matchmaker
         if (isMatchmakerLaunched)
         {
             serverData.UpdateEntry(NetworkServer.connections.Count);
-            ClientSend.SendUpdate(serverData);
+            ServerSend.SendUpdate(serverData);
         }
     }
 
@@ -226,11 +225,10 @@ public class LobbyNetworkManager : NetworkManager
             ServerChangeScene("Map");
         }
 
-        //Todo, Network-Matchmaker: Update matchmaker, set ServerDataEntry.running = true
         if (isMatchmakerLaunched)
         {
             serverData.UpdateEntry(true);
-            ClientSend.SendUpdate(serverData);
+            ServerSend.SendUpdate(serverData);
         }
     }
 
@@ -269,7 +267,7 @@ public class LobbyNetworkManager : NetworkManager
     public override void OnServerReady(NetworkConnection conn)
     {
         base.OnServerReady(conn);
-        onServerReadied?.Invoke(conn);
+        OnServerReadied?.Invoke(conn);
         Debug.Log(conn.connectionId);
     }
 
