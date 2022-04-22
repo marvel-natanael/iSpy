@@ -37,11 +37,14 @@ public class CircleShrink : NetworkBehaviour
         player.TakeDamage(damage);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D col)
     {
-        if (collision.CompareTag("Player"))
+        if (col.CompareTag("Player"))
         {
             isOutside = false;
+            var player = col.gameObject.GetComponent<PlayerManager>();
+            if (player.isLocalPlayer)
+                playerToDamage = player;
         }
     }
 
