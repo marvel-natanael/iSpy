@@ -14,6 +14,11 @@ namespace Player.Weapons
             currentWeapon = null;
         }
 
+        private void Update()
+        {
+            Debug.Log(currentWeapon);
+        }
+
         public void SetWeapon(Weapon weapon)
         {
             if(currentWeapon != null)
@@ -24,7 +29,7 @@ namespace Player.Weapons
 
             currentWeapon = weapon;
             weapon.transform.SetParent(parent);
-            weapon.transform.localPosition = parent.localPosition;
+            weapon.transform.localPosition = new Vector3(parent.localPosition.x, parent.localPosition.y - 3, parent.localPosition.z);
             weapon.transform.localRotation = parent.localRotation;
         }
 
