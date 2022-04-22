@@ -1,5 +1,6 @@
 using System.Collections;
 using Mirror;
+using Player.Weapons;
 using UnityEngine;
 
 namespace Player
@@ -9,9 +10,12 @@ namespace Player
         private Animator _animator;
         private PlayerMovement _playerMovement;
         private PlayerShoot _playerShoot;
+        
+        private WeaponSwap weapon;
 
         private void Start()
         {
+            weapon = GetComponent<WeaponSwap>();
             _animator = GetComponent<Animator>();
 
             _playerMovement = GetComponent<PlayerMovement>();
@@ -27,7 +31,8 @@ namespace Player
         [ClientCallback]
         private void Animation()
         {
-            if (_playerShoot.GetShoot() && _playerMovement.GetInputMovement() != Vector2.zero)
+
+            if (_playerMovement.GetInputMovement() != Vector2.zero && weapon.GetWeapon() != null)
             {
                 WalkWithWeapon();
             }
@@ -39,7 +44,7 @@ namespace Player
             {
                 Reload();
             }
-            else if (_playerShoot.GetShoot())
+            else if (weapon.GetWeapon() != null)
             {
                 IdleWeapon();
             }
