@@ -185,11 +185,10 @@ public class LobbyNetworkManager : NetworkManager
                 var conn = RoomPlayers[i].connectionToClient;
                 PlayerGameNetwork gamePlayerInstance = Instantiate(playerGamePrefab);
                 //gamePlayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
-            
+
                 NetworkServer.Destroy(conn.identity.gameObject);
                 NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
             }
-
         } 
         base.ServerChangeScene(newSceneName);
     }
@@ -203,11 +202,10 @@ public class LobbyNetworkManager : NetworkManager
         }
     }
 
-    public override void OnClientSceneChanged(NetworkConnection conn)
+    public override void OnClientSceneChanged()
     {
         if (IsSceneActive("Map"))
         {
-            var player = conn.identity.gameObject.GetComponent<PlayerGameNetwork>();
             if(changedScenePlayers == GamePlayers.Count)
             {
                 foreach(var gamePlayer in GamePlayers)

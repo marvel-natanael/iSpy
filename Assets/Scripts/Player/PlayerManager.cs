@@ -15,6 +15,8 @@ namespace Player
 
         private WeaponSwap weapon;
 
+        public static event Action OnGameOver;
+
         private void Awake()
         {
             //WeaponType = WeaponType.Pistol;
@@ -137,7 +139,8 @@ namespace Player
         {
             GameManager.instance.playersCount -= 1;
             RpcShowLoseText(p.connectionToClient);
-            GameManager.instance.GameOver();
+            OnGameOver();
+            //GameManager.instance.GameOver();
             Destroy(p.gameObject);
         }
 

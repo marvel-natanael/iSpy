@@ -2651,8 +2651,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   minSize: 5
-  shrinkMultiplier: 1
-  damage: 1
+  shrinkMultiplier: 0.1
+  damage: 100
 --- !u!331 &1352639038
 SpriteMask:
   m_ObjectHideFlags: 0
