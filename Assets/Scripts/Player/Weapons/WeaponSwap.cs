@@ -12,6 +12,11 @@ namespace Player.Weapons
         private void Start()
         {
             currentWeapon = null;
+
+            if (hasAuthority)
+            {
+                InGameUIManager.instance.WeaponUI.SetTargetPlayer(this);
+            }
         }
 
         private void Update()
@@ -31,6 +36,7 @@ namespace Player.Weapons
             weapon.transform.SetParent(parent);
             weapon.transform.localPosition = new Vector3(parent.localPosition.x, parent.localPosition.y - 3, parent.localPosition.z);
             weapon.transform.localRotation = parent.localRotation;
+            InGameUIManager.instance.WeaponUI.UpdateSprite(weapon.WeaponType.ToString(), weapon.amount);
         }
 
         public Weapon GetWeapon()
@@ -38,6 +44,26 @@ namespace Player.Weapons
             return currentWeapon;
         }
 
+        [Command]
+        private void CmdDecreaseBullet(int number)
+        {
+            if (!currentWeapon) return;
+
+            Debug.Log(netId + " sisa peluru : " + currentWeapon.amount);
+            currentWeapon.amount -= number;
+            UpdateAmount(currentWeapon.amount);
+        }
+
+        public void DecreaseBullet(int number)
+        {
+            CmdDecreaseBullet(number);
+        }
+
+        [TargetRpc]
+        public void UpdateAmount(int amount)
+        {
+            InGameUIManager.instance.WeaponUI.UpdateAmount(amount);
+        }
         //[SerializeField] private WeaponType weaponType;
         //[SerializeField] private Pistol pistol;
         //[SerializeField] private Shotgun shotgun;

@@ -11,25 +11,17 @@ public class InGameUIManager : MonoBehaviour
     [SerializeField] private ShootButtonUI shootButton;
     [SerializeField] private UIPlayer playerUI;
     [SerializeField] private TMP_Text loseText;
+    [SerializeField] private WeaponUI weaponUI;
 
     private GameObject targetPlayer;
 
     public ShootButtonUI ShootButton { get { return shootButton; } }
     public UIPlayer PlayerUI { get { return playerUI; } }
     public TMP_Text LoseText { get { return loseText; } }
+    public WeaponUI WeaponUI { get { return weaponUI; } }
 
     private void Awake()
     {
         instance = this;
-    }
-
-    public GameObject GetPlayer()
-    {
-        if(targetPlayer != null)
-        {
-            return targetPlayer;
-        }
-
-        return null;
     }
 }

@@ -38,7 +38,6 @@ namespace Player
 
             CmdAddPlayerToServer();
             InGameUIManager.instance.PlayerUI.SetTargetPlayer(this);
-
         }
 
         //public Weapon GetWeapon()

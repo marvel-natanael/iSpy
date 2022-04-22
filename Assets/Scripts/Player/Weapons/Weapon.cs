@@ -42,18 +42,6 @@ namespace Player.Weapons
             playerManager.WeaponType = weaponType;
         }
 
-        [Command(requiresAuthority =false)]
-        private void CmdDecreaseBullet(int number)
-        {
-            Debug.Log(netId + " sisa peluru : " + amount);
-            amount -= number;
-        }
-        
-        public void DecreaseBullet(int number)
-        {
-            CmdDecreaseBullet(number);
-        }
-
         public WeaponType WeaponType => weaponType;
     }
 }
