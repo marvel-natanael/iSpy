@@ -75,6 +75,7 @@ public class LobbyNetworkManager : NetworkManager
     {
         if (SceneManager.GetActiveScene().path == menuScene)
         {
+            Debug.Log("roomplayer count : " + RoomPlayers.Count);
             //bool isLeader = RoomPlayers.Count == 0;
             PlayerRoomNetwork roomPlayerInstance = Instantiate(playerRoomPrefab);
             //roomPlayerInstance.IsLeader = isLeader;
@@ -96,11 +97,11 @@ public class LobbyNetworkManager : NetworkManager
     {
         base.OnStopClient();
 
-        if (SceneManager.GetActiveScene().path == onlineScene)
-        {
-            var lobby = GameObject.Find("MenuManager").GetComponent<MenuUIManager>();
-            lobby.ShowMainMenu();
-        }
+        //if (SceneManager.GetActiveScene().path == onlineScene)
+        //{
+        //    var lobby = GameObject.Find("MenuManager").GetComponent<MenuUIManager>();
+        //    lobby.ShowMainMenu();
+        //}
     }
 
     public void NotifyPlayersOfReadyState()
@@ -165,6 +166,11 @@ public class LobbyNetworkManager : NetworkManager
         }
     }
 
+    public void ResetGame()
+    {
+        ServerChangeScene(menuScene);
+    }
+
     public override void ServerChangeScene(string newSceneName)
     {
         if (SceneManager.GetActiveScene().path == menuScene && newSceneName.StartsWith("Map"))
@@ -178,13 +184,12 @@ public class LobbyNetworkManager : NetworkManager
             {
                 var conn = RoomPlayers[i].connectionToClient;
                 PlayerGameNetwork gamePlayerInstance = Instantiate(playerGamePrefab);
-                gamePlayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
+                //gamePlayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
 
                 NetworkServer.Destroy(conn.identity.gameObject);
                 NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
             }
-
-        }
+        } 
         base.ServerChangeScene(newSceneName);
     }
 
@@ -197,11 +202,10 @@ public class LobbyNetworkManager : NetworkManager
         }
     }
 
-    public override void OnClientSceneChanged(NetworkConnection conn)
+    public override void OnClientSceneChanged()
     {
         if (IsSceneActive("Map"))
         {
-            var player = conn.identity.gameObject.GetComponent<PlayerGameNetwork>();
             if(changedScenePlayers == GamePlayers.Count)
             {
                 foreach(var gamePlayer in GamePlayers)

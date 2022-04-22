@@ -1,31 +1,40 @@
 using System.Collections;
-using System.Collections.Generic;
+using Mirror;
+using Player;
 using UnityEngine;
 
-public class CircleShrink : MonoBehaviour
+public class CircleShrink : NetworkBehaviour
 {
-    bool isOutside = true;
+    bool isOutside = false;
     [SerializeField]
-    float minSize, shrinkMultiplier;
-    bool isShrinked = false;
+    float minSize, shrinkMultiplier, damage = 1;
+    bool isShrinked = false, takeDamage = true;
+    PlayerManager playerToDamage = null;
 
     void Update()
     {
-        if(isOutside)
+        if (isOutside)
         {
-            Damage();
+            if (playerToDamage != null && takeDamage)
+            {
+                StartCoroutine(delay());
+                Damage(playerToDamage);
+            }
         }
-        else
-        {
-            //Debug.Log("is ");
-        }
-        if(!isShrinked)
-        StartCoroutine(Shrink());
+        if (!isShrinked)
+            StartCoroutine(Shrink());
     }
 
-    void Damage()
+    IEnumerator delay()
     {
-        //Debug.Log("is damaged");
+        takeDamage = false;
+        yield return new WaitForSeconds(1);
+        takeDamage = true;
+    }
+
+    void Damage(PlayerManager player)
+    {
+        player.TakeDamage(damage);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -36,22 +45,26 @@ public class CircleShrink : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D col)
     {
-        if (collision.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player"))
         {
             isOutside = true;
+            var player = col.gameObject.GetComponent<PlayerManager>();
+            if (player.isLocalPlayer)
+                playerToDamage = player;
         }
     }
 
+
     IEnumerator Shrink()
     {
-        Vector3 minScale = new Vector3 (minSize, minSize);
+        Vector3 minScale = new Vector3(minSize, minSize);
         Vector3 startScale = transform.localScale;
         float timer = 0f;
-        while(transform.localScale.x > minSize)
+        while (transform.localScale.x > minSize)
         {
-            transform.localScale = Vector3.Lerp(startScale, minScale, timer/shrinkMultiplier/50f);
+            transform.localScale = Vector3.Lerp(startScale, minScale, timer / shrinkMultiplier / 50f);
             timer += Time.deltaTime;
             yield return null;
         }

@@ -30,7 +30,6 @@ public class NPC : NetworkBehaviour
         timerToDelay = delay;
     }
 
-    [Command]
     public virtual void Attack()
     {
         timerToFire += Time.deltaTime;

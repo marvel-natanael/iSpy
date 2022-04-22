@@ -93,13 +93,13 @@ namespace Player
             bulletPool.transform.position = _position;
 
             var up = -transform.up;
-            up = Vector3.MoveTowards(up, _position, distance * Time.deltaTime);
+            //up = Vector3.RotateTowards(bulletPool.transform.localRotation, _position, distance * Time.deltaTime);
             var bullet = bulletPool.GetComponent<Bullet>(); // get script bullet
             bullet.SetOwner(this);
             bullet.Move(up, speed); // call method move for moving bullet 
             bullet.Damage(damage); // set damage value
 
-            transform.up = up;
+            //transform.up = up;
         }
 
         public void Shoot()

@@ -15,6 +15,8 @@ namespace Player
 
         private WeaponSwap weapon;
 
+        public static event Action OnGameOver;
+
         private void Awake()
         {
             //WeaponType = WeaponType.Pistol;
@@ -27,7 +29,7 @@ namespace Player
             };
 
             //ItemPlayer.amount = weapon.GetWeapon().amount;
-            
+
         }
 
         private void Start()
@@ -54,6 +56,23 @@ namespace Player
         //    //pistol.gameObject.SetActive(type == WeaponType.Pistol);
         //    //shotgun.gameObject.SetActive(type == WeaponType.Shotgun);
         //}
+
+        public void TakeDamage(float damage)
+        {
+            if (isServer) return;
+            CmdTakeDamage(damage);
+        }
+
+        [Command]
+        private void CmdTakeDamage(float damage)
+        {
+            ItemPlayer.health -= damage;
+            if(ItemPlayer.health <= 0)
+            {
+                CmdDead(this);
+            }
+            RpcUpdateUI(ItemPlayer.health, ItemPlayer.amount);
+        }
 
         [Command]
         private void CmdAddPlayerToServer()
@@ -94,7 +113,7 @@ namespace Player
         {
             if (ItemPlayer.health >= 100) return;
             ItemPlayer.health += health;
-            RpcUpdateUI(ItemPlayer.health, ItemPlayer.amount); 
+            RpcUpdateUI(ItemPlayer.health, ItemPlayer.amount);
         }
         #endregion
 
@@ -110,7 +129,7 @@ namespace Player
         {
             Debug.Log(netId + " amount : " + ItemPlayer.amount);
             ItemPlayer.amount -= 1;
-            
+
             RpcUpdateUI(ItemPlayer.health, ItemPlayer.amount);
         }
         #endregion
@@ -120,7 +139,8 @@ namespace Player
         {
             GameManager.instance.playersCount -= 1;
             RpcShowLoseText(p.connectionToClient);
-            GameManager.instance.GameOver();
+            OnGameOver();
+            //GameManager.instance.GameOver();
             Destroy(p.gameObject);
         }
 
