@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563529548991478264}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
   m_LocalPosition: {x: 0, y: -4.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7563529549242057628}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!1 &7563529549242057630
 GameObject:
   m_ObjectHideFlags: 0
@@ -82,6 +82,8 @@ MonoBehaviour:
   syncInterval: 0.1
   weaponType: 0
   originShoot: {fileID: 7563529548991478265}
+  mountSprite: {fileID: 21300000, guid: 178cb21a7333cdb41b40d118cb5f227a, type: 3}
+  dropSprite: {fileID: 21300000, guid: faba0b4c46e6df241a6a70b3151347c9, type: 3}
   damage: 10
   speed: 15
   amount: 100
@@ -126,7 +128,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 178cb21a7333cdb41b40d118cb5f227a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: faba0b4c46e6df241a6a70b3151347c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -8,6 +8,7 @@ namespace Player.Weapons
         [Header("Components")] [SerializeField]
         private WeaponType weaponType;
         [SerializeField] protected Transform originShoot;
+        [SerializeField] protected Sprite mountSprite, dropSprite;
 
         [Header("Properties")]
         [SerializeField] protected float damage;
@@ -22,6 +23,7 @@ namespace Player.Weapons
         private void Start()
         {
             playerManager = GetComponentInParent<PlayerManager>();
+            dropSprite = GetComponent<SpriteRenderer>().sprite;
         }
 
         public virtual float Damage => damage;
@@ -40,6 +42,16 @@ namespace Player.Weapons
         public virtual void SwapWeapon(int amount)
         {
             playerManager.WeaponType = weaponType;
+        }
+
+        public void ChgToDropSprite()
+        {
+            GetComponent<SpriteRenderer>().sprite = dropSprite;
+        }
+
+        public void ChgToMountSprite()
+        {
+            GetComponent<SpriteRenderer>().sprite = mountSprite;
         }
 
         [Command(requiresAuthority =false)]

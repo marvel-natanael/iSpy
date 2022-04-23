@@ -25,12 +25,14 @@ namespace Player.Weapons
             {
                 parent.DetachChildren();
                 currentWeapon.GetComponent<Collider2D>().enabled = true;
+                currentWeapon.ChgToDropSprite();
             }
 
             currentWeapon = weapon;
             weapon.transform.SetParent(parent);
             weapon.transform.localPosition = new Vector3(parent.localPosition.x, parent.localPosition.y - 3, parent.localPosition.z);
             weapon.transform.localRotation = parent.localRotation;
+            weapon.ChgToMountSprite();
         }
 
         public Weapon GetWeapon()
