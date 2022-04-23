@@ -17,7 +17,7 @@ public class MenuUIManager : MonoBehaviour
     LobbyNetworkManager networkManager = null;
     [SerializeField]
     string address;
-    void OnEnable()
+    /*void OnEnable()
     {
         PlayerNameInput.OnClicked += ShowMainMenu;
     }
@@ -25,7 +25,6 @@ public class MenuUIManager : MonoBehaviour
     {
         PlayerNameInput.OnClicked -= ShowMainMenu;
     }
-
     void Start()
     {
         mainMenu = GameObject.Find("Main Menu");
@@ -33,9 +32,8 @@ public class MenuUIManager : MonoBehaviour
         enterNamePanel = GameObject.Find("Enter Name Panel");
         nameInputField = GameObject.Find("Name Input Field").GetComponent<TMP_InputField>();
         mainMenuTf = GameObject.Find("Menu Canvas").GetComponent<RectTransform>();
-
         mainMenuTf.DOAnchorPos(Vector2.zero, 0.25f);
-    }
+    }*/
 
     public void SwipeUp()
     {
@@ -68,17 +66,17 @@ public class MenuUIManager : MonoBehaviour
             mainMenu.SetActive(true);
         }
     }
-
+/*
     public void ShowLobby()
     {
         mainMenu.SetActive(false);
         enterNamePanel.SetActive(false);
-    }
+    }*/
 
     public void HostGame()
     {
         networkManager.StartHost();
-        ShowLobby();
+        // ShowLobby();
     }
 
     public void JoinGame()
