@@ -77,7 +77,7 @@ namespace Player
             Fire(_selected.Speed, _selected.Damage); // method for fire weapon
 
             //playerManager.DecreaseAmountBullet(); 
-            weapon.GetWeapon().DecreaseBullet(1);
+            weapon.DecreaseBullet(1);
 
             _timer = 0f;
             

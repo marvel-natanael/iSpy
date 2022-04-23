@@ -3634,6 +3634,7 @@ MonoBehaviour:
   shootButton: {fileID: 7753296025985048554}
   playerUI: {fileID: 7753296027107663809}
   loseText: {fileID: 1318304645}
+  weaponUI: {fileID: 1981393161}
 --- !u!4 &1038329575
 Transform:
   m_ObjectHideFlags: 0
@@ -5322,8 +5323,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4292229412
+  m_fontColor: {r: 0.13993701, g: 0.22378477, b: 0.8396226, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5346,7 +5347,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -6876,6 +6877,7 @@ GameObject:
   - component: {fileID: 1981393158}
   - component: {fileID: 1981393160}
   - component: {fileID: 1981393159}
+  - component: {fileID: 1981393161}
   m_Layer: 5
   m_Name: Weapon
   m_TagString: Untagged
@@ -6941,8 +6943,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1981393157}
   m_CullTransparentMesh: 1
---- !u!1 &1985092339
-GameObject:
+--- !u!114 &1981393161
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
