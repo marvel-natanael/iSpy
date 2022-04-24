@@ -14,6 +14,9 @@ public class GameManager : NetworkBehaviour
     [SyncVar(hook = nameof(Hook_GameOver))]
     public bool gameOver = false;
 
+    [SerializeField]
+    int pCount;
+
     public void Hook_GameOver(bool oldVal, bool newVal)
     {
         if (newVal)
@@ -47,11 +50,19 @@ public class GameManager : NetworkBehaviour
 
     private void Start()
     {
-
+        //pCount = GameObject.FindGameObjectsWithTag("Player").Length;
     }
 
     private void Update()
     {
+        pCount = GameObject.FindGameObjectsWithTag("Player").Length;
+        if(pCount == 0)
+        {
+            if(!gameOver)
+            {
+                GameOver();
+            }
+        }
         //StartCoroutine(ClearRoom());
         //yield return new WaitForSeconds(2f);
 
@@ -82,7 +93,7 @@ public class GameManager : NetworkBehaviour
 
     public void GameOver()
     {
-        if (playersCount == 1)
+        if (playersCount <= 1 || pCount == 1)
         {
             gameOver = true;
             var manager = NetworkManager.singleton as LobbyNetworkManager;
