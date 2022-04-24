@@ -29,7 +29,7 @@ namespace MainMenu
 
         public void Play()
         {
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("Lobby");
         }
 
         public void Setting()
