@@ -8,7 +8,7 @@ using Player.Weapons;
 public class WeaponUI : MonoBehaviour
 {
     [SerializeField] List<Sprite> weaponSpriteList = new List<Sprite>();
-    private Sprite sprite;
+    private Image sprite;
 
     [SerializeField] TMP_Text amountText;
 
@@ -26,19 +26,16 @@ public class WeaponUI : MonoBehaviour
 
     public void UpdateSprite(string type, int amount)
     {
-        sprite = GetComponent<Image>().sprite;
-        
         gameObject.SetActive(true);
-
+        sprite = GetComponent<Image>();
+        
         if (type == "Pistol") 
         {
-            sprite = weaponSpriteList[0];
-            Debug.Log("SPRITE PISTOL");
+            sprite.sprite = weaponSpriteList[0];
         }
         else if(type == "Shotgun")
         {
-            sprite = weaponSpriteList[1];
-            Debug.Log("SPRITE SHOTGUN");
+            sprite.sprite = weaponSpriteList[1];
         }
         else
         {

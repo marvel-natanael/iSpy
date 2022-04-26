@@ -13,75 +13,62 @@ namespace Player
 
         // Properties
         private float _timer;
+
+        [SyncVar][SerializeField] 
         private bool _shoot;
 
         //Component
         private Vector2 _position;
-        private ItemPlayer _itemPlayer;
         private Weapon _selected;
 
-        private PlayerManager playerManager;
         private WeaponSwap weapon;
 
         public bool GetShoot() => _shoot;
 
         private void Start()
         {
-            if (!hasAuthority) return;
-
-            playerManager = GetComponent<PlayerManager>();
             weapon = GetComponent<WeaponSwap>();
-            _selected = weapon.GetWeapon();
-            
-            //_itemPlayer = playerManager.ItemPlayer;
-            //_itemPlayer.amount = _selected.Amount; // update ui amount bullet weapon
-            //playerManager.ItemPlayer.amount = _selected.Amount;
 
-            InGameUIManager.instance.ShootButton.SetTargetPlayer(this);
+            if (hasAuthority)
+            {
+                InGameUIManager.instance.ShootButton.SetTargetPlayer(this);
+            }
         }
         
         private void Update()
         {
-            if (!hasAuthority) return;
-
-            if (_selected != null)
+            if (_shoot)
             {
-                _position = _selected.OriginShoot.position;
-            }
-
-            // updated data from player manager
-            //_itemPlayer = playerManager.ItemPlayer;
-            _selected = weapon.GetWeapon();
-
-            if (_selected)
-            {
-                Debug.DrawRay(_position, _selected.OriginShoot.TransformDirection(Vector2.up) * distance, Color.black);
-
-                var hit = Physics2D.Raycast(_position, _selected.OriginShoot.TransformDirection(Vector2.up), distance);
-
-                if (hit && _shoot)
-                {
-                    Debug.Log(hit.collider.name);
-                    SetWeapon();
-                }
+                SetWeapon();
             }
         }
 
         private void SetWeapon()
-        {
-            _timer += Time.deltaTime;
-            if ((!(_timer >= _selected.FireSpeed))) return;
+        { 
+            if (weapon.GetWeapon())
+            {
+                _selected = weapon.GetWeapon();
+                _position = _selected.OriginShoot.position;
 
-            if (_selected.amount <= 0) return; // if amount bullet <= 0
+                var hit = Physics2D.Raycast(_position, _selected.OriginShoot.TransformDirection(Vector2.up), distance);
 
-            Fire(_selected.Speed, _selected.Damage); // method for fire weapon
+                if (hit.collider)
+                {
+                    _timer += Time.deltaTime;
+                    if ((!(_timer >= _selected.FireSpeed))) return;
 
-            //playerManager.DecreaseAmountBullet(); 
-            weapon.DecreaseBullet(1);
+                    if (_selected.amount <= 0) return;
 
-            _timer = 0f;
-            
-            // set timer to 0
+                    Fire(_selected.Speed, _selected.Damage);
+
+                    if (hasAuthority)
+                    {
+                        weapon.DecreaseBullet(1);
+                    }
+
+                    _timer = 0f;
+                }
+            }
         }
 
         private void Fire(float speed, float damage)
@@ -93,15 +80,13 @@ namespace Player
             bulletPool.transform.position = _position;
 
             var up = -transform.up;
-            //up = Vector3.RotateTowards(bulletPool.transform.localRotation, _position, distance * Time.deltaTime);
             var bullet = bulletPool.GetComponent<Bullet>(); // get script bullet
             bullet.SetOwner(this);
             bullet.Move(up, speed); // call method move for moving bullet 
             bullet.Damage(damage); // set damage value
-
-            //transform.up = up;
         }
 
+        [Command]
         public void Shoot()
         {
             _shoot = !_shoot;

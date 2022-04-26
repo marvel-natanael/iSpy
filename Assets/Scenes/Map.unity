@@ -3509,6 +3509,7 @@ MonoBehaviour:
   syncInterval: 0.1
   playersCount: 0
   gameOver: 0
+  pCount: 0
 --- !u!4 &984021662
 Transform:
   m_ObjectHideFlags: 0
@@ -6971,7 +6972,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3124d2741c310174882e04c7af93bd04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSpriteList: []
+  weaponSpriteList:
+  - {fileID: 21300000, guid: faba0b4c46e6df241a6a70b3151347c9, type: 3}
+  - {fileID: 21300000, guid: 1de536ad0d213424586a4a06cdcfacbf, type: 3}
   amountText: {fileID: 1593774315}
 --- !u!4 &1985092340
 Transform:

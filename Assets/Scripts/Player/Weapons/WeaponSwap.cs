@@ -19,11 +19,6 @@ namespace Player.Weapons
             }
         }
 
-        private void Update()
-        {
-            Debug.Log(currentWeapon);
-        }
-
         public void SetWeapon(Weapon weapon)
         {
             if(currentWeapon != null)
@@ -38,7 +33,10 @@ namespace Player.Weapons
             weapon.transform.localPosition = new Vector3(parent.localPosition.x, parent.localPosition.y - 3, parent.localPosition.z);
             weapon.transform.localRotation = parent.localRotation;
             weapon.ChgToMountSprite();
-            //InGameUIManager.instance.WeaponUI.UpdateSprite(weapon.WeaponType.ToString(), weapon.amount);
+            if (hasAuthority)
+            {
+                InGameUIManager.instance.WeaponUI.UpdateSprite(weapon.WeaponType.ToString(), weapon.amount);
+            }
         }
 
         public Weapon GetWeapon()
