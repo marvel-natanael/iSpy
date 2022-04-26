@@ -10,13 +10,16 @@ public class GameManager : NetworkBehaviour
     public static GameManager instance = null;
 
     [SyncVar]
-    public int playersCount;
+    public int playersCount, returningPlayer;
     [SyncVar(hook = nameof(Hook_GameOver))]
     public bool gameOver = false;
 
     [SerializeField]
     int pCount;
-
+    [SerializeField]
+    bool counting;
+    [SerializeField]
+    GameObject winPanel;
     public void Hook_GameOver(bool oldVal, bool newVal)
     {
         if (newVal)
@@ -26,7 +29,8 @@ public class GameManager : NetworkBehaviour
                 //StartCoroutine(ClearRoom());
                 var manager = NetworkManager.singleton as LobbyNetworkManager;
                 Debug.Log("STOP CLIENT");
-                manager.StopClient();
+                //manager.StopClient();
+                winPanel.SetActive(true);
             }
         }
     }
@@ -50,18 +54,21 @@ public class GameManager : NetworkBehaviour
 
     private void Start()
     {
-        //pCount = GameObject.FindGameObjectsWithTag("Player").Length;
+        //StartCoroutine("CountPlayers");
     }
 
     private void Update()
     {
         pCount = GameObject.FindGameObjectsWithTag("Player").Length;
-        if(pCount == 0)
+
+        if (pCount < 2)
         {
-            if(!gameOver)
-            {
-                GameOver();
-            }
+            if (!gameOver) GameOver();
+            //StartCoroutine(ClearRoom());   
+        }
+        if (returningPlayer == pCount)
+        {
+            if (!counting) ServerReturnToLobbyCoroutine();
         }
         //StartCoroutine(ClearRoom());
         //yield return new WaitForSeconds(2f);
@@ -93,71 +100,52 @@ public class GameManager : NetworkBehaviour
 
     public void GameOver()
     {
-        if (playersCount <= 1 || pCount == 1)
+        gameOver = true;
+        var manager = NetworkManager.singleton as LobbyNetworkManager;
+
+        if(isClient)
         {
-            gameOver = true;
-            var manager = NetworkManager.singleton as LobbyNetworkManager;
-
-            //StartCoroutine(ClearRoom());
-
-            if (isServer)
-            {
-                Debug.Log("Conn Count : " + NetworkServer.connections.Count);
-                //if (NetworkServer.connections.Count <= 0)
-                //{
-                manager.RoomPlayers.Clear();
-                manager.GamePlayers.Clear();
-                manager.ResetGame();
-                //var lobbyScene = NetworkManager.singleton.onlineScene;
-                //SceneManager.LoadScene(lobbyScene);
-                //}
-            }
-
-            //if (isServer)
+            winPanel.SetActive(true);
+        }
+        if (isServer)
+        {
+            Debug.Log("Conn Count : " + NetworkServer.connections.Count);
+            //if (NetworkServer.connections.Count <= 0)
             //{
-            //    StartCoroutine(ServerReturnToLobbyCoroutine(2f));
+            //manager.RoomPlayers.Clear();
+            //manager.GamePlayers.Clear();
+            //manager.ResetGame();
+            //var lobbyScene = NetworkManager.singleton.onlineScene;
+            //SceneManager.LoadScene(lobbyScene);
             //}
         }
     }
 
-    private IEnumerator ClearRoom()
+    private IEnumerator CountPlayers()
     {/*
         var manager = NetworkManager.singleton as LobbyNetworkManager;
         */
-        yield return new WaitForSeconds(2f);
-
-        /*        if (gameOver)
-                {
-                    if (isClient)
-                    {
-                        Debug.Log("STOP CLIENT");
-                        manager.StopClient();
-                    }
-
-                    else if (isServer)
-                    {
-                        Debug.Log("Conn Count : " + NetworkServer.connections.Count);
-                        if(NetworkServer.connections.Count <= 0)
-                        {
-                            manager.ResetGame();
-                            //var lobbyScene = NetworkManager.singleton.onlineScene;
-                            //SceneManager.LoadScene(lobbyScene);
-                        }
-                    }
-                }*/
+        yield return new WaitForSeconds(4f);
+        pCount = GameObject.FindGameObjectsWithTag("Player").Length;
     }
 
-    private IEnumerator ServerReturnToLobbyCoroutine(float delay)
+    private void ServerReturnToLobbyCoroutine()
     {
         var manager = NetworkManager.singleton as LobbyNetworkManager;
-        yield return new WaitForSeconds(delay);
-        manager.ResetGame();
+        if(isServer)
+        {
+            manager.RoomPlayers.Clear();
+            manager.GamePlayers.Clear();
+            manager.ResetGame();
+            counting = true;
+        }
     }
-
-    private void ServerReturnToLobby()
+    [Command(requiresAuthority = false)]
+    public void ReturnToLobby()
     {
-        var manager = NetworkManager.singleton as LobbyNetworkManager;
-        manager.ResetGame();
+        //var manager = NetworkManager.singleton as LobbyNetworkManager;
+        //manager.ResetGame();
+        instance.returningPlayer++;
     }
 
     public override void OnStopClient()
