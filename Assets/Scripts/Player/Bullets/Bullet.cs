@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
+using Mirror;
 using UnityEngine;
 
 namespace Player.Bullets
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : NetworkBehaviour
     {
         [SerializeField] private new Rigidbody2D rigidbody2D;
 
@@ -26,8 +28,16 @@ namespace Player.Bullets
             // if the bullet hits another player
             if (col.gameObject.CompareTag("Player"))
             {
-                PlayerManager target = col.gameObject.GetComponent<PlayerManager>();
-                owner.GetComponent<PlayerManager>().DamageTo(target, _damage);
+                Debug.Log("Fire "+col.gameObject.name);
+                try
+                {
+                    PlayerManager target = col.GetComponent<PlayerManager>();
+                    if (target == null) return;
+                    target.GetComponent<PlayerManager>().DamageTo(target, _damage);
+                }catch(Exception e)
+                {
+                    Debug.Log(e.Message);
+                }
             }
         }
 
