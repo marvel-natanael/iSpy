@@ -40,6 +40,11 @@ namespace Player
             InGameUIManager.instance.PlayerUI.SetTargetPlayer(this);
         }
 
+        private void Update()
+        {
+            Debug.Log("Health Player : "+ItemPlayer.health);
+        }
+
         //public Weapon GetWeapon()
         //{
         //    return WeaponType switch

@@ -1,38 +1,80 @@
+using Mirror;
 using UnityEngine;
 
-public class Soldier : NPC
+public class Soldier : NetworkBehaviour
 {
-    [Header("Soldier Properties")]
-    [SerializeField]
+    [Header("Target")] [SerializeField] protected GameObject targetPlayer;
+
+    [SerializeField] protected GameObject bullet;
+
+    [Header("Properties")] [SerializeField]
+    protected float delay;
+
+    protected float timerToDelay;
+
+    [Header("Soldier Properties")] [SerializeField]
     private float moveSpeed;
 
-    [SerializeField]
-    private Transform nextMove;
+    [SerializeField] private Transform nextMove;
     private Vector2 currentPos;
 
-    public override void Start()
+    [SerializeField] protected float fireSpeed;
+    protected float timerToFire;
+
+    [Header("Shoot Properties")] [SerializeField]
+    protected float bulletSpeed;
+
+    [SerializeField] protected float damage;
+
+    [SyncVar] public float health = 100;
+
+    [SerializeField] protected Transform _originShoot;
+
+    [SerializeField] private DetectionPlayer _detectionPlayer;
+
+    public void Start()
     {
-        base.Start();
+        /*if (!hasAuthority)
+        {
+            Debug.Log("Not have authority");
+            return;
+        }*/
+        
         currentPos = transform.position;
+        transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y,
+            transform.localScale.z);
         timerToDelay = delay;
     }
 
     private void Update()
     {
+
+        if (_detectionPlayer.detection)
+        {
+            Attack();
+        }
+        
+        if (_detectionPlayer.detection)
+        {
+            Debug.Log("Detection True " + _detectionPlayer.detection);
+            Move( transform.position, 0);   
+        }
+        else
+        {
+            Debug.Log("Detection False " + _detectionPlayer.detection);
+            Move(nextMove.position, 2f);
+        }
+
         Routine();
-        Attack();
     }
 
-    public override void Routine()
+    private void Routine()
     {
-        base.Routine();
         if (!nextMove)
         {
             Debug.LogError("NextMove field is empty!");
             return;
         }
-
-        transform.position = Vector2.MoveTowards(transform.position, nextMove.position, moveSpeed * Time.deltaTime);
 
         if (Vector2.Distance(transform.position, nextMove.position) <= 0)
         {
@@ -40,7 +82,9 @@ public class Soldier : NPC
             {
                 nextMove.position = currentPos;
                 currentPos = transform.position;
-                Vector2 dir = nextMove.position - transform.position;
+
+                transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y,
+                    transform.localScale.z);
 
                 timerToDelay = delay;
             }
@@ -51,17 +95,27 @@ public class Soldier : NPC
         }
     }
 
-    public override void Attack()
+    private void Move(Vector2 target, float speed)
     {
-        if (!fov.ClosestPlayer)
-        {
-            targetPlayer = null;
-            return;
-        }
-        
-        targetPlayer = fov.ClosestPlayer;
-
-        base.Attack();
+        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
     
+    private void Attack()
+    {
+        timerToFire += Time.deltaTime;
+        if (timerToFire < fireSpeed) return;
+
+        var objBullet = Instantiate(bullet, _originShoot.position, Quaternion.identity);
+
+        objBullet.GetComponent<Rigidbody2D>().velocity =
+            (transform.localScale.y < 0) ? Vector2.down * bulletSpeed : Vector2.up * bulletSpeed;
+        objBullet.GetComponent<BulletNPC>().Damage(damage);
+        objBullet.GetComponent<BulletNPC>().SetIdentity(netIdentity);
+
+        NetworkServer.Spawn(objBullet);
+        Destroy(objBullet, 5);
+
+        timerToFire = 0;
+        Debug.Log(gameObject.name + " attack!");
+    }
 }

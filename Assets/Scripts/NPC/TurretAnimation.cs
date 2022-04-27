@@ -30,7 +30,7 @@ public class TurretAnimation : MonoBehaviour
         /*Debug.Log(_state.ToString());
         Debug.Log(transform.localEulerAngles.z);
         SetState();*/
-        _state = _turret.GetState;
+       // _state = _turret.GetState;
         SetStateAnimation();
     }
 
