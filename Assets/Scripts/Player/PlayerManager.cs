@@ -87,6 +87,9 @@ namespace Player
         #region Attack
         public void DamageTo(PlayerManager p, float dmg)
         {
+            if (isServer) return;
+            if (!hasAuthority) return;
+            
             CmdDamageTo(p, dmg);
         }
 

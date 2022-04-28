@@ -1,30 +1,36 @@
-using System;
 using Mirror;
 using UnityEngine;
 
 public class TurretNPC : NetworkBehaviour
 {
-
     [SerializeField] private GameObject bullet;
 
     private float _timerToFire;
 
-    [Header("Shoot Properties")]
-    [SerializeField] protected float bulletSpeed;
+    [Header("Shoot Properties")] [SerializeField]
+    protected float bulletSpeed;
+
     [SerializeField] protected float damage;
     [SerializeField] private float fireSpeed;
-    
-    [Header("Turret Properties")]
-    [SyncVar] public float health = 100;
 
-    [Header("Turret Components")]
-    [SerializeField] private Transform originShoot;
+    [Header("Turret Properties")] public float health = 100;
+
+    [Header("Turret Components")] [SerializeField]
+    private Transform originShoot;
+
     [SerializeField] private Transform turretWeapon;
+
+    private NetworkIdentity _identity;
+
+    private void Start()
+    {
+        _identity = GetComponent<NetworkIdentity>();
+    }
 
     private void Update()
     {
         Rotate();
-        Attack();
+        CmdAttack();
     }
 
     private void Rotate()
@@ -32,21 +38,17 @@ public class TurretNPC : NetworkBehaviour
         turretWeapon.Rotate(0, 0, 0.1f, Space.Self);
     }
 
-    private void Attack()
+    private void CmdAttack()
     {
         _timerToFire += Time.deltaTime;
         if (_timerToFire < fireSpeed) return;
 
         var objBullet = Instantiate(bullet, originShoot.position, Quaternion.identity);
-        
+
         objBullet.GetComponent<Rigidbody2D>().velocity = turretWeapon.up * bulletSpeed;
         objBullet.GetComponent<BulletNPC>().Damage(damage);
-        objBullet.GetComponent<BulletNPC>().SetIdentity(netIdentity);
-        
-        NetworkServer.Spawn(objBullet);
-        
-        Destroy(objBullet, 5);
 
+        Destroy(objBullet, 5f);
         _timerToFire = 0;
     }
 }

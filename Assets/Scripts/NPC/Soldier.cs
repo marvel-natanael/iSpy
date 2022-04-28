@@ -34,12 +34,6 @@ public class Soldier : NetworkBehaviour
 
     public void Start()
     {
-        /*if (!hasAuthority)
-        {
-            Debug.Log("Not have authority");
-            return;
-        }*/
-        
         currentPos = transform.position;
         transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y,
             transform.localScale.z);
@@ -48,16 +42,15 @@ public class Soldier : NetworkBehaviour
 
     private void Update()
     {
-
         if (_detectionPlayer.detection)
         {
             Attack();
         }
-        
+
         if (_detectionPlayer.detection)
         {
             Debug.Log("Detection True " + _detectionPlayer.detection);
-            Move( transform.position, 0);   
+            Move(transform.position, 0);
         }
         else
         {
@@ -99,7 +92,7 @@ public class Soldier : NetworkBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
-    
+
     private void Attack()
     {
         timerToFire += Time.deltaTime;
@@ -110,9 +103,7 @@ public class Soldier : NetworkBehaviour
         objBullet.GetComponent<Rigidbody2D>().velocity =
             (transform.localScale.y < 0) ? Vector2.down * bulletSpeed : Vector2.up * bulletSpeed;
         objBullet.GetComponent<BulletNPC>().Damage(damage);
-        objBullet.GetComponent<BulletNPC>().SetIdentity(netIdentity);
 
-        NetworkServer.Spawn(objBullet);
         Destroy(objBullet, 5);
 
         timerToFire = 0;
