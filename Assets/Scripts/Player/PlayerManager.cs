@@ -17,6 +17,8 @@ namespace Player
 
         public static event Action OnGameOver;
 
+        public string playerName;
+
         private void Awake()
         {
             //WeaponType = WeaponType.Pistol;
@@ -37,12 +39,13 @@ namespace Player
             if (!hasAuthority) return;
 
             CmdAddPlayerToServer();
+            AddName(PlayerNameInput.displayName);
             InGameUIManager.instance.PlayerUI.SetTargetPlayer(this);
         }
 
         private void Update()
         {
-            Debug.Log("Health Player : "+ItemPlayer.health);
+            //Debug.Log("Health Player : "+ItemPlayer.health);
         }
 
         //public Weapon GetWeapon()
@@ -60,6 +63,21 @@ namespace Player
         //    //pistol.gameObject.SetActive(type == WeaponType.Pistol);
         //    //shotgun.gameObject.SetActive(type == WeaponType.Shotgun);
         //}
+
+        public void AddName(string name)
+        {
+            if (isServer) return;
+            CmdAddName(name);
+        }
+
+
+        [Command]
+        private void CmdAddName(string name)
+        {
+            playerName = name;
+            GameManager.instance.playerNames.Add(playerName);
+        }
+
 
         public void TakeDamage(float damage)
         {
@@ -171,5 +189,9 @@ namespace Player
             InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
         }
         #endregion
+        public override void OnStopClient()
+        {
+            //RemoveName(playerName);
+        }
     }
 }

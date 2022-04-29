@@ -146,14 +146,14 @@ public class LobbyNetworkManager : NetworkManager
 
         int numberOfReadyPlayers = NetworkServer.connections.Count(conn => conn.Value != null && conn.Value.identity.gameObject.GetComponent<PlayerRoomNetwork>().IsReady);
         if (numberOfReadyPlayers < minPlayers) { return false; }
-    
+
         //Debug.Log("Roomplayer count : " + RoomPlayers.Count);
-    
+
         foreach (var player in RoomPlayers)
         {
             if (!player.IsReady) { return false; }
         }
-    
+
         return true;
     }
 
@@ -161,7 +161,7 @@ public class LobbyNetworkManager : NetworkManager
     {
         if (SceneManager.GetActiveScene().path == menuScene)
         {
-            if(!IsReadyToStart()) { return; }
+            if (!IsReadyToStart()) { return; }
             ServerChangeScene("Map");
         }
     }
@@ -175,7 +175,7 @@ public class LobbyNetworkManager : NetworkManager
     {
         if (SceneManager.GetActiveScene().path == menuScene && newSceneName.StartsWith("Map"))
         {
-            foreach(GameObject prn in GameObject.FindGameObjectsWithTag("RoomPlayer"))
+            foreach (GameObject prn in GameObject.FindGameObjectsWithTag("RoomPlayer"))
             {
                 var prngo = prn.GetComponent<PlayerRoomNetwork>();
                 RoomPlayers.Add(prngo);
@@ -189,7 +189,7 @@ public class LobbyNetworkManager : NetworkManager
                 NetworkServer.Destroy(conn.identity.gameObject);
                 NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
             }
-        } 
+        }
         base.ServerChangeScene(newSceneName);
     }
 
@@ -206,9 +206,9 @@ public class LobbyNetworkManager : NetworkManager
     {
         if (IsSceneActive("Map"))
         {
-            if(changedScenePlayers == GamePlayers.Count)
+            if (changedScenePlayers == GamePlayers.Count)
             {
-                foreach(var gamePlayer in GamePlayers)
+                foreach (var gamePlayer in GamePlayers)
                 {
                     gamePlayer.CmdSceneChanged();
                 }

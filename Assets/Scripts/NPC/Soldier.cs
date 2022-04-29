@@ -49,12 +49,12 @@ public class Soldier : NetworkBehaviour
 
         if (_detectionPlayer.detection)
         {
-            Debug.Log("Detection True " + _detectionPlayer.detection);
+            //Debug.Log("Detection True " + _detectionPlayer.detection);
             Move(transform.position, 0);
         }
         else
         {
-            Debug.Log("Detection False " + _detectionPlayer.detection);
+            //Debug.Log("Detection False " + _detectionPlayer.detection);
             Move(nextMove.position, 2f);
         }
 
@@ -65,7 +65,7 @@ public class Soldier : NetworkBehaviour
     {
         if (!nextMove)
         {
-            Debug.LogError("NextMove field is empty!");
+            //Debug.LogError("NextMove field is empty!");
             return;
         }
 
@@ -107,6 +107,6 @@ public class Soldier : NetworkBehaviour
         Destroy(objBullet, 5);
 
         timerToFire = 0;
-        Debug.Log(gameObject.name + " attack!");
+        //Debug.Log(gameObject.name + " attack!");
     }
 }
