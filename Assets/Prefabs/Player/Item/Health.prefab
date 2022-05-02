@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3748467101019337743}
   - component: {fileID: 3748467101019337742}
   - component: {fileID: 3748467101019337741}
+  - component: {fileID: 6723471756264309419}
   m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
@@ -124,3 +125,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemChoice: 0
   bulletType: 0
+--- !u!114 &6723471756264309419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3748467101019337740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: ba197343980d28947a926dce1d1ceca5
+  hasSpawned: 0

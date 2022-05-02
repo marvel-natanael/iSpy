@@ -146,7 +146,10 @@ public class GameManager : NetworkBehaviour
             Debug.Log("Conn Count : " + NetworkServer.connections.Count);
 
             var winner = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
-            winnerName = winner.playerName;
+            if(winner != null)
+            {
+                winnerName = winner.playerName;
+            }
         }
     }
 

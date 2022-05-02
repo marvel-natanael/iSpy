@@ -9,7 +9,7 @@ public class PlayerRoomNetwork : NetworkBehaviour
     [SerializeField] private GameObject lobbyUI;
     [SerializeField] private TMP_Text[] playerNameTexts = new TMP_Text[4];
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
-    [SerializeField] private Button startGameButton = null;
+    [SerializeField] private Button readyGameButton = null;
     [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject[] avatars;
 
@@ -28,7 +28,7 @@ public class PlayerRoomNetwork : NetworkBehaviour
         set
         {
             isLeader = value;
-            startGameButton.gameObject.SetActive(value);
+            readyGameButton.gameObject.SetActive(value);
         }
     }
 
@@ -88,11 +88,14 @@ public class PlayerRoomNetwork : NetworkBehaviour
         for (int i = 0; i < Room.RoomPlayers.Count; i++)
         {
             canvas.sortingOrder = 4 - i;
-            SetAvatar(avatar);
+            //SetAvatar(avatar);
             playerNameTexts[i].text = Room.RoomPlayers[i].DisplayName;
             playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ?
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
+            readyGameButton.image.color = Room.RoomPlayers[i].IsReady ?
+                Color.white :
+                Color.red;
         }
         //avatar = Room.RoomPlayers.Count;
         //Room.NotifyPlayersOfReadyState();
