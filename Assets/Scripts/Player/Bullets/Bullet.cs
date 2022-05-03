@@ -34,7 +34,8 @@ namespace Player.Bullets
                     PlayerManager target = col.GetComponent<PlayerManager>();
                     if (target == null) return;
                     target.GetComponent<PlayerManager>().DamageTo(target, _damage);
-                }catch(Exception e)
+                    target.GetComponent<PlayerManager>().UpdateSprite(col.GetComponent<SpriteRenderer>(), Color.red);
+                } catch(Exception e)
                 {
                     Debug.Log(e.Message);
                 }

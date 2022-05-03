@@ -3,6 +3,7 @@ using Player.Item;
 using Player.Weapons;
 using UnityEngine;
 using Mirror;
+using System.Collections;
 
 namespace Player
 {
@@ -189,9 +190,17 @@ namespace Player
             InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
         }
         #endregion
-        public override void OnStopClient()
+        
+        public void UpdateSprite(SpriteRenderer spriteRenderer, Color color)
         {
-            //RemoveName(playerName);
+            StartCoroutine(UpdateSpriteColor(spriteRenderer, color));
+        }
+
+        private IEnumerator UpdateSpriteColor(SpriteRenderer spriteRenderer, Color color)
+        {
+            spriteRenderer.color = color;
+            yield return new WaitForSeconds(0.25f);
+            spriteRenderer.color = Color.white;
         }
     }
 }

@@ -11,7 +11,7 @@ public class GameManager : NetworkBehaviour
     public static GameManager instance = null;
 
     [SyncVar]
-    public int playersCount, returningPlayer;
+    public int playersCount = 2, returningPlayer;
     [SyncVar(hook = nameof(Hook_GameOver))]
     public bool gameOver = false;
     [SyncVar]
@@ -87,14 +87,16 @@ public class GameManager : NetworkBehaviour
 
     private void Start()
     {
-        StartCoroutine("CountPlayers");
+        StartCoroutine(CountPlayers());
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         pCount = GameObject.FindGameObjectsWithTag("Player").Length;
-
-        if (pCount <= 1)
+    }
+    private void Update()
+    {
+        if (pCount <= 1 && starting)
         {
             if (!gameOver) GameOver();
             //StartCoroutine(ClearRoom());   
@@ -136,7 +138,7 @@ public class GameManager : NetworkBehaviour
         gameOver = true;
         //var manager = NetworkManager.singleton as LobbyNetworkManager;
 
-        if (isClient)
+        if (isClient && pCount <= 1)
         {
             if(!winPanel.activeInHierarchy)
             winPanel.SetActive(true);
