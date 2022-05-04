@@ -19,6 +19,7 @@ public class PlayerNameInput : MonoBehaviour
     void Start()
     {
         nameInputField = GameObject.Find("Name Input Field").GetComponent<TMP_InputField>();
+        nameInputField.text = PlayerPrefs.GetString(PlayerPrefsNameKey, "");
     }
 
     public void SetPlayerName()
@@ -28,7 +29,11 @@ public class PlayerNameInput : MonoBehaviour
             displayName = nameInputField.text;
             PlayerPrefs.SetString(PlayerPrefsNameKey, displayName);
             //OnClicked();
-            SceneManager.LoadScene("MainMenu");
+
+            if (SceneManager.GetActiveScene().name == "Menu")
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
         }
         else
         {

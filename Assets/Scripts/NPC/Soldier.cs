@@ -32,8 +32,12 @@ public class Soldier : NetworkBehaviour
 
     [SerializeField] private DetectionPlayer _detectionPlayer;
 
+    private Animator _animator;
+
     public void Start()
     {
+        _animator = GetComponent<Animator>();
+        
         currentPos = transform.position;
         transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y,
             transform.localScale.z);
@@ -73,6 +77,8 @@ public class Soldier : NetworkBehaviour
         {
             if (timerToDelay <= 0)
             {
+                if (!_animator.enabled) _animator.enabled = true;
+
                 nextMove.position = currentPos;
                 currentPos = transform.position;
 
@@ -83,6 +89,7 @@ public class Soldier : NetworkBehaviour
             }
             else
             {
+                _animator.enabled = false;
                 timerToDelay -= Time.deltaTime;
             }
         }

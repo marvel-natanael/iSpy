@@ -22,6 +22,9 @@ public class TurretNPC : NetworkBehaviour
 
     private NetworkIdentity _identity;
 
+    [SerializeField]private DetectionPlayer _detectionPlayer;
+    [SerializeField] private Transform weapon;
+
     private void Start()
     {
         _identity = GetComponent<NetworkIdentity>();
@@ -29,8 +32,11 @@ public class TurretNPC : NetworkBehaviour
 
     private void Update()
     {
-        Rotate();
-        CmdAttack();
+        //Rotate();\
+        if (_detectionPlayer.detection)
+        {   
+            CmdAttack();
+        }
     }
 
     private void Rotate()

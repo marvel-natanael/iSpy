@@ -1,5 +1,66 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1840763972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1840763973}
+  - component: {fileID: 1840763975}
+  - component: {fileID: 1840763974}
+  m_Layer: 0
+  m_Name: DetectionPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1840763973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840763972}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7876390319304951055}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1840763975
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840763972}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -1.2067537, y: 0}
+  serializedVersion: 2
+  m_Radius: 8.653024
+--- !u!114 &1840763974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840763972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfb6b10a10a4e7bb25294420a9f3f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detection: 0
 --- !u!1 &1928535327
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,6 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2089472244}
   - component: {fileID: 2089472245}
+  - component: {fileID: 7255710970019789551}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -114,6 +176,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7255710970019789551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089472243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05d482f25f5d4a84aa66b64916542fbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectionPlayer: {fileID: 1840763974}
 --- !u!1 &7876390319304951281
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +222,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 2089472244}
+  - {fileID: 1840763973}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -289,6 +365,8 @@ MonoBehaviour:
   health: 100
   originShoot: {fileID: 1928535328}
   turretWeapon: {fileID: 2089472244}
+  _detectionPlayer: {fileID: 1840763974}
+  weapon: {fileID: 2089472244}
 --- !u!1 &8596583828592765161
 GameObject:
   m_ObjectHideFlags: 0

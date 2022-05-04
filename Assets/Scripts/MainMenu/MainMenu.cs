@@ -6,14 +6,14 @@ namespace MainMenu
 {
     public class MainMenu : MonoBehaviour
     {
-        [SerializeField] private GameObject panelMenu, panelSetting;
+        [SerializeField] private GameObject panelMenu, panelSetting, panelChangeName;
 
         [SerializeField] private Slider bg;
         [SerializeField] private Slider sfx;
 
         private void Start()
         {
-            SetMenu(true, false);
+            SetMenu(true, false, false);
         }
 
         private void Update()
@@ -34,18 +34,25 @@ namespace MainMenu
 
         public void Setting()
         {
-            SetMenu(false, true);
+            SetMenu(false, true, false);
         }
 
         public void Back()
         {
-            SetMenu(true, false);
+            SetMenu(true, false, false);
         }
 
-        private void SetMenu(bool menuActive, bool settingActive)
+        private void SetMenu(bool menuActive, bool settingActive, bool changeName)
         {
             panelMenu.SetActive(menuActive);
             panelSetting.SetActive(settingActive);
+            panelChangeName.SetActive(changeName);
         }
+        
+        public void ChangeName()
+        {
+            SetMenu(false,false,true);
+        }
+        
     }
 }
