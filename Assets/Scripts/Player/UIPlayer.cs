@@ -8,8 +8,6 @@ namespace Player
     public class UIPlayer : MonoBehaviour
     {
         [SerializeField] private Text textHealth;
-        [SerializeField] private Text textAmount;
-        [SerializeField] private Text textWeapon;
 
         private ItemPlayer _itemPlayer;
 
@@ -22,7 +20,7 @@ namespace Player
                 _itemPlayer = playerManager.ItemPlayer;
             }
 
-            UpdateUI(playerManager.ItemPlayer.health, playerManager.ItemPlayer.amount);
+            UpdateUI(playerManager.ItemPlayer.health);
         }
 
         public void SetTargetPlayer(PlayerManager player)
@@ -31,11 +29,9 @@ namespace Player
             playerManager = player;
         }
 
-        public void UpdateUI(float currentHealth, int amount)
+        public void UpdateUI(float currentHealth)
         {
-            textAmount.text = "Amount : " + amount;
             textHealth.text = "Health : " + currentHealth;
-            textWeapon.text = "Weapon : " + playerManager.WeaponType;
         }
     }
 }

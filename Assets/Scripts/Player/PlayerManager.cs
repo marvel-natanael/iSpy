@@ -94,7 +94,7 @@ namespace Player
             {
                 CmdDead(this);
             }
-            RpcUpdateUI(ItemPlayer.health, ItemPlayer.amount);
+            RpcUpdateUI(ItemPlayer.health);
         }
 
         [Command]
@@ -122,7 +122,7 @@ namespace Player
             }
 
             p.ItemPlayer.health -= dmg;
-            RpcUpdateUIOtherPlayer(p.connectionToClient, p.ItemPlayer.health, ItemPlayer.amount);
+            RpcUpdateUIOtherPlayer(p.connectionToClient, p.ItemPlayer.health);
         }
         #endregion
 
@@ -139,7 +139,7 @@ namespace Player
         {
             if (ItemPlayer.health >= 100) return;
             ItemPlayer.health += health;
-            RpcUpdateUI(ItemPlayer.health, ItemPlayer.amount);
+            RpcUpdateUI(ItemPlayer.health);
         }
         #endregion
 
@@ -156,7 +156,7 @@ namespace Player
             Debug.Log(netId + " amount : " + ItemPlayer.amount);
             ItemPlayer.amount -= 1;
 
-            RpcUpdateUI(ItemPlayer.health, ItemPlayer.amount);
+            RpcUpdateUI(ItemPlayer.health);
         }
         #endregion
 
@@ -179,15 +179,15 @@ namespace Player
 
         #region RPC UI
         [TargetRpc]
-        private void RpcUpdateUIOtherPlayer(NetworkConnection conn, float currHealth, int amount)
+        private void RpcUpdateUIOtherPlayer(NetworkConnection conn, float currHealth)
         {
-            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
+            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth);
         }
 
         [TargetRpc]
-        private void RpcUpdateUI(float currHealth, int amount)
+        private void RpcUpdateUI(float currHealth)
         {
-            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth, amount);
+            InGameUIManager.instance.PlayerUI.UpdateUI(currHealth);
         }
         #endregion
         
