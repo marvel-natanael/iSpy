@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2089472244}
   - component: {fileID: 2089472245}
-  - component: {fileID: 7255710970019789551}
+  - component: {fileID: 5541244009130436464}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7255710970019789551
+--- !u!114 &5541244009130436464
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2089472243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05d482f25f5d4a84aa66b64916542fbd, type: 3}
+  m_Script: {fileID: 11500000, guid: 657f692d9c854cf9a8ec4521feea6f12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _detectionPlayer: {fileID: 1840763974}
@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 7876390319304951280}
   - component: {fileID: 7876390319304951052}
   - component: {fileID: 9197867665833302949}
+  - component: {fileID: 1797917491045137758}
   - component: {fileID: 400560737798159835}
   - component: {fileID: 1822748924}
   m_Layer: 0
@@ -310,6 +311,41 @@ MonoBehaviour:
   visible: 0
   m_AssetId: e93f23b4460af1d43aeaacf49c19035e
   hasSpawned: 0
+--- !u!114 &1797917491045137758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7876390319304951281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 0
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  target: {fileID: 2089472244}
 --- !u!114 &400560737798159835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 1
+  clientAuthority: 0
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1

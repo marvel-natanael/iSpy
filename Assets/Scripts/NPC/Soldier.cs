@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Soldier : NetworkBehaviour
 {
-    [Header("Target")] [SerializeField] protected GameObject targetPlayer;
+    [Header("Target")] [SerializeField] protected GameObject targetPlayer, child;
 
     [SerializeField] protected GameObject bullet;
 
@@ -25,8 +25,6 @@ public class Soldier : NetworkBehaviour
     protected float bulletSpeed;
 
     [SerializeField] protected float damage;
-
-    [SyncVar] public float health = 100;
 
     [SerializeField] protected Transform _originShoot;
 
@@ -85,6 +83,7 @@ public class Soldier : NetworkBehaviour
                 transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y,
                     transform.localScale.z);
 
+                child.transform.localEulerAngles = new Vector3(0, 0, child.transform.localEulerAngles.z + 180);
                 timerToDelay = delay;
             }
             else
@@ -105,10 +104,9 @@ public class Soldier : NetworkBehaviour
         timerToFire += Time.deltaTime;
         if (timerToFire < fireSpeed) return;
 
-        var objBullet = Instantiate(bullet, _originShoot.position, Quaternion.identity);
-
+        var objBullet = Instantiate(bullet, _originShoot.position, _originShoot.rotation);
         objBullet.GetComponent<Rigidbody2D>().velocity =
-            (transform.localScale.y < 0) ? Vector2.down * bulletSpeed : Vector2.up * bulletSpeed;
+            (transform.localScale.y < 0) ? _originShoot.up * -bulletSpeed : _originShoot.up * bulletSpeed;
         objBullet.GetComponent<BulletNPC>().Damage(damage);
 
         Destroy(objBullet, 5);

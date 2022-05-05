@@ -2,7 +2,7 @@ using System;
 using Mirror;
 using UnityEngine;
 
-public class RotateWeaponTurret : NetworkBehaviour
+public class RotateWeaponTurret : MonoBehaviour
 {
     [SerializeField] private DetectionPlayer _detectionPlayer;
 

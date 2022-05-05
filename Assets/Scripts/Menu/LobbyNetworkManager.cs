@@ -18,6 +18,7 @@ public class LobbyNetworkManager : NetworkManager
     [SerializeField] PlayerRoomNetwork playerRoomPrefab = null;
     [SerializeField] PlayerGameNetwork playerGamePrefab = null;
     [SerializeField] GameObject playerSpawner = null;
+    [SerializeField] GameObject npcSpawner = null;
 
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
@@ -31,7 +32,11 @@ public class LobbyNetworkManager : NetworkManager
 
     public bool IsStartGame { get; private set; } = false;
 
-    public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
+    public override void OnStartServer()
+    {
+        Debug.Log("Server is on");
+        spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
+    }
 
     public override void OnStartClient()
     {

@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5892829571904965109}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &833258355
 BoxCollider2D:
@@ -99,7 +99,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5892829571904965109}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5892829571904965111
 GameObject:
@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 3643299184123662076}
   - component: {fileID: 870416342}
   - component: {fileID: 1340748504019669809}
+  - component: {fileID: 1256929251506223776}
   - component: {fileID: 785091798488207782}
   m_Layer: 0
   m_Name: SoldierNPC
@@ -134,9 +135,9 @@ Transform:
   m_LocalPosition: {x: -6.3, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
+  - {fileID: 2030655424349772388}
   - {fileID: 1065224825}
   - {fileID: 833258356}
-  - {fileID: 2030655424349772388}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -206,6 +207,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   targetPlayer: {fileID: 0}
+  child: {fileID: 8604490838154970005}
   bullet: {fileID: 2224156736651089378, guid: 98780ad769121a84cbe97d216c45c7aa, type: 3}
   delay: 3
   moveSpeed: 2
@@ -213,7 +215,6 @@ MonoBehaviour:
   fireSpeed: 0.5
   bulletSpeed: 5
   damage: 10
-  health: 100
   _originShoot: {fileID: 1065224825}
   _detectionPlayer: {fileID: 833258353}
 --- !u!114 &3643299184123662076
@@ -266,8 +267,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 1
+  clientAuthority: 0
   animator: {fileID: 870416342}
+--- !u!114 &1256929251506223776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5892829571904965111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  sendInterval: 0.05
+  syncPosition: 0
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 0
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  target: {fileID: 2030655424349772388}
 --- !u!114 &785091798488207782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,11 +318,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 1
+  clientAuthority: 0
   sendInterval: 0.05
   syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
+  syncRotation: 0
+  syncScale: 1
   interpolatePosition: 1
   interpolateRotation: 1
   interpolateScale: 0
@@ -331,7 +367,7 @@ Transform:
   m_LocalScale: {x: 3.3333323, y: 3.3333323, z: 1}
   m_Children: []
   m_Father: {fileID: 5892829571904965109}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4617386884443749204
 MonoBehaviour:

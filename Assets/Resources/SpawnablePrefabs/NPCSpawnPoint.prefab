@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9140647565833875485
+--- !u!1 &979705432665462028
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9140647565833875484}
-  - component: {fileID: 3063078581419862713}
-  - component: {fileID: 8932609514031141607}
+  - component: {fileID: 8346534749889540572}
+  - component: {fileID: 1679540153728533289}
+  - component: {fileID: 5667893719110362954}
   m_Layer: 0
-  m_Name: SpawnManager
+  m_Name: NPCSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9140647565833875484
+--- !u!4 &8346534749889540572
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9140647565833875485}
+  m_GameObject: {fileID: 979705432665462028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,41 +32,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3063078581419862713
+--- !u!114 &1679540153728533289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9140647565833875485}
+  m_GameObject: {fileID: 979705432665462028}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  serverOnly: 1
+  serverOnly: 0
   visible: 0
-  m_AssetId: 151b134464e13ff4b93f6e0675e39d65
+  m_AssetId: bac4a95693dc3fe4ca63b7cfd19ae1c7
   hasSpawned: 0
---- !u!114 &8932609514031141607
+--- !u!114 &5667893719110362954
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9140647565833875485}
+  m_GameObject: {fileID: 979705432665462028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 968fde26d0a9fbd46909edf309a55495, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a9f5c54aa89311408efd7cd6841b842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  playerPrefab:
-  - {fileID: 4607003322616202644, guid: 087a7aa2542853047b8a5d7a9b2af546, type: 3}
-  - {fileID: 4607003322616202644, guid: 205e75d9286e2094eb2c250d5136c1e7, type: 3}
-  - {fileID: 4607003322616202644, guid: 7d9509a7353d2774b8ae940668954747, type: 3}
-  - {fileID: 4607003322616202644, guid: 32bb5e8d489938b43bf89b4086f52793, type: 3}
-  npcs:
-  - {fileID: 7876390319304951281, guid: e93f23b4460af1d43aeaacf49c19035e, type: 3}
