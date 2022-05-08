@@ -9,6 +9,8 @@ public class ServerSend : PacketSendInterface
         using (Packet _packet = new Packet((int)ServerMatchmakerPackets.initialization))
         {
             _packet.Write(entry.Port);
+            _packet.Write(entry.MaxPlayer);
+
             SendTCPData(_packet);
         }
     }
@@ -17,7 +19,6 @@ public class ServerSend : PacketSendInterface
     {
         using (Packet _packet = new Packet((int)ServerMatchmakerPackets.update))
         {
-            _packet.Write(entry.Port);
             _packet.Write(entry.PlayerCount);
             _packet.Write(entry.Running);
 
@@ -29,7 +30,6 @@ public class ServerSend : PacketSendInterface
     {
         using (Packet _packet = new Packet((int)ServerMatchmakerPackets.terminationReply))
         {
-            _packet.Write(entry.Port);
             SendTCPData(_packet);
         }
     }

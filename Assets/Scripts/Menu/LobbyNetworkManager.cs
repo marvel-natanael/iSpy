@@ -48,8 +48,8 @@ public class LobbyNetworkManager : NetworkManager
     public override void Awake()
     {
 #if UNITY_SERVER
-        //Check if we're using Telepathy
-        if (transport.GetType() == typeof(TelepathyTransport))
+        //Check if we're using kcp2k
+        if (transport.GetType() == typeof(kcp2k.KcpTransport))
         {
             //Check if server is run by a matchmaker
             var args = Environment.GetCommandLineArgs();
@@ -58,11 +58,10 @@ public class LobbyNetworkManager : NetworkManager
                 try
                 {
                     ushort newPort = ushort.Parse(args[Array.FindIndex<string>(args, m => m == "-port") + 1]);
-                    GetComponent<TelepathyTransport>().port = newPort;
+                    GetComponent<kcp2k.KcpTransport>().Port = newPort;
                     isMatchmakerLaunched = true;
 
-                    serverData = new ServerDataEntry(newPort);
-                    ClientSend.SendInit();
+                    serverData = new ServerDataEntry(newPort, maxConnections);
                 }
                 catch (Exception e)
                 {
@@ -74,9 +73,16 @@ public class LobbyNetworkManager : NetworkManager
         base.Awake();
     }
 
+    public override void Start()
+    {
+        MatchmakerClient.instance.Initialize(false);
+        base.Start();
+    }
+
     public override void OnStartServer()
     {
         spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
+        MatchmakerClient.instance.Initialize(true);
     }
 
     public override void OnStartClient()
@@ -276,5 +282,16 @@ public class LobbyNetworkManager : NetworkManager
         OnServerStopped?.Invoke();
         RoomPlayers.Clear();
         GamePlayers.Clear();
+    }
+
+    public static string GetAddress()
+    {
+        return singleton.networkAddress;
+    }
+
+    public static void ChangePort(int _port)
+    {
+        if (_port < ushort.MaxValue & _port > 0)
+            singleton.GetComponent<kcp2k.KcpTransport>().Port = (ushort)_port;
     }
 }

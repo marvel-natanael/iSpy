@@ -12,8 +12,8 @@ public class MatchmakerClient : MonoBehaviour
     public static int dataBufferSize = 4096;
 
     private readonly int id;
-    private readonly ushort port;
     public TCP transport;
+    private bool isConnected;
 
     private delegate void PacketHandler(Packet _packet);
 
@@ -39,6 +39,11 @@ public class MatchmakerClient : MonoBehaviour
         transport = new TCP();
     }
 
+    private void OnApplicationQuit()
+    {
+        Disconnect();
+    }
+
     /// <summary>
     /// Hidden
     /// </summary>
@@ -46,21 +51,9 @@ public class MatchmakerClient : MonoBehaviour
     {
     }
 
-    /// <summary>
-    /// Create a new instance of <c>MatchmakerClient</c> with an id
-    /// </summary>
-    public MatchmakerClient(int _id)
+    public void Initialize(bool _isServer)
     {
-        id = _id;
-    }
-
-    /// <summary>
-    /// Create a new instance of <c>MatchmakerClient</c> with an id and port
-    /// </summary>
-    public MatchmakerClient(int _id, ushort _port)
-    {
-        id = _id;
-        port = _port;
+        isServer = _isServer;
     }
 
     /// <summary>
@@ -75,8 +68,9 @@ public class MatchmakerClient : MonoBehaviour
             {
                 socket.Connect("8.8.8.8", 65530);
                 IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                transport.Connect(new TcpClient(endPoint.Address.ToString(), 27015));
+                transport.Connect(new TcpClient(LobbyNetworkManager.GetAddress(), 7777));
             }
+            isConnected = true;
         }
         catch (Exception e)
         {
@@ -112,7 +106,6 @@ public class MatchmakerClient : MonoBehaviour
             socket.SendBufferSize = dataBufferSize;
 
             stream = socket.GetStream();
-
             receiveBuffer = new byte[dataBufferSize];
 
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
@@ -132,7 +125,7 @@ public class MatchmakerClient : MonoBehaviour
                 int _bytelength = stream.EndRead(_result);
                 if (_bytelength <= 0)
                 {
-                    // todo: Disconnect
+                    instance.Disconnect();
                     return;
                 }
 
@@ -146,7 +139,7 @@ public class MatchmakerClient : MonoBehaviour
             catch (Exception e)
             {
                 Console.WriteLine($"Exception thrown: {e}");
-                //todo: Disconnect
+                Disconnect();
             }
         }
 
@@ -223,6 +216,16 @@ public class MatchmakerClient : MonoBehaviour
 
             return false;
         }
+
+        private void Disconnect()
+        {
+            instance.Disconnect();
+
+            stream = null;
+            receiveBuffer = null;
+            receivedPacket = null;
+            socket = null;
+        }
     }
 
     /// <summary>
@@ -232,7 +235,7 @@ public class MatchmakerClient : MonoBehaviour
     {
         packetHandle = new Dictionary<int, PacketHandler>()
         {
-            {(int) MatchmakerServerPackets.terminationRequest, ServerHandle.HandleTerminationReq}
+            { (int) MatchmakerServerPackets.terminationRequest, ServerHandle.HandleTerminationReq }
         };
         Debug.Log($"Initialized packets...");
     }
@@ -244,7 +247,18 @@ public class MatchmakerClient : MonoBehaviour
     {
         packetHandle = new Dictionary<int, PacketHandler>()
         {
-            {(int) MatchmakerClientPackets.updateReply, ClientHandle.HandleUpdate }
+            { (int) MatchmakerClientPackets.updateReply, ClientHandle.HandleUpdate }
         };
+    }
+
+    private void Disconnect()
+    {
+        if (isConnected)
+        {
+            isConnected = false;
+            transport.socket.Close();
+
+            Debug.Log($"Disconnected from matchmaker");
+        }
     }
 }

@@ -3,27 +3,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.UI;
 
 public class ServerBrowserScript : MonoBehaviour
 {
-    private List<ServerDataEntry> serverList;
-    private ServerDataEntry currentSelected;
+    public static ServerBrowserScript singleton;
+    public static EntryObject CurrentSelected { get => singleton.currentSelected; set => singleton.currentSelected = value; }
 
-    public static event Action onServerUpdated;
+    private EntryObject currentSelected;
+    private List<GameObject> contentList = new List<GameObject>();
+    private List<ServerDataEntry> serverList = new List<ServerDataEntry>();
 
-    public void AddEntryToList(ServerDataEntry newEntry)
+    public GameObject EntryButtonPrefab;
+
+    private void Awake()
     {
-        serverList.Add(newEntry);
-        onServerUpdated?.Invoke();
+        if (singleton == null)
+        {
+            singleton = this;
+        }
+        else if (singleton != this)
+        {
+            Debug.LogWarning($"ServerBrowserScript already existed, destorying...");
+            Destroy(this);
+        }
     }
 
-    public void RemoveEntryFromList(int id)
+    public void B_ConnectToSelected()
     {
-        serverList.Remove(serverList.Find(match => match.Port == id));
-        onServerUpdated?.Invoke();
+        LobbyNetworkManager.ChangePort(serverList[CurrentSelected.id].Port);
+        NetworkClient.Connect(LobbyNetworkManager.GetAddress());
+        MatchmakerClient.instance
     }
 
-    public void Connect()
+    public static void SetData(ServerDataEntry entry)
     {
+        // check if the entry doesn't exist
+        if (!singleton.serverList.Contains(entry))
+        {
+            // add the entry to server list
+            singleton.serverList.Add(entry);
+
+            // create new object for browser
+            var newEntryObj = Instantiate(singleton.EntryButtonPrefab, singleton.GetComponent<ScrollRect>().content);
+            newEntryObj.GetComponent<EntryObject>().UpdateData(entry, singleton.serverList.Count);
+            singleton.contentList.Add(newEntryObj);
+        }
+    }
+
+    private void ResetAllData()
+    {
+        currentSelected = null;
+        contentList = new List<GameObject>();
+        serverList = new List<ServerDataEntry>();
     }
 }

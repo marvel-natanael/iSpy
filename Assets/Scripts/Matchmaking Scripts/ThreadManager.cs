@@ -30,7 +30,9 @@ public class ThreadManager : MonoBehaviour
         }
     }
 
-    /// <summary>Executes all code meant to run on the main thread. NOTE: Call this ONLY from the main thread.</summary>
+    /// <summary>
+    /// Executes all code meant to run on the main thread. NOTE: Call this ONLY from the main thread.
+    /// </summary>
     public static void UpdateMain()
     {
         if (actionToExecuteOnMainThread)
