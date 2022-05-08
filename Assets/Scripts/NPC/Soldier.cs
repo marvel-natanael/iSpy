@@ -15,8 +15,7 @@ public class Soldier : NetworkBehaviour
     [Header("Soldier Properties")] [SerializeField]
     private float moveSpeed;
 
-    [SerializeField] private Transform nextMove;
-    private Vector2 currentPos;
+    public Vector2 maxDistance;
 
     [SerializeField] protected float fireSpeed;
     protected float timerToFire;
@@ -32,13 +31,16 @@ public class Soldier : NetworkBehaviour
 
     private Animator _animator;
 
+    [SyncVar]
+    public bool moveForward;
+
     public void Start()
     {
         _animator = GetComponent<Animator>();
-        
-        currentPos = transform.position;
-        transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y,
-            transform.localScale.z);
+
+        maxDistance = transform.position + (transform.up * 7);
+
+        Flip(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
         timerToDelay = delay;
     }
 
@@ -49,54 +51,53 @@ public class Soldier : NetworkBehaviour
             Attack();
         }
 
-        if (_detectionPlayer.detection)
-        {
-            //Debug.Log("Detection True " + _detectionPlayer.detection);
-            Move(transform.position, 0);
-        }
-        else
-        {
-            //Debug.Log("Detection False " + _detectionPlayer.detection);
-            Move(nextMove.position, 2f);
-        }
-
-        Routine();
+        NpcMove();
     }
 
-    private void Routine()
+    private void NpcMove()
     {
-        if (!nextMove)
+        if (isServer)
         {
-            //Debug.LogError("NextMove field is empty!");
-            return;
-        }
-
-        if (Vector2.Distance(transform.position, nextMove.position) <= 0)
-        {
-            if (timerToDelay <= 0)
+            if (_detectionPlayer.detection)
             {
-                if (!_animator.enabled) _animator.enabled = true;
-
-                nextMove.position = currentPos;
-                currentPos = transform.position;
-
-                transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y,
-                    transform.localScale.z);
-
-                child.transform.localEulerAngles = new Vector3(0, 0, child.transform.localEulerAngles.z + 180);
-                timerToDelay = delay;
+                Move(0);
             }
             else
             {
-                _animator.enabled = false;
-                timerToDelay -= Time.deltaTime;
+                Move(moveSpeed);
             }
         }
     }
 
-    private void Move(Vector2 target, float speed)
+    [Server]
+    private void Move(float speed)
     {
-        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        if (moveForward)
+        {
+            transform.position += transform.up * speed * Time.deltaTime;
+
+            if (transform.position.magnitude > maxDistance.magnitude)
+            {
+                moveForward = false;
+                Flip(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
+            }
+        }
+        else
+        {
+            transform.position += -transform.up * speed * Time.deltaTime;
+
+            if (transform.position.magnitude > maxDistance.magnitude)
+            {
+                moveForward = true;
+                Flip(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
+            }
+        }
+    }
+
+    private void Flip(float x, float y, float z)
+    {
+        transform.localScale = new Vector3(x, y, z);
+        child.transform.localEulerAngles = new Vector3(0, 0, child.transform.localEulerAngles.z + 180);
     }
 
     private void Attack()
@@ -112,6 +113,5 @@ public class Soldier : NetworkBehaviour
         Destroy(objBullet, 5);
 
         timerToFire = 0;
-        //Debug.Log(gameObject.name + " attack!");
     }
 }
