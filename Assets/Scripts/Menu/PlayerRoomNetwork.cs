@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Mirror;
@@ -20,18 +20,6 @@ public class PlayerRoomNetwork : NetworkBehaviour
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
 
-    int temp;
-
-    private bool isLeader;
-    public bool IsLeader
-    {
-        set
-        {
-            isLeader = value;
-            readyGameButton.gameObject.SetActive(value);
-        }
-    }
-
     private LobbyNetworkManager room;
     private LobbyNetworkManager Room
     {
@@ -45,13 +33,12 @@ public class PlayerRoomNetwork : NetworkBehaviour
     public override void OnStartAuthority()
     {
         CmdSetDisplayName(PlayerNameInput.displayName);
-        CmdSetAvatar(Room.RoomPlayers.Count);
         lobbyUI.SetActive(true);
     }
 
     public override void OnStartClient()
     {
-        Room.RoomPlayers.Add(this);
+        //Room.AddRoomPlayer(this);
         UpdateDisplay();
     }
 
@@ -102,19 +89,12 @@ public class PlayerRoomNetwork : NetworkBehaviour
         //SetAvatar(avatar);
     }
 
-    void SetAvatar(int index)
-    {
-        for (int i=0; i< Room.RoomPlayers.Count; i++)
-        {
-            avatars[i].SetActive(i == index);
-        }
-    }
     public void HandleReadyToStart(bool readyToStart)
     {
         if(!readyToStart) { return; }
         CmdStartGame();
 
-/*        Debug.Log(readyToStart);
+*//*        Debug.Log(readyToStart);
         switch (readyToStart)
         {
             case "not enough player!":
@@ -131,7 +111,7 @@ public class PlayerRoomNetwork : NetworkBehaviour
                     Debug.Log(readyToStart);
                     break;
                 }
-        }*/
+        }*//*
     }
 
     [Command]
@@ -141,24 +121,17 @@ public class PlayerRoomNetwork : NetworkBehaviour
     }
 
     [Command]
-    private void CmdSetAvatar(int i)
-    {
-        avatar = i;
-    }
-
-    [Command]
     public void CmdReadyUp()
     {
         IsReady = !IsReady;
-        
-        Room.NotifyPlayersOfReadyState();
+        //Room.NotifyPlayersOfReadyState();
     }
 
     [Command]
     public void CmdStartGame()
     {
         //if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
-        Room.StartGame();
+        //Room.StartGame();
     }
 
     public void LeaveRoom()
@@ -172,4 +145,4 @@ public class PlayerRoomNetwork : NetworkBehaviour
             Room.StopClient();
         }
     }
-}
+}*/

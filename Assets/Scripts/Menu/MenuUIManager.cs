@@ -14,7 +14,7 @@ public class MenuUIManager : MonoBehaviour
     [SerializeField]
     RectTransform mainMenuTf, lobbyTf, enterNamePanelTf;
     [SerializeField]
-    LobbyNetworkManager networkManager = null;
+    RoomNetManager networkManager = null;
     [SerializeField]
     string address;
     /*void OnEnable()
@@ -65,18 +65,6 @@ public class MenuUIManager : MonoBehaviour
             enterNamePanel.SetActive(false);
             mainMenu.SetActive(true);
         }
-    }
-/*
-    public void ShowLobby()
-    {
-        mainMenu.SetActive(false);
-        enterNamePanel.SetActive(false);
-    }*/
-
-    public void HostGame()
-    {
-        networkManager.StartHost();
-        // ShowLobby();
     }
 
     public void JoinGame()

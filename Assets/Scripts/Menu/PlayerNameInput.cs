@@ -13,9 +13,6 @@ public class PlayerNameInput : MonoBehaviour
     private const string PlayerPrefsNameKey = "PlayerName";
     public static string displayName { get; private set; }
 
-    public delegate void ClickAction();
-    public static event ClickAction OnClicked;
-
     void Start()
     {
         nameInputField = GameObject.Find("Name Input Field").GetComponent<TMP_InputField>();
@@ -33,6 +30,7 @@ public class PlayerNameInput : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Menu")
             {
                 SceneManager.LoadScene("MainMenu");
+                Debug.Log(displayName);
             }
         }
         else

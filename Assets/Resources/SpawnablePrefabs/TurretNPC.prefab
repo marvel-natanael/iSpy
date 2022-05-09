@@ -327,10 +327,10 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 0
   sendInterval: 0.05
-  syncPosition: 1
+  syncPosition: 0
   syncRotation: 1
   syncScale: 0
-  interpolatePosition: 1
+  interpolatePosition: 0
   interpolateRotation: 1
   interpolateScale: 0
   bufferTimeMultiplier: 1
@@ -362,15 +362,15 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 0
   sendInterval: 0.05
-  syncPosition: 1
-  syncRotation: 1
+  syncPosition: 0
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
   interpolateScale: 0
-  bufferTimeMultiplier: 1
+  bufferTimeMultiplier: 3
   bufferSizeLimit: 64
-  catchupThreshold: 4
+  catchupThreshold: 6
   catchupMultiplier: 0.1
   onlySyncOnChange: 1
   bufferResetMultiplier: 5

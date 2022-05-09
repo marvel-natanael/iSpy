@@ -16,8 +16,6 @@ namespace Player
 
         private WeaponSwap weapon;
 
-        public static event Action OnGameOver;
-
         public string playerName;
 
         private void Awake()
@@ -71,14 +69,12 @@ namespace Player
             CmdAddName(name);
         }
 
-
         [Command]
         private void CmdAddName(string name)
         {
             playerName = name;
             GameManager.instance.playerNames.Add(playerName);
         }
-
 
         public void TakeDamage(float damage)
         {
@@ -101,6 +97,7 @@ namespace Player
         private void CmdAddPlayerToServer()
         {
             GameManager.instance.playersCount += 1;
+            GameManager.instance.players.Add(gameObject);
         }
 
         #region Attack
@@ -165,7 +162,6 @@ namespace Player
         {
             GameManager.instance.playersCount -= 1;
             RpcShowLoseText(p.connectionToClient);
-            OnGameOver();
             //GameManager.instance.GameOver();
             Destroy(p.gameObject);
         }

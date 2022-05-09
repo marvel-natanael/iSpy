@@ -7,7 +7,7 @@ using System.Linq;
 
 public class PlayerSpawner : NetworkBehaviour
 {
-    [SerializeField] private GameObject[] playerPrefab = null, npcs = null;
+    [SerializeField] private GameObject playerPrefab = null, npcs = null;
 
     private static List<Transform> spawnPoints = new List<Transform>();
 
@@ -32,21 +32,21 @@ public class PlayerSpawner : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        LobbyNetworkManager.onServerReadied += SpawnPlayer;
-        LobbyNetworkManager.onServerReadied += SpawnNPC;
+        RoomNetManager.onServerReadied += SpawnNPC;
     }
 
     [ServerCallback]
     private void OnDestroy()
     {
-        LobbyNetworkManager.onServerReadied -= SpawnPlayer;
-        LobbyNetworkManager.onServerReadied -= SpawnNPC;
+        RoomNetManager.onServerReadied -= SpawnNPC;
     }
 
     [Server]
-    public void SpawnPlayer(NetworkConnection conn)
+    public void SpawnNPC(NetworkConnection conn)
     {
-        Transform spawnPoint = spawnPoints.ElementAtOrDefault(nextIndex);
+        if (!NetworkServer.active) { return; }
+
+        Transform spawnPoint = NPCspawnPoints.ElementAtOrDefault(nextIndex);
 
         if (spawnPoint == null)
         {
@@ -54,21 +54,10 @@ public class PlayerSpawner : NetworkBehaviour
             return;
         }
 
-        GameObject playerInstance = Instantiate(playerPrefab[nextIndex], spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
-        NetworkServer.Spawn(playerInstance, conn);
-        NetworkServer.AddPlayerForConnection(conn, playerInstance);
-        nextIndex++;
-    }
-
-    [Server]
-    public void SpawnNPC(NetworkConnection conn)
-    {
-        Transform spawnPoint = NPCspawnPoints.ElementAtOrDefault(nextIndex);
-
-        if (spawnPoint == null)
+        for (int i = 0; i < NPCspawnPoints.Count; i++)
         {
-            Debug.LogError($"Missing spawn point for player {nextIndex}");
-            return;
+            GameObject npcInstance = Instantiate(npcs, NPCspawnPoints[i].position, NPCspawnPoints[i].rotation);
+            NetworkServer.Spawn(npcInstance);
         }
 
         GameObject playerInstance = Instantiate(npcs[1], NPCspawnPoints[npcIndex].position, NPCspawnPoints[npcIndex].rotation);
