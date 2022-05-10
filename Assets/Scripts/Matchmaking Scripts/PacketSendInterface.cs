@@ -7,6 +7,6 @@ public class PacketSendInterface : MonoBehaviour
     protected static void SendTCPData(Packet _packet)
     {
         _packet.WriteLength();
-        MatchmakerClient.instance.transport.SendData(_packet);
+        MatchmakerClient.Singleton.transport.SendData(_packet);
     }
 }

@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: 4bded8618c8687047ad7012b6d6652d5
+    path: Assets/Scenes/Matchmaker/OfflineScene_Matchmaker.unity
+    guid: 519b3a33fc2f7dd4cac146639980ace3
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: 36adb24feff0ef94e815cf95b6091e8c

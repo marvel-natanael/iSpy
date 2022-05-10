@@ -7,28 +7,42 @@ using UnityEngine;
 /// </summary>
 public class ClientHandle : MonoBehaviour
 {
-    /// <summary>
-    /// Function to handle sent packet from the matchmaker
-    /// </summary>
-    /// <param name="_packet"></param>
-    public static void HandleUpdate(Packet _packet)
+    public static void HandleInit(Packet _packet)
     {
+        // read entry count
         var entryCount = _packet.ReadInt();
 
         for (int i = 0; i < entryCount; i++)
         {
             // read port
-            var _port = _packet.ReadInt();
+            var port = _packet.ReadInt();
+            // read max player count
+            var mPlrCount = _packet.ReadInt();
+
+            ServerEntries.Singleton.SetData(new ServerDataEntry(port, mPlrCount));
+        }
+    }
+
+    /// <summary>
+    /// Function to handle update packet from the matchmaker
+    /// </summary>
+    /// <param name="_packet">packet to be read</param>
+    public static void HandleUpdate(Packet _packet)
+    {
+        // read updated count
+        var _count = _packet.ReadInt();
+
+        for (int i = 0; i < _count; i++)
+        {
+            // read entry index
+            var _index = _packet.ReadInt();
             // read player count
             var _playerCount = _packet.ReadInt();
-            // read max player count
-            var _maxPlayers = _packet.ReadInt();
             // read server running state
             var _running = _packet.ReadBool();
 
-            // create a new server data entry and add to ServerBrowser list
-            var _newEntry = new ServerDataEntry(_port, _playerCount, _maxPlayers, _running);
-            //todo: display the entry
+            // update server entry
+            ServerEntries.Singleton.UpdateData(i, _playerCount, _running);
         }
     }
 }

@@ -21,7 +21,7 @@ public class EntryObject : MonoBehaviour
     {
     }
 
-    public void UpdateData(ServerDataEntry entry, int _roomNumber)
+    public void UpdateData(int _roomNumber, ServerDataEntry entry)
     {
         roomNumber.text = _roomNumber.ToString();
         portAddress.text = entry.Port.ToString();
@@ -40,6 +40,6 @@ public class EntryObject : MonoBehaviour
 
     public void SetSelected()
     {
-        ServerBrowserScript.CurrentSelected = this;
+        ServerBrowserScript.Singleton.CurrentSelected = this;
     }
 }

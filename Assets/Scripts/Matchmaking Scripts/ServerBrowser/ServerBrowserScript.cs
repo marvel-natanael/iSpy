@@ -4,57 +4,102 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class ServerBrowserScript : MonoBehaviour
 {
-    public static ServerBrowserScript singleton;
-    public static EntryObject CurrentSelected { get => singleton.currentSelected; set => singleton.currentSelected = value; }
-
-    private EntryObject currentSelected;
+    public static ServerBrowserScript Singleton;
     private List<GameObject> contentList = new List<GameObject>();
-    private List<ServerDataEntry> serverList = new List<ServerDataEntry>();
+
+    public EntryObject CurrentSelected;
+    public string PlayerName;
 
     public GameObject EntryButtonPrefab;
 
     private void Awake()
     {
-        if (singleton == null)
+        if (Singleton == null)
         {
-            singleton = this;
+            Singleton = this;
         }
-        else if (singleton != this)
+        else if (Singleton != this)
         {
             Debug.LogWarning($"ServerBrowserScript already existed, destorying...");
             Destroy(this);
         }
     }
 
-    public void B_ConnectToSelected()
+    private void Start()
     {
-        LobbyNetworkManager.ChangePort(serverList[CurrentSelected.id].Port);
-        NetworkClient.Connect(LobbyNetworkManager.GetAddress());
-        MatchmakerClient.instance
+        ServerEntries.onDatabaseUpdate += ServerEntries_onDatabaseUpdate;
     }
 
-    public static void SetData(ServerDataEntry entry)
+    /// <summary>
+    /// Called when <c>ServerEntries.Singleton.Database gets updated</c>
+    /// </summary>
+    private void ServerEntries_onDatabaseUpdate()
     {
-        // check if the entry doesn't exist
-        if (!singleton.serverList.Contains(entry))
-        {
-            // add the entry to server list
-            singleton.serverList.Add(entry);
+        // I know I should find a way to only update the updated ones, but I am running out of time so I just reset everything
+        ResetAllData();
 
-            // create new object for browser
-            var newEntryObj = Instantiate(singleton.EntryButtonPrefab, singleton.GetComponent<ScrollRect>().content);
-            newEntryObj.GetComponent<EntryObject>().UpdateData(entry, singleton.serverList.Count);
-            singleton.contentList.Add(newEntryObj);
+        // get server browser content
+        var scrollRect = GetComponent<ScrollRect>();
+
+        // foreach entries in the database, make an entry object
+        for (int i = 0; i < ServerEntries.Singleton.Database.Count; i++)
+        {
+            var entry = ServerEntries.Singleton.Database[i];
+            var entryObj = Instantiate(EntryButtonPrefab, scrollRect.content);
+            entryObj.GetComponent<EntryObject>().UpdateData(i, entry);
+
+            // add entry object to list of entry objects
+            contentList.Add(entryObj);
         }
     }
 
     private void ResetAllData()
     {
-        currentSelected = null;
-        contentList = new List<GameObject>();
-        serverList = new List<ServerDataEntry>();
+        CurrentSelected = null;
+        foreach (var entry in contentList)
+        {
+            Destroy(entry);
+        }
+        contentList.Clear();
+    }
+
+    public void B_ConnectToSelected()
+    {
+        if (ConnectChecks())
+        {
+            LobbyNetworkManager.ChangePort(ServerEntries.Singleton.Database[CurrentSelected.id].Port);
+            MatchmakerClient.Singleton.Disconnect();
+            NetworkClient.Connect(LobbyNetworkManager.GetAddress());
+        }
+    }
+
+    public void B_RequestUpdate()
+    {
+        if (MatchmakerClient.Singleton.transport.socket.Connected)
+        {
+            ClientSend.SendUpdateRequest();
+        }
+    }
+
+    public void ChangeName(string newName)
+    {
+        PlayerName = newName;
+    }
+
+    private bool ConnectChecks()
+    {
+        if (!CurrentSelected)
+        {
+            return false;
+        }
+        if (!string.IsNullOrEmpty(PlayerName))
+        {
+            return false;
+        }
+        return true;
     }
 }

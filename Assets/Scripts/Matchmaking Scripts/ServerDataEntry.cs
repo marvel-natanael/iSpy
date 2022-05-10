@@ -23,9 +23,9 @@ public class ServerDataEntry : MonoBehaviour
         running = _running;
     }
 
-    public ServerDataEntry(ushort newPort, int maxPlayer)
+    public ServerDataEntry(int newPort, int maxPlayer)
     {
-        port = newPort;
+        port = (ushort)newPort;
         playerCount = 0;
         maxPlayer = 0;
         running = false;

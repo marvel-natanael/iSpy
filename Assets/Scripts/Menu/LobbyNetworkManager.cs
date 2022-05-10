@@ -75,14 +75,12 @@ public class LobbyNetworkManager : NetworkManager
 
     public override void Start()
     {
-        MatchmakerClient.instance.Initialize(false);
         base.Start();
     }
 
     public override void OnStartServer()
     {
         spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
-        MatchmakerClient.instance.Initialize(true);
     }
 
     public override void OnStartClient()

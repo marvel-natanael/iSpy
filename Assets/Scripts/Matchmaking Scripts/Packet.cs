@@ -17,7 +17,7 @@ public enum MatchmakerServerPackets
 /// </summary>
 public enum ServerMatchmakerPackets
 {
-    tag = -1, initialization, update, terminationReply
+    initialization, update, terminationReply
 }
 
 #endregion Server-Matchmaker Packets
@@ -29,7 +29,7 @@ public enum ServerMatchmakerPackets
 /// </summary>
 public enum MatchmakerClientPackets
 {
-    updateReply
+    init, updateReply
 }
 
 /// <summary>
@@ -37,7 +37,7 @@ public enum MatchmakerClientPackets
 /// </summary>
 public enum ClientMatchmakerPackets
 {
-    tag = -1, updateRequest
+    updateRequest
 }
 
 #endregion Client-Matchmaker Packets
