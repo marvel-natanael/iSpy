@@ -7,7 +7,7 @@ using System.Linq;
 
 public class PlayerSpawner : NetworkBehaviour
 {
-    [SerializeField] private GameObject playerPrefab = null, npcs = null;
+    [SerializeField] private GameObject[] npcs = null;
 
     private static List<Transform> spawnPoints = new List<Transform>();
 
@@ -56,13 +56,8 @@ public class PlayerSpawner : NetworkBehaviour
 
         for (int i = 0; i < NPCspawnPoints.Count; i++)
         {
-            GameObject npcInstance = Instantiate(npcs, NPCspawnPoints[i].position, NPCspawnPoints[i].rotation);
+            GameObject npcInstance = Instantiate(npcs[0], NPCspawnPoints[i].position, NPCspawnPoints[i].rotation);
             NetworkServer.Spawn(npcInstance);
         }
-
-        GameObject playerInstance = Instantiate(npcs[1], NPCspawnPoints[npcIndex].position, NPCspawnPoints[npcIndex].rotation);
-        NetworkServer.Spawn(playerInstance);
-        //NetworkServer.AddPlayerForConnection(conn, playerInstance);
-        npcIndex++;
     }
 }
