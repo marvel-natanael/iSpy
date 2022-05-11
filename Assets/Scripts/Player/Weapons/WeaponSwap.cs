@@ -24,6 +24,7 @@ namespace Player.Weapons
             if(currentWeapon != null)
             {
                 parent.DetachChildren();
+                currentWeapon.transform.position = new Vector3(currentWeapon.transform.position.x - 1, currentWeapon.transform.position.y - 1, currentWeapon.transform.position.z);
                 currentWeapon.GetComponent<Collider2D>().enabled = true;
                 currentWeapon.ChgToDropSprite();
             }
