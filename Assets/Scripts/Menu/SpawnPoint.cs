@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    private void Awake() => PlayerSpawner.AddSpawnPoint(transform);
-    private void OnDestroy() => PlayerSpawner.RemoveSpawnPoint(transform);
+    public virtual void AddToList()
+    {
+    }
+
+    public virtual void RemoveFromList()
+    {
+    }
+    private void Awake() => AddToList();
+    private void OnDestroy() => RemoveFromList();
 }

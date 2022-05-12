@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8346534749889540572}
   - component: {fileID: 1679540153728533289}
-  - component: {fileID: 5667893719110362954}
+  - component: {fileID: -5189102560042726243}
   m_Layer: 0
-  m_Name: NPCSpawnPoint
+  m_Name: HorSoldierSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,9 +47,9 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: bac4a95693dc3fe4ca63b7cfd19ae1c7
+  m_AssetId: 52f30616273ca314c8a45f9b0e251e73
   hasSpawned: 0
---- !u!114 &5667893719110362954
+--- !u!114 &-5189102560042726243
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,6 +58,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 979705432665462028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a9f5c54aa89311408efd7cd6841b842, type: 3}
+  m_Script: {fileID: 11500000, guid: c0572bbaaf6fcf844bdd9edc2df97aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
