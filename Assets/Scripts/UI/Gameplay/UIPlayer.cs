@@ -7,19 +7,12 @@ namespace Player
 {
     public class UIPlayer : MonoBehaviour
     {
-        [SerializeField] private Text textHealth;
-
-        private ItemPlayer _itemPlayer;
+        [SerializeField] private Image bar;
 
         [SerializeField] private PlayerManager playerManager;
 
         private void Start()
         {
-            if (playerManager)
-            {
-                _itemPlayer = playerManager.ItemPlayer;
-            }
-
             UpdateUI(playerManager.ItemPlayer.health);
         }
 
@@ -31,7 +24,7 @@ namespace Player
 
         public void UpdateUI(float currentHealth)
         {
-            textHealth.text = "Health : " + currentHealth;
+            bar.fillAmount = currentHealth / 100;
         }
     }
 }

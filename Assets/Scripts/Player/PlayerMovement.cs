@@ -6,14 +6,15 @@ namespace Player
 {
     public class PlayerMovement : NetworkBehaviour
     {
-        [Header("Components")] 
+        [Header("Components")]
         [SerializeField] private Joystick joystick;
 
         //[SerializeField] private new Camera camera;
         [SerializeField] private new Rigidbody2D rigidbody2D;
         [SerializeField] private TouchField touch;
 
-        [Header("Properties")] [SerializeField]
+        [Header("Properties")]
+        [SerializeField]
         public Button btnShoot;
         [SerializeField] private float speed;
 
@@ -29,7 +30,7 @@ namespace Player
 
         private void Update()
         {
-           
+
             if (Input.GetKey(KeyCode.A))
             {
                 if (btnShoot == null) return;
@@ -37,7 +38,7 @@ namespace Player
                 btnShoot.onClick.Invoke();
                 Debug.Log("Test");
                 _inputMovement.x = 1;
-                
+
                 rigidbody2D.MovePosition(rigidbody2D.position + _inputMovement * speed * Time.fixedDeltaTime);
 
             }
@@ -56,13 +57,13 @@ namespace Player
 
         private void Movement()
         {
-            if (!hasAuthority) return;
+            //if (!hasAuthority) return;
 
             //rigidbody2D.MovePosition(rigidbody2D.position + _inputMovement * speed * Time.fixedDeltaTime);
             var input = new Vector3(_inputMovement.x, _inputMovement.y, 0);
             transform.Translate(input * speed * Time.fixedDeltaTime, Space.Self);
             rigidbody2D.rotation = _mousePosition.x; ;
-            
+
         }
 
         private void FixedUpdate()

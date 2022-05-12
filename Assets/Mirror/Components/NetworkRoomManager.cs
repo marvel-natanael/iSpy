@@ -180,14 +180,14 @@ namespace Mirror
             }
 
             GameObject gamePlayer = OnRoomServerCreateGamePlayer(conn, roomPlayer);
-            if (gamePlayer == null)
-            {
+            //if (gamePlayer == null)
+            //{
                 // get start position from base class
                 Transform startPos = GetStartPosition();
                 gamePlayer = startPos != null
-                    ? Instantiate(playerPrefab, startPos.position, startPos.rotation)
-                    : Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-            }
+                    ? Instantiate(gamePlayer, startPos.position, startPos.rotation)
+                    : Instantiate(gamePlayer, Vector3.zero, Quaternion.identity);
+            //}
 
             if (!OnRoomServerSceneLoadedForPlayer(conn, roomPlayer, gamePlayer))
                 return;

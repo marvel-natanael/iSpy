@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using Mirror;
@@ -43,3 +43,4 @@ public class PlayerGameNetwork : NetworkBehaviour
         displayName = name;
     }
 }
+*/

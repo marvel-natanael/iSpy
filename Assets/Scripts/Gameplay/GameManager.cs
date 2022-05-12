@@ -17,7 +17,7 @@ public class GameManager : NetworkBehaviour
     [SyncVar]
     public List<string> playerNames = new List<string>();
     [SyncVar(hook =nameof(Hook_WinnerNameFound))]
-    public string winnerName = "Loading";
+    public string winnerName = "Loading...";
 
     [SerializeField]
     int pCount;
@@ -27,6 +27,9 @@ public class GameManager : NetworkBehaviour
     GameObject winPanel;
     [SerializeField]
     TextMeshProUGUI winText;
+
+    [SyncVar]
+    public List<GameObject> players = new List<GameObject>();
 
     public void Hook_GameOver(bool oldVal, bool newVal)
     {
@@ -67,16 +70,6 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    void OnEnable()
-    {
-        PlayerManager.OnGameOver += GameOver;
-    }
-    void OnDisable()
-    {
-        PlayerManager.OnGameOver -= GameOver;
-    }
-
-
     private void Awake()
     {
         if (instance == null)
@@ -88,6 +81,18 @@ public class GameManager : NetworkBehaviour
     private void Start()
     {
         StartCoroutine(CountPlayers());
+        //InvokeRepeating("getPlayersPos", 5f, 3f);
+    }
+
+    [ServerCallback]
+    void getPlayersPos()
+    {
+        if(players == null) { return; }
+        foreach(GameObject player in players)
+        {
+            if(player != null)
+            Debug.Log(player.name + player.transform.position);
+        }
     }
 
     private void LateUpdate()
@@ -132,7 +137,6 @@ public class GameManager : NetworkBehaviour
         }*/
     }
 
-
     public void GameOver()
     {
         gameOver = true;
@@ -159,9 +163,13 @@ public class GameManager : NetworkBehaviour
     {/*
         var manager = NetworkManager.singleton as LobbyNetworkManager;
         */
-        if(isServer)
+
+        yield return new WaitForSeconds(4f);
+        if (isServer)
         {
-            yield return new WaitForSeconds(4f);
+            var manager = GameObject.Find("RoomNetManager").GetComponent<RoomNetManager>();
+            manager.lobbyPlayers.Clear();
+
             pCount = GameObject.FindGameObjectsWithTag("Player").Length;
             starting = true;
         }
@@ -169,11 +177,11 @@ public class GameManager : NetworkBehaviour
 
     private void ServerReturnToLobbyCoroutine()
     {
-        var manager = NetworkManager.singleton as LobbyNetworkManager;
+        var manager = GameObject.Find("RoomNetManager").GetComponent<RoomNetManager>();
         if (!isServer) { return; }
 
-        manager.RoomPlayers.Clear();
-        manager.GamePlayers.Clear();
+        //manager.lobbyPlayers.Clear();
+        //manager.lobbyPlayers.TrimExcess();
         manager.ResetGame();
         counting = true;
     }
