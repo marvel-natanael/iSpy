@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Mirror;
 using Player;
@@ -10,6 +11,8 @@ public class CircleShrink : NetworkBehaviour
     float minSize, shrinkMultiplier, damage = 1;
     bool isShrinked = false, takeDamage = true;
     PlayerManager playerToDamage = null;
+
+    [SerializeField] private Transform circleVfx;
 
     void Update()
     {
@@ -64,10 +67,12 @@ public class CircleShrink : NetworkBehaviour
     {
         Vector3 minScale = new Vector3(minSize, minSize);
         Vector3 startScale = transform.localScale;
+        var circleScale = circleVfx.localScale;
         float timer = 0f;
-        while (transform.localScale.x > minSize)
+        while (transform.localScale.x > minSize && circleVfx.localScale.x > 0.8f)
         {
             transform.localScale = Vector3.Lerp(startScale, minScale, timer / shrinkMultiplier / 50f);
+            circleVfx.localScale = Vector3.Lerp(circleScale, new Vector3(0.8f,0.8f), (timer / shrinkMultiplier / 50f));
             timer += Time.deltaTime;
             yield return null;
         }
