@@ -31,34 +31,6 @@ public class LobbyNetworkManager : NetworkManager
     private ServerDataEntry serverData;
     private bool isMatchmakerLaunched = false;
 
-    public override void Awake()
-    {
-#if UNITY_SERVER
-        //Check if we're using kcp2k
-        if (transport.GetType() == typeof(kcp2k.KcpTransport))
-        {
-            //Check if server is run by a matchmaker
-            var args = Environment.GetCommandLineArgs();
-            if (args.Contains<string>("-port"))
-            {
-                try
-                {
-                    ushort newPort = ushort.Parse(args[Array.FindIndex<string>(args, m => m == "-port") + 1]);
-                    GetComponent<kcp2k.KcpTransport>().Port = newPort;
-                    isMatchmakerLaunched = true;
-
-                    serverData = new ServerDataEntry(newPort, maxConnections);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Argument port is invalid {e}");
-                }
-            }
-        }
-#endif
-        base.Awake();
-    }
-
     public override void Start()
     {
         base.Start();
@@ -116,12 +88,6 @@ public class LobbyNetworkManager : NetworkManager
         //RoomPlayers.Add(conn.identity.gameObject.GetComponent<PlayerRoomNetwork>());
     }
 
-
-    public override void OnStopClient()
-    {
-        base.OnStopClient();
-    }
-
     //public string IsReadyToStart()
     //{
     //    Debug.Log("Roomplayer count : " + RoomPlayers.Count);
@@ -148,16 +114,5 @@ public class LobbyNetworkManager : NetworkManager
     public override void OnStopServer()
     {
         OnServerStopped?.Invoke();
-    }
-
-    public static string GetAddress()
-    {
-        return singleton.networkAddress;
-    }
-
-    public static void ChangePort(int _port)
-    {
-        if (_port < ushort.MaxValue & _port > 0)
-            singleton.GetComponent<kcp2k.KcpTransport>().Port = (ushort)_port;
     }
 }

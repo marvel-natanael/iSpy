@@ -13,6 +13,7 @@ public class ServerSend : PacketSendInterface
 
             SendTCPData(_packet);
         }
+        Debug.Log($"Sent Init Packet");
     }
 
     public static void SendUpdate(ServerDataEntry entry)
@@ -24,6 +25,7 @@ public class ServerSend : PacketSendInterface
 
             SendTCPData(_packet);
         }
+        Debug.Log($"Sent Update Packet");
     }
 
     public static void SendDisconnect(ServerDataEntry entry)
@@ -32,5 +34,6 @@ public class ServerSend : PacketSendInterface
         {
             SendTCPData(_packet);
         }
+        Debug.Log($"Sent Termination Packet");
     }
 }

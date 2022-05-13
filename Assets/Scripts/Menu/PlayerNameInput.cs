@@ -7,13 +7,13 @@ using UnityEngine.SceneManagement;
 public class PlayerNameInput : MonoBehaviour
 {
     [SerializeField]
-    TMP_InputField nameInputField;
+    private TMP_InputField nameInputField;
 
     [SerializeField] private TMP_Text messageError;
     private const string PlayerPrefsNameKey = "PlayerName";
     public static string displayName { get; private set; }
 
-    void Start()
+    private void Start()
     {
         nameInputField = GameObject.Find("Name Input Field").GetComponent<TMP_InputField>();
         nameInputField.text = PlayerPrefs.GetString(PlayerPrefsNameKey, "");

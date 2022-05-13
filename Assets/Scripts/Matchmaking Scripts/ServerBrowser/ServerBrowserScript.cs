@@ -71,9 +71,9 @@ public class ServerBrowserScript : MonoBehaviour
     {
         if (ConnectChecks())
         {
-            LobbyNetworkManager.ChangePort(ServerEntries.Singleton.Database[CurrentSelected.id].Port);
+            RoomNetManager.ChangePort(ServerEntries.Singleton.Database[CurrentSelected.id].Port);
             MatchmakerClient.Singleton.Disconnect();
-            NetworkClient.Connect(LobbyNetworkManager.GetAddress());
+            NetworkClient.Connect(NetworkManager.singleton.networkAddress);
         }
     }
 

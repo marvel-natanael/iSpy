@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ServerDataEntry : MonoBehaviour
+public class ServerDataEntry
 {
     private ushort port;
     private int playerCount;
@@ -31,13 +31,35 @@ public class ServerDataEntry : MonoBehaviour
         running = false;
     }
 
+    /// <summary>
+    /// Updates <c>playerCount</c> field
+    /// </summary>
+    /// <param name="newCount"></param>
     public void UpdateEntry(int newCount)
     {
         playerCount = newCount;
+        Debug.Log($"playerCount entry for {port} is updated");
     }
 
+    /// <summary>
+    /// Updates <c>running</c> field
+    /// </summary>
+    /// <param name="isRunning">new state</param>
     public void UpdateEntry(bool isRunning)
     {
         running = isRunning;
+        Debug.Log($"running entry for {port} is updated");
+    }
+
+    /// <summary>
+    /// Updates both <c>playercount</c> and <c>running</c> fields
+    /// </summary>
+    /// <param name="newCount">new player count</param>
+    /// <param name="isRunning">new running state</param>
+    public void UpdateEntry(int newCount, bool isRunning)
+    {
+        playerCount = newCount;
+        running = isRunning;
+        Debug.Log($"playerCount and running entry for {port} is updated");
     }
 }

@@ -6,9 +6,12 @@ using UnityEngine;
 /// <summary>
 /// Database handling
 /// </summary>
-public class ServerEntries : MonoBehaviour
+public class ServerEntries
 {
-    public static ServerEntries Singleton;
+    private static ServerEntries singleton;
+
+    public static ServerEntries Singleton
+    { get { if (singleton == null) singleton = new ServerEntries(); return singleton; } }
 
     private List<ServerDataEntry> serverList = new List<ServerDataEntry>();
 
@@ -18,17 +21,6 @@ public class ServerEntries : MonoBehaviour
     public List<ServerDataEntry> Database => serverList;
 
     public static event Action onDatabaseUpdate;
-
-    private void Awake()
-    {
-        if (Singleton == null)
-            Singleton = this;
-        else if (Singleton != this)
-        {
-            Debug.LogWarning($"Multiple server database detected, destroying...");
-            Destroy(this);
-        }
-    }
 
     public void SetData(ServerDataEntry entry)
     {

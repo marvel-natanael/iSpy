@@ -14,7 +14,7 @@ public class FieldOfView : MonoBehaviour
 
     private float closestDistance;
 
-    private CircleCollider2D collider;
+    private new CircleCollider2D collider;
 
     public GameObject ClosestPlayer
     {
@@ -77,7 +77,7 @@ public class FieldOfView : MonoBehaviour
         {
             PlayerManager player = g.GetComponent<PlayerManager>();
 
-            if(player.ItemPlayer.health < lowestHP)
+            if (player.ItemPlayer.health < lowestHP)
             {
                 lowestHP = player.ItemPlayer.health;
                 lowestHPPlayer = player.gameObject;
@@ -151,5 +151,5 @@ public class FieldOfView : MonoBehaviour
         return new Vector2(Mathf.Sin(angleDegrees * Mathf.Deg2Rad), Mathf.Cos(angleDegrees * Mathf.Deg2Rad));
     }
 
-    #endregion
+    #endregion Gizmos
 }

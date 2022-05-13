@@ -10,5 +10,6 @@ public class ClientSend : PacketSendInterface
         {
             SendTCPData(_packet);
         }
+        Debug.Log($"Sent Update Request to matchmaker");
     }
 }

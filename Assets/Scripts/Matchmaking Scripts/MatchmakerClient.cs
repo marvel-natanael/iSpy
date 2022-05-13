@@ -31,6 +31,11 @@ public class MatchmakerClient : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void OnApplicationQuit()
     {
         Disconnect();
@@ -44,9 +49,11 @@ public class MatchmakerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Connect to the matchmaker program
+    /// Connect to matchmaker service
     /// </summary>
-    public void Connect(bool _isServer)
+    /// <param name="port">matchmaker port</param>
+    /// <param name="_isServer">connect as server?</param>
+    public void Connect(string address, ushort port, bool _isServer)
     {
         if (transport != null) Disconnect();
         isServer = _isServer;
@@ -54,7 +61,7 @@ public class MatchmakerClient : MonoBehaviour
         transport = new TCP(_isServer);
         try
         {
-            transport.Connect(LobbyNetworkManager.GetAddress(), 7777);
+            transport.Connect(address, port);
             isConnected = true;
         }
         catch (Exception e)
@@ -74,6 +81,9 @@ public class MatchmakerClient : MonoBehaviour
         private readonly bool isServer;
         private int connectionAttempt = 0;
         private int maxConnectionAttempt = 3;
+
+        private string latestAddress;
+        private int latestPort;
 
         private byte[] receiveBuffer;
         private Packet receivedPacket;
@@ -106,6 +116,7 @@ public class MatchmakerClient : MonoBehaviour
         /// <param name="_socket">Socket to connect to</param>
         public void Connect(string endPointAddress, int endpointPort)
         {
+            Debug.Log($"Connecting to matchmaker ({latestAddress}:{latestPort})...");
             socket = new TcpClient()
             {
                 ReceiveBufferSize = dataBufferSize,
@@ -113,6 +124,8 @@ public class MatchmakerClient : MonoBehaviour
             };
 
             receiveBuffer = new byte[dataBufferSize];
+            latestAddress = endPointAddress;
+            latestPort = endpointPort;
             socket.BeginConnect(endPointAddress, endpointPort, ConnectCallback, null);
         }
 
@@ -126,12 +139,20 @@ public class MatchmakerClient : MonoBehaviour
 
             if (!socket.Connected)
             {
+                Debug.LogWarning($"First connection attempt to matchmaker ({latestAddress}:{latestPort}) failed, retrying...");
                 if (connectionAttempt < maxConnectionAttempt)
                 {
-                    Debug.LogWarning($"Failed to connect to matchmaker service, retrying...");
+                    Debug.LogWarning($"Failed to connect to matchmaker service ({latestAddress}:{latestPort}), retrying...");
+                    Connect(latestAddress, latestPort);
                 }
-                return;
+                else
+                {
+                    Debug.LogError($"Connection to matchmaker failed ({latestAddress}:{latestPort}), shutting down...");
+                    Application.Quit();
+                    return;
+                }
             }
+            Debug.Log($"Connected to matchmaker ({latestAddress}:{latestPort})!");
 
             stream = socket.GetStream();
 
@@ -149,6 +170,7 @@ public class MatchmakerClient : MonoBehaviour
         /// </remarks>
         private void ReceiveCallback(IAsyncResult _result)
         {
+            Debug.Log($"Received a packet!");
             try
             {
                 int _bytelength = stream.EndRead(_result);
@@ -178,6 +200,7 @@ public class MatchmakerClient : MonoBehaviour
         /// <param name="dataStream">packet to be sent</param>
         public void SendData(Packet dataStream)
         {
+            Debug.Log($"Sending a packet to matchmaker");
             try
             {
                 if (socket != null)
@@ -284,6 +307,7 @@ public class MatchmakerClient : MonoBehaviour
     {
         if (isConnected)
         {
+            ServerSend.SendDisconnect(null);
             isConnected = false;
             transport.socket.Close();
 

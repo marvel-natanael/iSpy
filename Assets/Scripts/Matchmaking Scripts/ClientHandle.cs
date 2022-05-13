@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// This class is to handle matchmaker-client packets
 /// </summary>
-public class ClientHandle : MonoBehaviour
+public class ClientHandle
 {
     public static void HandleInit(Packet _packet)
     {
@@ -42,7 +42,7 @@ public class ClientHandle : MonoBehaviour
             var _running = _packet.ReadBool();
 
             // update server entry
-            ServerEntries.Singleton.UpdateData(i, _playerCount, _running);
+            ServerEntries.Singleton.UpdateData(_index, _playerCount, _running);
         }
     }
 }
