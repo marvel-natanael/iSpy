@@ -28,6 +28,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField]
     TextMeshProUGUI winText;
 
+    [SerializeField] private GameObject losePanel;
+
     [SyncVar]
     public List<GameObject> players = new List<GameObject>();
 
@@ -146,6 +148,8 @@ public class GameManager : NetworkBehaviour
         {
             if(!winPanel.activeInHierarchy)
             winPanel.SetActive(true);
+            
+           losePanel.SetActive(false);
         }
         if (isServer)
         {
@@ -199,4 +203,16 @@ public class GameManager : NetworkBehaviour
         base.OnStopClient();
         Debug.Log("ON STOP CLIENT CALLED ");
     }
+
+    public void LeaveGame()
+    {
+        Debug.Log("Test 1");
+        var manager = GameObject.Find("RoomNetManager").GetComponent<RoomNetManager>();
+        if (isServer) { return; }
+        Debug.Log("Test 2");
+        manager.StopClient();
+        
+        Debug.Log("Test 3");
+    }
+    
 }
