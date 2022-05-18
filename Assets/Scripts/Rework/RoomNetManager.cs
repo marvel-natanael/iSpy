@@ -121,7 +121,6 @@ public class RoomNetManager : NetworkRoomManager
             GameObject spawnSystemInstance = Instantiate(playerSpawner);
             NetworkServer.Spawn(spawnSystemInstance);
         }
-        base.OnServerSceneChanged(sceneName);
     }
 
     /// <summary>

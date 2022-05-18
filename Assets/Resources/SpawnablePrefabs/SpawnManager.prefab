@@ -65,4 +65,5 @@ MonoBehaviour:
   syncInterval: 0.1
   npcs:
   - {fileID: 7876390319304951281, guid: e93f23b4460af1d43aeaacf49c19035e, type: 3}
+  - {fileID: 5892829571904965111, guid: 51e527b678a630c408e2c03f6c379636, type: 3}
   - {fileID: 5892829571904965111, guid: 08ac701fd65b398418ba607d7b52c9d4, type: 3}

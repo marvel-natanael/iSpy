@@ -13,7 +13,7 @@ public class PlayerSpawner : NetworkBehaviour
     private static List<Transform> HorSoldierSpawnPoints = new List<Transform>();
     private static List<Transform> TurretSpawnPoints = new List<Transform>();
 
-    private int nextIndex = 0, npcIndex = 0;
+    private int turIndex, verIndex, horIndex;
 
     public static void AddVerSoldierSpawnPoint(Transform transform)
     {
@@ -43,44 +43,89 @@ public class PlayerSpawner : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        RoomNetManager.onServerReadied += SoawnNPC;
+        RoomNetManager.onServerReadied += SpawnNPC;
     }
 
     [ServerCallback]
     private void OnDestroy()
     {
-        RoomNetManager.onServerReadied -= SoawnNPC;
+        RoomNetManager.onServerReadied -= SpawnNPC;
     }
 
     [Server]
-    public void SoawnNPC(NetworkConnection conn)
+    public void SpawnNPC(NetworkConnection conn)
     {
+        if (!NetworkServer.active) { return; }
         //soldier vertical
-        Spawn(VerSoldierSpawnPoints, npcs[0]);        
+
+        for (int i = turIndex; i < TurretSpawnPoints.Count; i++)
+            SpawnTurret();
+        for (int i = verIndex; i < VerSoldierSpawnPoints.Count; i++)
+            SpawnVer();
+        for (int i = horIndex; i < HorSoldierSpawnPoints.Count; i++)
+            SpawnHor();
+        
+        /*
+        for (int i = verIndex; i < VerSoldierSpawnPoints.Count; i++)
+            Spawn(VerSoldierSpawnPoints, npcs[1],verIndex);
+        for (int i = horIndex; i < HorSoldierSpawnPoints.Count; i++)
+            Spawn(HorSoldierSpawnPoints, npcs[2], horIndex);*/
         //soldier horizontal
         //Spawn(NPCspawnPoints, npcs[2]);
         //turret
-        Spawn(TurretSpawnPoints, npcs[1]);
+        //Spawn(TurretSpawnPoints, npcs[1]);
 
     }
 
-    public virtual void Spawn(List<Transform> spawnPoints, GameObject npcToSpawn)
+    public virtual void SpawnTurret()
     {
         if (!NetworkServer.active) { return; }
 
-        Transform spawnPoint = spawnPoints.ElementAtOrDefault(nextIndex);
+        Transform spawnPoint = TurretSpawnPoints.ElementAtOrDefault(turIndex);
 
         if (spawnPoint == null)
         {
-            Debug.LogError($"Missing spawn point for player {nextIndex}");
+            Debug.LogError($"Missing spawn point for player {turIndex}");
             return;
         }
 
-        for (int i = 0; i < spawnPoints.Count; i++)
+        //GameObject npcInstance = Instantiate(npcToSpawn, spawnPoints[i].position, spawnPoints[i].rotation);
+        GameObject npcInstance = Instantiate(npcs[0], TurretSpawnPoints[turIndex].position, npcs[0].transform.rotation);
+        NetworkServer.Spawn(npcInstance);
+        turIndex++;
+    }
+    public virtual void SpawnVer()
+    {
+        if (!NetworkServer.active) { return; }
+
+        Transform spawnPoint = VerSoldierSpawnPoints.ElementAtOrDefault(verIndex);
+
+        if (spawnPoint == null)
         {
-            //GameObject npcInstance = Instantiate(npcToSpawn, spawnPoints[i].position, spawnPoints[i].rotation);
-            GameObject npcInstance = Instantiate(npcToSpawn, spawnPoints[i].position, npcToSpawn.transform.rotation);
-            NetworkServer.Spawn(npcInstance);
+            Debug.LogError($"Missing spawn point for player {verIndex}");
+            return;
         }
+
+        //GameObject npcInstance = Instantiate(npcToSpawn, spawnPoints[i].position, spawnPoints[i].rotation);
+        GameObject npcInstance = Instantiate(npcs[1], VerSoldierSpawnPoints[verIndex].position, npcs[1].transform.rotation);
+        NetworkServer.Spawn(npcInstance);
+        verIndex++;
+    }
+    public virtual void SpawnHor()
+    {
+        if (!NetworkServer.active) { return; }
+
+        Transform spawnPoint = HorSoldierSpawnPoints.ElementAtOrDefault(horIndex);
+
+        if (spawnPoint == null)
+        {
+            Debug.LogError($"Missing spawn point for player {horIndex}");
+            return;
+        }
+
+        //GameObject npcInstance = Instantiate(npcToSpawn, spawnPoints[i].position, spawnPoints[i].rotation);
+        GameObject npcInstance = Instantiate(npcs[2], HorSoldierSpawnPoints[horIndex].position, npcs[2].transform.rotation);
+        NetworkServer.Spawn(npcInstance);
+        horIndex++;
     }
 }
