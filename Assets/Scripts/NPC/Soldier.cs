@@ -12,8 +12,9 @@ public class Soldier : NetworkBehaviour
 
     protected float timerToDelay;
 
-    [Header("Soldier Properties")] [SerializeField]
-    private float moveSpeed;
+    [Header("Soldier Properties")]
+    [SerializeField] private SoldierType type;
+    [SerializeField] private float moveSpeed;
 
     public Vector2 maxDistance;
 
@@ -29,18 +30,18 @@ public class Soldier : NetworkBehaviour
 
     [SerializeField] private DetectionPlayer _detectionPlayer;
 
-    private Animator _animator;
+    private Vector3 direction;
 
     [SyncVar]
     public bool moveForward;
 
     public void Start()
     {
-        _animator = GetComponent<Animator>();
+        direction = transform.up;
 
-        maxDistance = transform.position + (transform.up * 7);
+        maxDistance = transform.position + (direction * 7);
 
-        Flip(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
+        Flip(transform.localScale.x, transform.localScale.y, transform.localScale.z);
         timerToDelay = delay;
     }
 
@@ -74,8 +75,8 @@ public class Soldier : NetworkBehaviour
     {
         if (moveForward)
         {
-            transform.position += transform.up * speed * Time.deltaTime;
-
+            transform.position += direction * speed * Time.deltaTime;
+            
             if (transform.position.magnitude > maxDistance.magnitude)
             {
                 moveForward = false;
@@ -84,8 +85,8 @@ public class Soldier : NetworkBehaviour
         }
         else
         {
-            transform.position += -transform.up * speed * Time.deltaTime;
-
+            transform.position += -direction * speed * Time.deltaTime;
+            
             if (transform.position.magnitude > maxDistance.magnitude)
             {
                 moveForward = true;
@@ -114,4 +115,10 @@ public class Soldier : NetworkBehaviour
 
         timerToFire = 0;
     }
+}
+
+public enum SoldierType
+{
+    horizontal,
+    vertical
 }

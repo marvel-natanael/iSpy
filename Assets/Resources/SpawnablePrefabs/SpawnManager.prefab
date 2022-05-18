@@ -63,11 +63,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerPrefab:
-  - {fileID: 4607003322616202644, guid: 087a7aa2542853047b8a5d7a9b2af546, type: 3}
-  - {fileID: 4607003322616202644, guid: 205e75d9286e2094eb2c250d5136c1e7, type: 3}
-  - {fileID: 4607003322616202644, guid: 7d9509a7353d2774b8ae940668954747, type: 3}
-  - {fileID: 4607003322616202644, guid: 32bb5e8d489938b43bf89b4086f52793, type: 3}
   npcs:
   - {fileID: 7876390319304951281, guid: e93f23b4460af1d43aeaacf49c19035e, type: 3}
   - {fileID: 5892829571904965111, guid: 08ac701fd65b398418ba607d7b52c9d4, type: 3}

@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 1256929251506223776}
   - component: {fileID: 785091798488207782}
   m_Layer: 0
-  m_Name: SoldierNPC
+  m_Name: SoldierNPC_Vertical
   m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,7 +133,7 @@ Transform:
   m_GameObject: {fileID: 5892829571904965111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.3, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.3, y: -0.3, z: 1}
   m_Children:
   - {fileID: 2030655424349772388}
   - {fileID: 1065224825}
@@ -210,6 +210,7 @@ MonoBehaviour:
   child: {fileID: 8604490838154970005}
   bullet: {fileID: 2224156736651089378, guid: 98780ad769121a84cbe97d216c45c7aa, type: 3}
   delay: 3
+  type: 1
   moveSpeed: 2
   maxDistance: {x: 0, y: 0}
   fireSpeed: 0.5
@@ -233,7 +234,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 08ac701fd65b398418ba607d7b52c9d4
+  m_AssetId: 51e527b678a630c408e2c03f6c379636
   hasSpawned: 0
 --- !u!95 &870416342
 Animator:

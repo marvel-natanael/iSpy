@@ -78,7 +78,8 @@ public class PlayerSpawner : NetworkBehaviour
 
         for (int i = 0; i < spawnPoints.Count; i++)
         {
-            GameObject npcInstance = Instantiate(npcToSpawn, spawnPoints[i].position, spawnPoints[i].rotation);
+            //GameObject npcInstance = Instantiate(npcToSpawn, spawnPoints[i].position, spawnPoints[i].rotation);
+            GameObject npcInstance = Instantiate(npcToSpawn, spawnPoints[i].position, npcToSpawn.transform.rotation);
             NetworkServer.Spawn(npcInstance);
         }
     }
