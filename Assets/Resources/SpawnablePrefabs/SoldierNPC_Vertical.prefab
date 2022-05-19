@@ -211,8 +211,8 @@ MonoBehaviour:
   bullet: {fileID: 2224156736651089378, guid: 98780ad769121a84cbe97d216c45c7aa, type: 3}
   delay: 3
   type: 1
-  moveSpeed: 2
-  maxDistance: {x: 0, y: 0}
+  moveSpeed: 3
+  distance: 2
   fireSpeed: 0.5
   bulletSpeed: 5
   damage: 10
