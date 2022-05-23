@@ -116,6 +116,12 @@ public class Soldier : NetworkBehaviour
 
         timerToFire = 0;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        moveForward = !moveForward;
+        Flip(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
+    }
 }
 
 public enum SoldierType

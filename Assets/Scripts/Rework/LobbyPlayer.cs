@@ -190,6 +190,15 @@ public class LobbyPlayer : NetworkRoomPlayer
         }
     }
 
+    public void Disconnect()
+    {
+        if (NetworkClient.active && isLocalPlayer)
+        {
+            var manager = GameObject.Find("RoomNetManager").GetComponent<RoomNetManager>();
+            manager.StopClient();
+        }
+    }
+
     public void OnGamePlay()
     {
         lobbyUI.SetActive(false);
