@@ -29,39 +29,34 @@ public class RoomNetManager : NetworkRoomManager
 
     public static string HostAddress => singleton.networkAddress;
 
-    public static event Action<NetworkConnection> onServerReadied;
+    public static event Action<NetworkConnection> OnServerReadied;
 
     /// <summary>
-    /// if this program was launched by matchmaker
+    /// Was this program was launched by matchmaker?
     /// </summary>
     private bool isMatchmakerLaunched = false;
 
+    private ushort port = 0;
+
     private ServerDataEntry localEntry = null;
 
-    public override void Start()
+    public override void Awake()
     {
+        // Initialize Matchmaker Client
+        MatchmakerClient.Singleton.Initialize();
+
         //Check if server is run by a matchmaker
         var args = Environment.GetCommandLineArgs();
-        if (args.Contains<string>("-port") & args.Contains<string>("-m_port"))
+        if (args.Contains<string>("-port"))
         {
             Debug.Log($"This Unity Server was ran by a matchmaker service!");
             isMatchmakerLaunched = true;
             try
             {
-                // Get matchmaker port and connect to matchmaker as a server
-                ushort matchmakerPort = ushort.Parse(args[Array.FindIndex<string>(args, m => m == "-m_port") + 1]);
-                Debug.Log($"Matchmaker port received in args : {matchmakerPort}");
-                MatchmakerClient.Singleton.Connect(singleton.networkAddress, matchmakerPort, true);
-                if (MatchmakerClient.Singleton.transport.socket.Connected)
-                {
-                    Debug.Log($"Server connected to matchmaker {singleton.networkAddress}:{matchmakerPort}");
-                    ServerSend.SendInit(localEntry);
-                }
-
                 // Get port assigned by matchmaker
                 ushort newPort = ushort.Parse(args[Array.FindIndex<string>(args, m => m == "-port") + 1]);
                 Debug.Log($"Unity Server port received in args : {newPort}");
-                ChangePort(newPort);
+                port = newPort;
 
                 localEntry = new ServerDataEntry(newPort, maxConnections);
             }
@@ -70,7 +65,18 @@ public class RoomNetManager : NetworkRoomManager
                 Debug.LogException(e);
             }
         }
-        base.Start();
+        base.Awake();
+    }
+
+    public override void Start()
+    {
+        if (isMatchmakerLaunched)
+        {
+            MatchmakerClient.Singleton.Connect();
+            Debug.Log($"Server connected to matchmaker");
+            ChangePort(port);
+        }
+        singleton.StartServer();
     }
 
     #region Server Callbacks
@@ -93,7 +99,7 @@ public class RoomNetManager : NetworkRoomManager
     public override void OnServerReady(NetworkConnection conn)
     {
         base.OnServerReady(conn);
-        onServerReadied?.Invoke(conn);
+        OnServerReadied?.Invoke(conn);
     }
 
     /// <summary>
@@ -333,11 +339,20 @@ public class RoomNetManager : NetworkRoomManager
     /// <param name="_port">new port</param>
     public static void ChangePort(int _port)
     {
-        if (_port < ushort.MaxValue & _port > 0)
+        if (!singleton.gameObject.GetComponent<kcp2k.KcpTransport>()) { Debug.LogError($"Transport doesn't exist, cannot change port!"); return; }
+        if (_port > ushort.MaxValue & _port <= 0) { Debug.LogError($"port invalid"); return; }
+        singleton.gameObject.GetComponent<kcp2k.KcpTransport>().Port = (ushort)_port;
+        Debug.Log($"Transport's port is now {singleton.GetComponent<kcp2k.KcpTransport>().Port}");
+    }
+
+    public override void OnApplicationQuit()
+    {
+        if (MatchmakerClient.Singleton.transport != null)
         {
-            singleton.GetComponent<kcp2k.KcpTransport>().Port = (ushort)_port;
-            Debug.Log($"Transport's port is now {singleton.GetComponent<kcp2k.KcpTransport>().Port}");
+            Debug.Log("quit");
+            //MatchmakerClient.Singleton.Disconnect();
         }
+        base.OnApplicationQuit();
     }
 
     #endregion Matchmaker Stuff

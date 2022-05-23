@@ -6,40 +6,38 @@ using System.Net.Sockets;
 using UnityEngine;
 
 //This class is to handle client connection to the matchmaker
-public class MatchmakerClient : MonoBehaviour
+public class MatchmakerClient
 {
-    public static MatchmakerClient Singleton;
+    private static MatchmakerClient singleton;
+
+    public static MatchmakerClient Singleton
+    { get { if (singleton == null) singleton = new MatchmakerClient(); return singleton; } }
+
     public static int dataBufferSize = 4096;
 
     private readonly int id;
     public TCP transport = null;
     private bool isConnected = false;
-    private bool isServer = false;
 
     public int ID => id;
 
-    private void Awake()
-    {
-        if (Singleton == null)
-        {
-            Singleton = this;
-        }
-        else if (Singleton != this)
-        {
-            Debug.Log($"Client instance already exists, destroying object");
-            Destroy(this);
-        }
-    }
+    //private void Awake()
+    //{
+    //    if (Singleton == null)
+    //    {
+    //        Singleton = this;
+    //    }
+    //    else if (Singleton != this)
+    //    {
+    //        Debug.Log($"Client instance already exists, destroying object");
+    //        Destroy(this);
+    //    }
+    //}
 
-    private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private void OnApplicationQuit()
-    {
-        Disconnect();
-    }
+    //private void Start()
+    //{
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
     /// <summary>
     /// Hidden
@@ -48,26 +46,63 @@ public class MatchmakerClient : MonoBehaviour
     {
     }
 
+    public void Initialize()
+    {
+        if (singleton == null) return;
+        Debug.Log($"Matchmaker singleton initialized!");
+    }
+
     /// <summary>
-    /// Connect to matchmaker service
+    /// Connect to matchmaker service as a client
     /// </summary>
+    /// <param name="address">matchmaker address</param>
     /// <param name="port">matchmaker port</param>
     /// <param name="_isServer">connect as server?</param>
-    public void Connect(string address, ushort port, bool _isServer)
+    public void Connect(string address, ushort port)
     {
-        if (transport != null) Disconnect();
-        isServer = _isServer;
+        if (transport != null) transport = new TCP();
 
-        transport = new TCP(_isServer);
+        if (transport.IsConnected) { Debug.LogError($"Transport already connected"); return; }
         try
         {
             transport.Connect(address, port);
-            isConnected = true;
         }
         catch (Exception e)
         {
             Debug.LogError($"Exception caught in Client.cs: {e}");
+        }
+    }
+
+    /// <summary>
+    /// Connect to matchmaker service as a server
+    /// </summary>
+    public void Connect()
+    {
+        if (transport == null) transport = new TCP(true);
+
+        if (transport.IsConnected) { Debug.LogError($"Transport is already connected"); return; }
+        try
+        {
+            transport.Connect("127.0.0.1", 7777);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Exception caught in Client.cs: {e}");
+        }
+    }
+
+    /// <summary>
+    /// Disconnects the matchmaker client from the matchmaker service
+    /// </summary>
+    public void Disconnect()
+    {
+        if (isConnected)
+        {
+            ServerSend.SendDisconnect(null);
             isConnected = false;
+            transport.socket.Close();
+
+            Debug.Log($"Disconnected from matchmaker");
         }
     }
 
@@ -77,10 +112,13 @@ public class MatchmakerClient : MonoBehaviour
     public class TCP
     {
         public TcpClient socket;
-        private NetworkStream stream;
-        private readonly bool isServer;
+        private bool isConnected = false;
+        public bool IsConnected { get => isConnected; }
+
+        private NetworkStream stream = null;
+        private readonly bool isServer = false;
         private int connectionAttempt = 0;
-        private int maxConnectionAttempt = 3;
+        private readonly int maxConnectionAttempt = 3;
 
         private string latestAddress;
         private int latestPort;
@@ -92,7 +130,11 @@ public class MatchmakerClient : MonoBehaviour
 
         private static Dictionary<int, PacketHandler> packetHandle;
 
-        public TCP(bool _isServer)
+        /// <summary>
+        /// Create a new TCP transport
+        /// </summary>
+        /// <param name="_isServer"><see langword="true"/>, if is a server</param>
+        public TCP(bool _isServer = false)
         {
             isServer = _isServer;
             if (_isServer)
@@ -116,16 +158,15 @@ public class MatchmakerClient : MonoBehaviour
         /// <param name="_socket">Socket to connect to</param>
         public void Connect(string endPointAddress, int endpointPort)
         {
+            latestAddress = endPointAddress;
+            latestPort = endpointPort;
             Debug.Log($"Connecting to matchmaker ({latestAddress}:{latestPort})...");
             socket = new TcpClient()
             {
                 ReceiveBufferSize = dataBufferSize,
                 SendBufferSize = dataBufferSize
             };
-
             receiveBuffer = new byte[dataBufferSize];
-            latestAddress = endPointAddress;
-            latestPort = endpointPort;
             socket.BeginConnect(endPointAddress, endpointPort, ConnectCallback, null);
         }
 
@@ -143,6 +184,7 @@ public class MatchmakerClient : MonoBehaviour
                 if (connectionAttempt < maxConnectionAttempt)
                 {
                     Debug.LogWarning($"Failed to connect to matchmaker service ({latestAddress}:{latestPort}), retrying...");
+                    connectionAttempt++;
                     Connect(latestAddress, latestPort);
                 }
                 else
@@ -152,13 +194,16 @@ public class MatchmakerClient : MonoBehaviour
                     return;
                 }
             }
-            Debug.Log($"Connected to matchmaker ({latestAddress}:{latestPort})!");
+            else
+            {
+                Debug.Log($"Connected to matchmaker ({latestAddress}:{latestPort})!");
+                isConnected = true;
+                stream = socket.GetStream();
 
-            stream = socket.GetStream();
+                receivedPacket = new Packet();
 
-            receivedPacket = new Packet();
-
-            stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
+                stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
+            }
         }
 
         /// <summary>
@@ -201,6 +246,7 @@ public class MatchmakerClient : MonoBehaviour
         public void SendData(Packet dataStream)
         {
             Debug.Log($"Sending a packet to matchmaker");
+            if (!isConnected) { Debug.LogError($"Matchmaker client is not connected to matchmaker, aborting..."); return; }
             try
             {
                 if (socket != null)
@@ -244,11 +290,9 @@ public class MatchmakerClient : MonoBehaviour
                 byte[] packetBytes = receivedPacket.ReadBytes(packetLength);
                 ThreadManager.ExecuteOnMainThread(() =>
                 {
-                    using (Packet _packet = new Packet(packetBytes))
-                    {
-                        int _packetID = _packet.ReadInt();
-                        packetHandle[_packetID](_packet);
-                    }
+                    using Packet _packet = new Packet(packetBytes);
+                    int _packetID = _packet.ReadInt();
+                    packetHandle[_packetID](_packet);
                 });
 
                 packetLength = 0;
@@ -269,6 +313,9 @@ public class MatchmakerClient : MonoBehaviour
             return false;
         }
 
+        /// <summary>
+        /// Disconnects this transport
+        /// </summary>
         private void Disconnect()
         {
             Singleton.Disconnect();
@@ -300,18 +347,6 @@ public class MatchmakerClient : MonoBehaviour
         {
             { (int) MatchmakerClientPackets.updateReply, ClientHandle.HandleUpdate }
         };
-        }
-    }
-
-    public void Disconnect()
-    {
-        if (isConnected)
-        {
-            ServerSend.SendDisconnect(null);
-            isConnected = false;
-            transport.socket.Close();
-
-            Debug.Log($"Disconnected from matchmaker");
         }
     }
 }

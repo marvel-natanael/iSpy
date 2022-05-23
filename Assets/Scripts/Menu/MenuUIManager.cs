@@ -8,15 +8,19 @@ using DG.Tweening;
 public class MenuUIManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject mainMenu, enterNamePanel;
+    private GameObject mainMenu, enterNamePanel;
+
     [SerializeField]
-    TMP_InputField nameInputField;
+    private TMP_InputField nameInputField;
+
+    //[SerializeField]
+    //RectTransform mainMenuTf, lobbyTf, enterNamePanelTf;
     [SerializeField]
-    RectTransform mainMenuTf, lobbyTf, enterNamePanelTf;
+    private RoomNetManager networkManager = null;
+
     [SerializeField]
-    RoomNetManager networkManager = null;
-    [SerializeField]
-    string address;
+    private string address;
+
     /*void OnEnable()
     {
         PlayerNameInput.OnClicked += ShowMainMenu;
@@ -37,29 +41,23 @@ public class MenuUIManager : MonoBehaviour
 
     public void SwipeUp()
     {
-
     }
+
     public void SwipeDown()
     {
-
     }
+
     public void SwipeRight()
     {
-
     }
+
     public void SwipeLeft()
     {
-
-    }
-
-    void Update()
-    {
-        
     }
 
     public void ShowMainMenu()
     {
-        if(nameInputField.text != null)
+        if (nameInputField.text != null)
         {
             Debug.Log(nameInputField.text);
             enterNamePanel.SetActive(false);

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 public class ServerBrowserScript : MonoBehaviour
 {
     public static ServerBrowserScript Singleton;
-    private List<GameObject> contentList = new List<GameObject>();
+    private readonly List<GameObject> contentList = new List<GameObject>();
 
     public EntryObject CurrentSelected;
     public string PlayerName;
@@ -31,7 +31,7 @@ public class ServerBrowserScript : MonoBehaviour
 
     private void Start()
     {
-        ServerEntries.onDatabaseUpdate += ServerEntries_onDatabaseUpdate;
+        ServerEntries.OnDatabaseUpdate += ServerEntries_onDatabaseUpdate;
     }
 
     /// <summary>
@@ -57,6 +57,9 @@ public class ServerBrowserScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Destroys every entry object in <c>contentList</c> and clearing it
+    /// </summary>
     private void ResetAllData()
     {
         CurrentSelected = null;
@@ -67,6 +70,9 @@ public class ServerBrowserScript : MonoBehaviour
         contentList.Clear();
     }
 
+    /// <summary>
+    /// Button function: when clicked, connect to selected server
+    /// </summary>
     public void B_ConnectToSelected()
     {
         if (ConnectChecks())
@@ -77,6 +83,9 @@ public class ServerBrowserScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Button function: when clicked, request the latest update manually
+    /// </summary>
     public void B_RequestUpdate()
     {
         if (MatchmakerClient.Singleton.transport.socket.Connected)
@@ -90,6 +99,10 @@ public class ServerBrowserScript : MonoBehaviour
         PlayerName = newName;
     }
 
+    /// <summary>
+    /// Do checks if connecting is viable
+    /// </summary>
+    /// <returns><see langword="true"/>, if connecting is doable</returns>
     private bool ConnectChecks()
     {
         if (!CurrentSelected)

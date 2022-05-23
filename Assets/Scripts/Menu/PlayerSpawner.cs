@@ -13,7 +13,7 @@ public class PlayerSpawner : NetworkBehaviour
 
     private static List<Transform> NPCspawnPoints = new List<Transform>();
 
-    private int nextIndex = 0, npcIndex = 0;
+    private int nextIndex = 0;
 
     public static void AddSpawnPoint(Transform transform)
     {
@@ -21,24 +21,27 @@ public class PlayerSpawner : NetworkBehaviour
 
         spawnPoints = spawnPoints.OrderBy(x => x.GetSiblingIndex()).ToList();
     }
+
     public static void AddNPCSpawnPoint(Transform transform)
     {
         NPCspawnPoints.Add(transform);
 
         NPCspawnPoints = NPCspawnPoints.OrderBy(x => x.GetSiblingIndex()).ToList();
     }
+
     public static void RemoveSpawnPoint(Transform transform) => spawnPoints.Remove(transform);
+
     public static void RemoveNPCSpawnPoint(Transform transform) => NPCspawnPoints.Remove(transform);
 
     public override void OnStartServer()
     {
-        RoomNetManager.onServerReadied += SpawnNPC;
+        RoomNetManager.OnServerReadied += SpawnNPC;
     }
 
     [ServerCallback]
     private void OnDestroy()
     {
-        RoomNetManager.onServerReadied -= SpawnNPC;
+        RoomNetManager.OnServerReadied -= SpawnNPC;
     }
 
     [Server]

@@ -17,8 +17,13 @@ public class EntryObject : MonoBehaviour
     public string PlayerCount => playerCount.text;
     public string Status => status.text;
 
-    private void Awake()
+    public void Awake()
     {
+        if (transform.childCount != 4) return;
+        roomNumber = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        playerCount = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        status = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        portAddress = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
     }
 
     public void UpdateData(int _roomNumber, ServerDataEntry entry)

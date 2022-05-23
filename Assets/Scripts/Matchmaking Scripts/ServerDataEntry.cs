@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class ServerDataEntry
 {
-    private ushort port;
+    private readonly ushort port;
+    private readonly int maxPlayer;
     private int playerCount;
-    private int maxPlayer;
     private bool running;
 
     public int MaxPlayer => maxPlayer;
@@ -23,11 +23,11 @@ public class ServerDataEntry
         running = _running;
     }
 
-    public ServerDataEntry(int newPort, int maxPlayer)
+    public ServerDataEntry(int newPort, int _maxPlayers)
     {
         port = (ushort)newPort;
         playerCount = 0;
-        maxPlayer = 0;
+        maxPlayer = _maxPlayers;
         running = false;
     }
 
