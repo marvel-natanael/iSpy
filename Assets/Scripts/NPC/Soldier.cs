@@ -19,6 +19,8 @@ public class Soldier : NetworkBehaviour
     private float maxDistance;
     public float distance;
 
+    private bool isBumping;
+
     [SerializeField] protected float fireSpeed;
     protected float timerToFire;
 

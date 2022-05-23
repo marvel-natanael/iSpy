@@ -135,7 +135,7 @@ Transform:
   m_GameObject: {fileID: 5892829571904965111}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -6.3, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: -0.3, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 2030655424349772388}
   - {fileID: 1065224825}
@@ -213,8 +213,8 @@ MonoBehaviour:
   bullet: {fileID: 2224156736651089378, guid: 98780ad769121a84cbe97d216c45c7aa, type: 3}
   delay: 3
   type: 0
-  moveSpeed: 5
-  distance: 2
+  moveSpeed: 3
+  distance: 1
   fireSpeed: 0.5
   bulletSpeed: 5
   damage: 10
