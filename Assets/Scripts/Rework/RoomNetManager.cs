@@ -27,6 +27,10 @@ public class RoomNetManager : NetworkRoomManager
     public GameObject playerSpawner = null;
     public static event Action<NetworkConnection> onServerReadied;
 
+    void GetActiveScene()
+    {
+        Debug.Log(SceneManager.GetActiveScene().name);
+    }
     #region Server Callbacks
 
     /// <summary>
@@ -36,6 +40,8 @@ public class RoomNetManager : NetworkRoomManager
     {
         Debug.Log("Server is on");
         spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
+        
+        InvokeRepeating("GetActiveScene", 5f, 3f);
     }
 
     public override void OnServerReady(NetworkConnection conn)
