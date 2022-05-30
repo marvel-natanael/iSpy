@@ -11,7 +11,7 @@ public class PlayerNameInput : MonoBehaviour
 
     [SerializeField] private TMP_Text messageError;
     private const string PlayerPrefsNameKey = "PlayerName";
-    public static string displayName { get; private set; }
+    public static string DisplayName { get; private set; }
 
     private void Start()
     {
@@ -21,21 +21,15 @@ public class PlayerNameInput : MonoBehaviour
 
     public void SetPlayerName()
     {
-        if (nameInputField.text != "")
-        {
-            displayName = nameInputField.text;
-            PlayerPrefs.SetString(PlayerPrefsNameKey, displayName);
-            //OnClicked();
+        if (nameInputField.text == "") { messageError.text = "Username must be filled"; return; }
+        DisplayName = nameInputField.text;
+        PlayerPrefs.SetString(PlayerPrefsNameKey, DisplayName);
+        //OnClicked();
 
-            if (SceneManager.GetActiveScene().name == "Menu")
-            {
-                SceneManager.LoadScene("MainMenu");
-                Debug.Log(displayName);
-            }
-        }
-        else
+        if (SceneManager.GetActiveScene().name == "Menu")
         {
-            messageError.text = "Username must be filled";
+            SceneManager.LoadScene("MainMenu");
+            Debug.Log(DisplayName);
         }
     }
 }

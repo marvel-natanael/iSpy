@@ -27,14 +27,14 @@ public class RoomNetManager : NetworkRoomManager
     public GameObject[] avatars = null;
     public GameObject playerSpawner = null;
 
-    public static string HostAddress => singleton.networkAddress;
-
     public static event Action<NetworkConnection> OnServerReadied;
 
     /// <summary>
     /// Was this program was launched by matchmaker?
     /// </summary>
     private bool isMatchmakerLaunched = false;
+
+    private bool initSent = false;
 
     private ushort port = 0;
 
@@ -59,6 +59,7 @@ public class RoomNetManager : NetworkRoomManager
                 port = newPort;
 
                 localEntry = new ServerDataEntry(newPort, maxConnections);
+                Debug.Log($"Created a new local entry with port {newPort} and max player connected = {maxConnections}");
             }
             catch (Exception e)
             {
@@ -73,10 +74,11 @@ public class RoomNetManager : NetworkRoomManager
         if (isMatchmakerLaunched)
         {
             MatchmakerClient.Singleton.Connect();
-            Debug.Log($"Server connected to matchmaker");
             ChangePort(port);
         }
+#if UNITY_SERVER
         singleton.StartServer();
+#endif
     }
 
     #region Server Callbacks
@@ -90,9 +92,10 @@ public class RoomNetManager : NetworkRoomManager
         spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
         // matchmaker
-        if (isMatchmakerLaunched)
+        if (isMatchmakerLaunched && !initSent)
         {
             ServerSend.SendInit(localEntry);
+            initSent = true;
         }
     }
 
@@ -141,7 +144,11 @@ public class RoomNetManager : NetworkRoomManager
     public override void OnRoomServerDisconnect(NetworkConnection conn)
     {
         // update localEntry playersCount
-        localEntry.UpdateEntry(NetworkServer.connections.Count);
+        if (isMatchmakerLaunched)
+        {
+            localEntry.UpdateEntry(NetworkServer.connections.Count);
+            ServerSend.SendUpdate(localEntry);
+        }
     }
 
     /// <summary>
@@ -162,14 +169,7 @@ public class RoomNetManager : NetworkRoomManager
                 ServerSend.SendUpdate(localEntry);
             }
         }
-        else if (sceneName == RoomScene)
-        {
-            if (isMatchmakerLaunched)
-            {
-                localEntry.UpdateEntry(false);
-                ServerSend.SendUpdate(localEntry);
-            }
-        }
+
         base.OnServerSceneChanged(sceneName);
     }
 
@@ -258,6 +258,11 @@ public class RoomNetManager : NetworkRoomManager
     public void ResetGame()
     {
         ServerChangeScene(RoomScene);
+        if (isMatchmakerLaunched)
+        {
+            localEntry.UpdateEntry(false);
+            ServerSend.SendUpdate(localEntry);
+        }
     }
 
     #endregion Server Callbacks
@@ -347,12 +352,20 @@ public class RoomNetManager : NetworkRoomManager
 
     public override void OnApplicationQuit()
     {
-        if (MatchmakerClient.Singleton.transport != null)
+        if (MatchmakerClient.Singleton.transport != null && MatchmakerClient.Singleton.IsConnected)
         {
+            ThreadManager.ExecuteOnMainThread(() =>
+            {
+                MatchmakerClient.Singleton.Disconnect();
+            });
             Debug.Log("quit");
-            //MatchmakerClient.Singleton.Disconnect();
         }
         base.OnApplicationQuit();
+    }
+
+    [ContextMenu(nameof(TestConnect))]
+    private void TestConnect()
+    {
     }
 
     #endregion Matchmaker Stuff

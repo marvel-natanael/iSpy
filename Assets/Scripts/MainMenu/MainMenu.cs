@@ -7,13 +7,17 @@ namespace MainMenu
     public class MainMenu : MonoBehaviour
     {
         [SerializeField] private GameObject panelMenu, panelSetting, panelChangeName;
+        [SerializeField] private GameObject serverBrowserUI;
 
         [SerializeField] private Slider bg;
         [SerializeField] private Slider sfx;
 
+        private bool isSBShown = false;
+
         private void Start()
         {
             SetMenu(true, false, false);
+            B_HideServerBrowser();
         }
 
         private void Update()
@@ -48,11 +52,24 @@ namespace MainMenu
             panelSetting.SetActive(settingActive);
             panelChangeName.SetActive(changeName);
         }
-        
+
         public void ChangeName()
         {
-            SetMenu(false,false,true);
+            SetMenu(false, false, true);
         }
-        
+
+        public void B_ShowServerBrowser()
+        {
+            if (isSBShown) return;
+            isSBShown = true;
+            serverBrowserUI.SetActive(true);
+        }
+
+        public void B_HideServerBrowser()
+        {
+            if (!isSBShown) return;
+            isSBShown = false;
+            serverBrowserUI.SetActive(false);
+        }
     }
 }

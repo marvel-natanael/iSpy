@@ -12,8 +12,6 @@ public class ServerBrowserScript : MonoBehaviour
     private readonly List<GameObject> contentList = new List<GameObject>();
 
     public EntryObject CurrentSelected;
-    public string PlayerName;
-
     public GameObject EntryButtonPrefab;
 
     private void Awake()
@@ -31,13 +29,13 @@ public class ServerBrowserScript : MonoBehaviour
 
     private void Start()
     {
-        ServerEntries.OnDatabaseUpdate += ServerEntries_onDatabaseUpdate;
+        ServerEntries.OnDatabaseUpdate += OnDatabaseUpdate;
     }
 
     /// <summary>
     /// Called when <c>ServerEntries.Singleton.Database gets updated</c>
     /// </summary>
-    private void ServerEntries_onDatabaseUpdate()
+    private void OnDatabaseUpdate()
     {
         // I know I should find a way to only update the updated ones, but I am running out of time so I just reset everything
         ResetAllData();
@@ -46,14 +44,14 @@ public class ServerBrowserScript : MonoBehaviour
         var scrollRect = GetComponent<ScrollRect>();
 
         // foreach entries in the database, make an entry object
-        for (int i = 0; i < ServerEntries.Singleton.Database.Count; i++)
+        foreach (var _entry in ServerEntries.Singleton.Database)
         {
-            var entry = ServerEntries.Singleton.Database[i];
-            var entryObj = Instantiate(EntryButtonPrefab, scrollRect.content);
-            entryObj.GetComponent<EntryObject>().UpdateData(i, entry);
+            var entryObj = Instantiate(EntryButtonPrefab, scrollRect.content).GetComponent<EntryObject>();
+            entryObj.SetPortID(_entry.Value.Port);
+            entryObj.UpdateData(_entry.Value.Port, _entry.Value);
 
             // add entry object to list of entry objects
-            contentList.Add(entryObj);
+            contentList.Add(entryObj.gameObject);
         }
     }
 
@@ -77,9 +75,9 @@ public class ServerBrowserScript : MonoBehaviour
     {
         if (ConnectChecks())
         {
-            RoomNetManager.ChangePort(ServerEntries.Singleton.Database[CurrentSelected.id].Port);
+            RoomNetManager.ChangePort(CurrentSelected.PortID);
             MatchmakerClient.Singleton.Disconnect();
-            NetworkClient.Connect(NetworkManager.singleton.networkAddress);
+            NetworkManager.singleton.StartClient();
         }
     }
 
@@ -88,15 +86,10 @@ public class ServerBrowserScript : MonoBehaviour
     /// </summary>
     public void B_RequestUpdate()
     {
-        if (MatchmakerClient.Singleton.transport.socket.Connected)
+        if (MatchmakerClient.Singleton.IsConnected)
         {
             ClientSend.SendUpdateRequest();
         }
-    }
-
-    public void ChangeName(string newName)
-    {
-        PlayerName = newName;
     }
 
     /// <summary>
@@ -106,10 +99,6 @@ public class ServerBrowserScript : MonoBehaviour
     private bool ConnectChecks()
     {
         if (!CurrentSelected)
-        {
-            return false;
-        }
-        if (!string.IsNullOrEmpty(PlayerName))
         {
             return false;
         }

@@ -34,15 +34,15 @@ public class ClientHandle
 
         for (int i = 0; i < _count; i++)
         {
-            // read entry index
-            var _index = _packet.ReadInt();
+            // read which port is updated
+            var _port = _packet.ReadInt();
             // read player count
             var _playerCount = _packet.ReadInt();
             // read server running state
             var _running = _packet.ReadBool();
 
             // update server entry
-            ServerEntries.Singleton.UpdateData(_index, _playerCount, _running);
+            ServerEntries.Singleton.UpdateData(_port, _playerCount, _running);
         }
     }
 }

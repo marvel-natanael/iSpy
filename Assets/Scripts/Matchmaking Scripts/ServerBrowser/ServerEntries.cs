@@ -9,7 +9,7 @@ using UnityEngine;
 public class ServerEntries
 {
     private static ServerEntries singleton;
-    private List<ServerDataEntry> serverList = new List<ServerDataEntry>();
+    private readonly Dictionary<int, ServerDataEntry> serverList = new Dictionary<int, ServerDataEntry>();
 
     /// <summary>
     /// The one and only entry database
@@ -20,34 +20,41 @@ public class ServerEntries
     /// <summary>
     /// The main database, contains the latest updated state for every server
     /// </summary>
-    public List<ServerDataEntry> Database => serverList;
+    public Dictionary<int, ServerDataEntry> Database => serverList;
 
     public static event Action OnDatabaseUpdate;
 
     /// <summary>
     /// Inserts a new entry in the database
     /// </summary>
-    /// <param name="entry">new entry</param>
-    public void SetData(ServerDataEntry entry)
+    /// <param name="_entry">new entry</param>
+    public void SetData(ServerDataEntry _entry)
     {
         // check if the entry doesn't exist
-        if (serverList.Contains(entry)) { Debug.LogWarning($"Duplicate entry, destroying"); return; }
+        foreach (var e in serverList)
+        {
+            if (_entry.Port == e.Value.Port)
+            {
+                Debug.LogWarning($"Duplicate entry, destroying");
+                return;
+            }
+        }
 
         // add the entry to server list
-        serverList.Add(entry);
+        serverList.Add(_entry.Port, _entry);
         OnDatabaseUpdate?.Invoke();
     }
 
     /// <summary>
     /// Updates a data entry in the database
     /// </summary>
-    /// <param name="index">entry index</param>
+    /// <param name="_port">entry index</param>
     /// <param name="_PlayerCount">entry's new player count</param>
     /// <param name="_isRunning">entry's new running state</param>
-    public void UpdateData(int index, int _PlayerCount, bool _isRunning)
+    public void UpdateData(int _port, int _PlayerCount, bool _isRunning)
     {
-        serverList[index].UpdateEntry(_PlayerCount);
-        serverList[index].UpdateEntry(_isRunning);
+        serverList[_port].UpdateEntry(_PlayerCount);
+        serverList[_port].UpdateEntry(_isRunning);
 
         OnDatabaseUpdate?.Invoke();
     }
