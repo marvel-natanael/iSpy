@@ -11,6 +11,7 @@ namespace Player
 
         [SerializeField] private PlayerManager playerManager;
 
+        public float curHealth { get; set; }
         private void Start()
         {
             UpdateUI(playerManager.ItemPlayer.health);
@@ -25,6 +26,7 @@ namespace Player
         public void UpdateUI(float currentHealth)
         {
             bar.fillAmount = currentHealth / 100;
+            curHealth = currentHealth;
         }
     }
 }

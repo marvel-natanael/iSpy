@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using Mirror;
+using Player.Item;
 using Player.Weapons;
 using UnityEngine;
 
@@ -10,16 +12,29 @@ namespace Player
         private Animator _animator;
         private PlayerMovement _playerMovement;
         private PlayerShoot _playerShoot;
-        
+
         private WeaponSwap weapon;
+
+        private PlayerManager pm;
 
         private void Start()
         {
+            pm = GetComponent<PlayerManager>();
             weapon = GetComponent<WeaponSwap>();
             _animator = GetComponent<Animator>();
 
             _playerMovement = GetComponent<PlayerMovement>();
             _playerShoot = GetComponent<PlayerShoot>();
+        }
+
+        private void OnEnable()
+        {
+            PlayerManager.onDeath += Death;
+        }
+
+        private void OnDisable()
+        {
+            PlayerManager.onDeath -= Death;
         }
 
         private void Update()
@@ -31,7 +46,6 @@ namespace Player
         [ClientCallback]
         private void Animation()
         {
-
             if (_playerMovement.GetInputMovement() != Vector2.zero && weapon.GetWeapon() != null)
             {
                 WalkWithWeapon();
@@ -40,26 +54,31 @@ namespace Player
             {
                 Walk();
             }
-            else if (Input.GetKey(KeyCode.Q))
+            else if (Input.GetKey(KeyCode.Q) || InGameUIManager.instance.PlayerUI.curHealth <= 0)
             {
-                Reload();
+                Death();
             }
             else if (weapon.GetWeapon() != null)
             {
                 IdleWeapon();
             }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                Death();
-            }
             else
             {
                 Idle();
             }
+
+            Debug.Log("Health " + InGameUIManager.instance.PlayerUI.curHealth);
+
+            /*if (pm.ItemPlayer.health <= 0)
+            {
+                Death();
+            }*/
         }
 
-        private void Death()
+        public void Death()
         {
+            Debug.Log("Death");
+
             SetAnimation("Idle", false);
             SetAnimation("Idle Weapon", false);
             SetAnimation("Walk", false);
@@ -67,6 +86,7 @@ namespace Player
             SetAnimation("Reload", false);
             SetAnimation("Death", true);
         }
+
 
         private void WalkWithWeapon()
         {

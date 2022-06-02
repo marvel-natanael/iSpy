@@ -62,7 +62,6 @@ public class CircleShrink : NetworkBehaviour
         }
     }
 
-
     IEnumerator Shrink()
     {
         Vector3 minScale = new Vector3(minSize, minSize);
@@ -72,7 +71,7 @@ public class CircleShrink : NetworkBehaviour
         while (transform.localScale.x > minSize && circleVfx.localScale.x > 0.8f)
         {
             transform.localScale = Vector3.Lerp(startScale, minScale, timer / shrinkMultiplier / 50f);
-            circleVfx.localScale = Vector3.Lerp(circleScale, new Vector3(0.8f,0.8f), (timer / shrinkMultiplier / 50f));
+            circleVfx.localScale = Vector3.Lerp(circleScale, minScale, (timer / shrinkMultiplier / 50f));
             timer += Time.deltaTime;
             yield return null;
         }

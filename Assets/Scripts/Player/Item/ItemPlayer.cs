@@ -1,10 +1,11 @@
 using Mirror;
+using UnityEngine;
 
 namespace Player.Item
 {
     public class ItemPlayer : NetworkBehaviour
     {
-        [SyncVar]
+        [SyncVar(hook = nameof(onhealthchanged))]
         public float health;
         [SyncVar]
         public int amount;
@@ -19,6 +20,11 @@ namespace Player.Item
         {
             health = _health;
             amount = _amount;
+        }
+
+        void onhealthchanged(float oldValue, float newValue)
+        {
+            Debug.Log(newValue);
         }
     }
 }

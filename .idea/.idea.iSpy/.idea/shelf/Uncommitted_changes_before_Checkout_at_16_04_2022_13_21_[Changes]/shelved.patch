@@ -1,0 +1,274 @@
+Index: UserSettings/EditorUserSettings.asset
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>%YAML 1.1\r\n%TAG !u! tag:unity3d.com,2011:\r\n--- !u!162 &1\r\nEditorUserSettings:\r\n  m_ObjectHideFlags: 0\r\n  serializedVersion: 4\r\n  m_ConfigSettings:\r\n    RecentlyUsedScenePath-0:\r\n      value: 22424703114646680e0b0227036c6c111b07142f1f2b233e2867083debf42d\r\n      flags: 0\r\n    RecentlyUsedScenePath-1:\r\n      value: 22424703114646680e0b0227036c7a1e131a016a0218057e38271427fb\r\n      flags: 0\r\n    RecentlyUsedScenePath-2:\r\n      value: 22424703114646680e0b0227036c72111f19352f223d68252320092a\r\n      flags: 0\r\n    RecentlyUsedScenePath-3:\r\n      value: 22424703114646680e0b0227036c731f171311242b1b2535232c5326ece92021\r\n      flags: 0\r\n    RecentlyUsedScenePath-4:\r\n      value: 22424703114646680e0b0227036c731f1415016439262f2434\r\n      flags: 0\r\n    RecentlyUsedScenePath-5:\r\n      value: 22424703114646680e0b0227036c721106590d24253c3f\r\n      flags: 0\r\n    RecentlyUsedScenePath-6:\r\n      value: 22424703114646680e0b0227036c72151802563f22213229\r\n      flags: 0\r\n    vcSharedLogLevel:\r\n      value: 0d5e400f0650\r\n      flags: 0\r\n  m_VCAutomaticAdd: 1\r\n  m_VCDebugCom: 0\r\n  m_VCDebugCmd: 0\r\n  m_VCDebugOut: 0\r\n  m_SemanticMergeMode: 2\r\n  m_VCShowFailedCheckout: 1\r\n  m_VCOverwriteFailedCheckoutAssets: 1\r\n  m_VCProjectOverlayIcons: 1\r\n  m_VCHierarchyOverlayIcons: 1\r\n  m_VCOtherOverlayIcons: 1\r\n  m_VCAllowAsyncUpdate: 1\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/UserSettings/EditorUserSettings.asset b/UserSettings/EditorUserSettings.asset
+--- a/UserSettings/EditorUserSettings.asset	
++++ b/UserSettings/EditorUserSettings.asset	
+@@ -9,19 +9,19 @@
+       value: 22424703114646680e0b0227036c6c111b07142f1f2b233e2867083debf42d
+       flags: 0
+     RecentlyUsedScenePath-1:
+-      value: 22424703114646680e0b0227036c7a1e131a016a0218057e38271427fb
++      value: 22424703114646680e0b0227036c731f171311242b1b2535232c5326ece92021
+       flags: 0
+     RecentlyUsedScenePath-2:
+-      value: 22424703114646680e0b0227036c72111f19352f223d68252320092a
++      value: 22424703114646680e0b0227036c721106590d24253c3f
+       flags: 0
+     RecentlyUsedScenePath-3:
+-      value: 22424703114646680e0b0227036c731f171311242b1b2535232c5326ece92021
++      value: 22424703114646680e0b0227036c731f1415016439262f2434
+       flags: 0
+     RecentlyUsedScenePath-4:
+-      value: 22424703114646680e0b0227036c731f1415016439262f2434
++      value: 22424703114646680e0b0227036c7a1e131a016a0218057e38271427fb
+       flags: 0
+     RecentlyUsedScenePath-5:
+-      value: 22424703114646680e0b0227036c721106590d24253c3f
++      value: 22424703114646680e0b0227036c72111f19352f223d68252320092a
+       flags: 0
+     RecentlyUsedScenePath-6:
+       value: 22424703114646680e0b0227036c72151802563f22213229
+Index: Packages/packages-lock.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"dependencies\": {\r\n    \"com.unity.2d.animation\": {\r\n      \"version\": \"5.0.7\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.2d.common\": \"4.0.3\",\r\n        \"com.unity.mathematics\": \"1.1.0\",\r\n        \"com.unity.2d.sprite\": \"1.0.0\",\r\n        \"com.unity.modules.animation\": \"1.0.0\",\r\n        \"com.unity.modules.uielements\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.2d.common\": {\r\n      \"version\": \"4.0.3\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.2d.sprite\": \"1.0.0\",\r\n        \"com.unity.modules.uielements\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.2d.path\": {\r\n      \"version\": \"4.0.2\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.2d.pixel-perfect\": {\r\n      \"version\": \"4.0.1\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.2d.psdimporter\": {\r\n      \"version\": \"4.1.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.2d.common\": \"4.0.3\",\r\n        \"com.unity.2d.animation\": \"5.0.6\",\r\n        \"com.unity.2d.sprite\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.2d.sprite\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.2d.spriteshape\": {\r\n      \"version\": \"5.1.4\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.mathematics\": \"1.1.0\",\r\n        \"com.unity.2d.common\": \"4.0.3\",\r\n        \"com.unity.2d.path\": \"4.0.2\",\r\n        \"com.unity.modules.physics2d\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.2d.tilemap\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.cinemachine\": {\r\n      \"version\": \"2.6.11\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.collab-proxy\": {\r\n      \"version\": \"1.7.1\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.nuget.newtonsoft-json\": \"2.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.ext.nunit\": {\r\n      \"version\": \"1.0.6\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.ide.rider\": {\r\n      \"version\": \"2.0.7\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.test-framework\": \"1.1.1\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.ide.visualstudio\": {\r\n      \"version\": \"2.0.11\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.test-framework\": \"1.1.9\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.ide.vscode\": {\r\n      \"version\": \"1.2.3\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.mathematics\": {\r\n      \"version\": \"1.1.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.nuget.newtonsoft-json\": {\r\n      \"version\": \"2.0.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.render-pipelines.core\": {\r\n      \"version\": \"10.6.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.ugui\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.render-pipelines.universal\": {\r\n      \"version\": \"10.6.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.mathematics\": \"1.1.0\",\r\n        \"com.unity.render-pipelines.core\": \"10.6.0\",\r\n        \"com.unity.shadergraph\": \"10.6.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.searcher\": {\r\n      \"version\": \"4.3.2\",\r\n      \"depth\": 2,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.shadergraph\": {\r\n      \"version\": \"10.6.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.render-pipelines.core\": \"10.6.0\",\r\n        \"com.unity.searcher\": \"4.3.2\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.sysroot\": {\r\n      \"version\": \"2.0.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.sysroot.linux-x86_64\": {\r\n      \"version\": \"2.0.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.sysroot\": \"2.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.test-framework\": {\r\n      \"version\": \"1.1.27\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.ext.nunit\": \"1.0.6\",\r\n        \"com.unity.modules.imgui\": \"1.0.0\",\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.textmeshpro\": {\r\n      \"version\": \"3.0.6\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.ugui\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.timeline\": {\r\n      \"version\": \"1.4.8\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.director\": \"1.0.0\",\r\n        \"com.unity.modules.animation\": \"1.0.0\",\r\n        \"com.unity.modules.audio\": \"1.0.0\",\r\n        \"com.unity.modules.particlesystem\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.toolchain.win-x86_64-linux-x86_64\": {\r\n      \"version\": \"2.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.sysroot\": \"2.0.0\",\r\n        \"com.unity.sysroot.linux-x86_64\": \"2.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.ugui\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.ui\": \"1.0.0\",\r\n        \"com.unity.modules.imgui\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.ai\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.androidjni\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.animation\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.assetbundle\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.audio\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.cloth\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.physics\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.director\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.audio\": \"1.0.0\",\r\n        \"com.unity.modules.animation\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.imageconversion\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.imgui\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.jsonserialize\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.particlesystem\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.physics\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.physics2d\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.screencapture\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.imageconversion\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.subsystems\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.terrain\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.terrainphysics\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.physics\": \"1.0.0\",\r\n        \"com.unity.modules.terrain\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.tilemap\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.physics2d\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.ui\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.uielements\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.ui\": \"1.0.0\",\r\n        \"com.unity.modules.imgui\": \"1.0.0\",\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\",\r\n        \"com.unity.modules.uielementsnative\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.uielementsnative\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.ui\": \"1.0.0\",\r\n        \"com.unity.modules.imgui\": \"1.0.0\",\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.umbra\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.unityanalytics\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.unitywebrequest\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.unitywebrequestassetbundle\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.assetbundle\": \"1.0.0\",\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.unitywebrequestaudio\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n        \"com.unity.modules.audio\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.unitywebrequesttexture\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n        \"com.unity.modules.imageconversion\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.unitywebrequestwww\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n        \"com.unity.modules.unitywebrequestassetbundle\": \"1.0.0\",\r\n        \"com.unity.modules.unitywebrequestaudio\": \"1.0.0\",\r\n        \"com.unity.modules.audio\": \"1.0.0\",\r\n        \"com.unity.modules.assetbundle\": \"1.0.0\",\r\n        \"com.unity.modules.imageconversion\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.vehicles\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.physics\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.video\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.audio\": \"1.0.0\",\r\n        \"com.unity.modules.ui\": \"1.0.0\",\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.vr\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\",\r\n        \"com.unity.modules.physics\": \"1.0.0\",\r\n        \"com.unity.modules.xr\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.wind\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.xr\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.physics\": \"1.0.0\",\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\",\r\n        \"com.unity.modules.subsystems\": \"1.0.0\"\r\n      }\r\n    }\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Packages/packages-lock.json b/Packages/packages-lock.json
+--- a/Packages/packages-lock.json	
++++ b/Packages/packages-lock.json	
+@@ -1,11 +1,11 @@
+ {
+   "dependencies": {
+     "com.unity.2d.animation": {
+-      "version": "5.0.7",
++      "version": "5.1.0",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.2d.common": "4.0.3",
++        "com.unity.2d.common": "4.1.0",
+         "com.unity.mathematics": "1.1.0",
+         "com.unity.2d.sprite": "1.0.0",
+         "com.unity.modules.animation": "1.0.0",
+@@ -14,7 +14,7 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.2d.common": {
+-      "version": "4.0.3",
++      "version": "4.1.0",
+       "depth": 1,
+       "source": "registry",
+       "dependencies": {
+@@ -38,12 +38,12 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.2d.psdimporter": {
+-      "version": "4.1.0",
++      "version": "4.2.0",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.2d.common": "4.0.3",
+-        "com.unity.2d.animation": "5.0.6",
++        "com.unity.2d.common": "4.1.0",
++        "com.unity.2d.animation": "5.1.0",
+         "com.unity.2d.sprite": "1.0.0"
+       },
+       "url": "https://packages.unity.com"
+@@ -55,12 +55,12 @@
+       "dependencies": {}
+     },
+     "com.unity.2d.spriteshape": {
+-      "version": "5.1.4",
++      "version": "5.2.0",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+         "com.unity.mathematics": "1.1.0",
+-        "com.unity.2d.common": "4.0.3",
++        "com.unity.2d.common": "4.1.0",
+         "com.unity.2d.path": "4.0.2",
+         "com.unity.modules.physics2d": "1.0.0"
+       },
+@@ -80,11 +80,11 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.collab-proxy": {
+-      "version": "1.7.1",
++      "version": "1.15.12",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.nuget.newtonsoft-json": "2.0.0"
++        "com.unity.services.core": "1.0.1"
+       },
+       "url": "https://packages.unity.com"
+     },
+@@ -105,7 +105,7 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.ide.visualstudio": {
+-      "version": "2.0.11",
++      "version": "2.0.14",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+@@ -114,7 +114,7 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.ide.vscode": {
+-      "version": "1.2.3",
++      "version": "1.2.4",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {},
+@@ -127,30 +127,25 @@
+       "dependencies": {},
+       "url": "https://packages.unity.com"
+     },
+-    "com.unity.nuget.newtonsoft-json": {
+-      "version": "2.0.0",
+-      "depth": 1,
+-      "source": "registry",
+-      "dependencies": {},
+-      "url": "https://packages.unity.com"
+-    },
+     "com.unity.render-pipelines.core": {
+-      "version": "10.6.0",
++      "version": "10.8.1",
+       "depth": 1,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.ugui": "1.0.0"
++        "com.unity.ugui": "1.0.0",
++        "com.unity.modules.physics": "1.0.0",
++        "com.unity.modules.jsonserialize": "1.0.0"
+       },
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.render-pipelines.universal": {
+-      "version": "10.6.0",
++      "version": "10.8.1",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+         "com.unity.mathematics": "1.1.0",
+-        "com.unity.render-pipelines.core": "10.6.0",
+-        "com.unity.shadergraph": "10.6.0"
++        "com.unity.render-pipelines.core": "10.8.1",
++        "com.unity.shadergraph": "10.8.1"
+       },
+       "url": "https://packages.unity.com"
+     },
+@@ -161,12 +156,21 @@
+       "dependencies": {},
+       "url": "https://packages.unity.com"
+     },
++    "com.unity.services.core": {
++      "version": "1.0.1",
++      "depth": 1,
++      "source": "registry",
++      "dependencies": {
++        "com.unity.modules.unitywebrequest": "1.0.0"
++      },
++      "url": "https://packages.unity.com"
++    },
+     "com.unity.shadergraph": {
+-      "version": "10.6.0",
++      "version": "10.8.1",
+       "depth": 1,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.render-pipelines.core": "10.6.0",
++        "com.unity.render-pipelines.core": "10.8.1",
+         "com.unity.searcher": "4.3.2"
+       },
+       "url": "https://packages.unity.com"
+@@ -188,7 +192,7 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.test-framework": {
+-      "version": "1.1.27",
++      "version": "1.1.29",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+Index: Packages/manifest.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"dependencies\": {\r\n    \"com.unity.2d.animation\": \"5.0.7\",\r\n    \"com.unity.2d.pixel-perfect\": \"4.0.1\",\r\n    \"com.unity.2d.psdimporter\": \"4.1.0\",\r\n    \"com.unity.2d.sprite\": \"1.0.0\",\r\n    \"com.unity.2d.spriteshape\": \"5.1.4\",\r\n    \"com.unity.2d.tilemap\": \"1.0.0\",\r\n    \"com.unity.cinemachine\": \"2.6.11\",\r\n    \"com.unity.collab-proxy\": \"1.7.1\",\r\n    \"com.unity.ide.rider\": \"2.0.7\",\r\n    \"com.unity.ide.visualstudio\": \"2.0.11\",\r\n    \"com.unity.ide.vscode\": \"1.2.3\",\r\n    \"com.unity.render-pipelines.universal\": \"10.6.0\",\r\n    \"com.unity.test-framework\": \"1.1.27\",\r\n    \"com.unity.textmeshpro\": \"3.0.6\",\r\n    \"com.unity.timeline\": \"1.4.8\",\r\n    \"com.unity.toolchain.win-x86_64-linux-x86_64\": \"2.0.0\",\r\n    \"com.unity.ugui\": \"1.0.0\",\r\n    \"com.unity.modules.ai\": \"1.0.0\",\r\n    \"com.unity.modules.androidjni\": \"1.0.0\",\r\n    \"com.unity.modules.animation\": \"1.0.0\",\r\n    \"com.unity.modules.assetbundle\": \"1.0.0\",\r\n    \"com.unity.modules.audio\": \"1.0.0\",\r\n    \"com.unity.modules.cloth\": \"1.0.0\",\r\n    \"com.unity.modules.director\": \"1.0.0\",\r\n    \"com.unity.modules.imageconversion\": \"1.0.0\",\r\n    \"com.unity.modules.imgui\": \"1.0.0\",\r\n    \"com.unity.modules.jsonserialize\": \"1.0.0\",\r\n    \"com.unity.modules.particlesystem\": \"1.0.0\",\r\n    \"com.unity.modules.physics\": \"1.0.0\",\r\n    \"com.unity.modules.physics2d\": \"1.0.0\",\r\n    \"com.unity.modules.screencapture\": \"1.0.0\",\r\n    \"com.unity.modules.terrain\": \"1.0.0\",\r\n    \"com.unity.modules.terrainphysics\": \"1.0.0\",\r\n    \"com.unity.modules.tilemap\": \"1.0.0\",\r\n    \"com.unity.modules.ui\": \"1.0.0\",\r\n    \"com.unity.modules.uielements\": \"1.0.0\",\r\n    \"com.unity.modules.umbra\": \"1.0.0\",\r\n    \"com.unity.modules.unityanalytics\": \"1.0.0\",\r\n    \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n    \"com.unity.modules.unitywebrequestassetbundle\": \"1.0.0\",\r\n    \"com.unity.modules.unitywebrequestaudio\": \"1.0.0\",\r\n    \"com.unity.modules.unitywebrequesttexture\": \"1.0.0\",\r\n    \"com.unity.modules.unitywebrequestwww\": \"1.0.0\",\r\n    \"com.unity.modules.vehicles\": \"1.0.0\",\r\n    \"com.unity.modules.video\": \"1.0.0\",\r\n    \"com.unity.modules.vr\": \"1.0.0\",\r\n    \"com.unity.modules.wind\": \"1.0.0\",\r\n    \"com.unity.modules.xr\": \"1.0.0\"\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Packages/manifest.json b/Packages/manifest.json
+--- a/Packages/manifest.json	
++++ b/Packages/manifest.json	
+@@ -1,18 +1,18 @@
+ {
+   "dependencies": {
+-    "com.unity.2d.animation": "5.0.7",
++    "com.unity.2d.animation": "5.1.0",
+     "com.unity.2d.pixel-perfect": "4.0.1",
+-    "com.unity.2d.psdimporter": "4.1.0",
++    "com.unity.2d.psdimporter": "4.2.0",
+     "com.unity.2d.sprite": "1.0.0",
+-    "com.unity.2d.spriteshape": "5.1.4",
++    "com.unity.2d.spriteshape": "5.2.0",
+     "com.unity.2d.tilemap": "1.0.0",
+     "com.unity.cinemachine": "2.6.11",
+-    "com.unity.collab-proxy": "1.7.1",
++    "com.unity.collab-proxy": "1.15.12",
+     "com.unity.ide.rider": "2.0.7",
+-    "com.unity.ide.visualstudio": "2.0.11",
+-    "com.unity.ide.vscode": "1.2.3",
+-    "com.unity.render-pipelines.universal": "10.6.0",
+-    "com.unity.test-framework": "1.1.27",
++    "com.unity.ide.visualstudio": "2.0.14",
++    "com.unity.ide.vscode": "1.2.4",
++    "com.unity.render-pipelines.universal": "10.8.1",
++    "com.unity.test-framework": "1.1.29",
+     "com.unity.textmeshpro": "3.0.6",
+     "com.unity.timeline": "1.4.8",
+     "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.0",
+Index: UserSettings/EditorUserSettings.asset
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>%YAML 1.1\r\n%TAG !u! tag:unity3d.com,2011:\r\n--- !u!162 &1\r\nEditorUserSettings:\r\n  m_ObjectHideFlags: 0\r\n  serializedVersion: 4\r\n  m_ConfigSettings:\r\n    RecentlyUsedScenePath-0:\r\n      value: 22424703114646680e0b0227036c6c111b07142f1f2b233e2867083debf42d\r\n      flags: 0\r\n    RecentlyUsedScenePath-1:\r\n      value: 22424703114646680e0b0227036c7a1e131a016a0218057e38271427fb\r\n      flags: 0\r\n    RecentlyUsedScenePath-2:\r\n      value: 22424703114646680e0b0227036c72111f19352f223d68252320092a\r\n      flags: 0\r\n    RecentlyUsedScenePath-3:\r\n      value: 22424703114646680e0b0227036c731f171311242b1b2535232c5326ece92021\r\n      flags: 0\r\n    RecentlyUsedScenePath-4:\r\n      value: 22424703114646680e0b0227036c731f1415016439262f2434\r\n      flags: 0\r\n    RecentlyUsedScenePath-5:\r\n      value: 22424703114646680e0b0227036c721106590d24253c3f\r\n      flags: 0\r\n    RecentlyUsedScenePath-6:\r\n      value: 22424703114646680e0b0227036c72151802563f22213229\r\n      flags: 0\r\n    vcSharedLogLevel:\r\n      value: 0d5e400f0650\r\n      flags: 0\r\n  m_VCAutomaticAdd: 1\r\n  m_VCDebugCom: 0\r\n  m_VCDebugCmd: 0\r\n  m_VCDebugOut: 0\r\n  m_SemanticMergeMode: 2\r\n  m_VCShowFailedCheckout: 1\r\n  m_VCOverwriteFailedCheckoutAssets: 1\r\n  m_VCProjectOverlayIcons: 1\r\n  m_VCHierarchyOverlayIcons: 1\r\n  m_VCOtherOverlayIcons: 1\r\n  m_VCAllowAsyncUpdate: 1\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/UserSettings/EditorUserSettings.asset b/UserSettings/EditorUserSettings.asset
+--- a/UserSettings/EditorUserSettings.asset	
++++ b/UserSettings/EditorUserSettings.asset	
+@@ -9,19 +9,19 @@
+       value: 22424703114646680e0b0227036c6c111b07142f1f2b233e2867083debf42d
+       flags: 0
+     RecentlyUsedScenePath-1:
+-      value: 22424703114646680e0b0227036c7a1e131a016a0218057e38271427fb
++      value: 22424703114646680e0b0227036c731f171311242b1b2535232c5326ece92021
+       flags: 0
+     RecentlyUsedScenePath-2:
+-      value: 22424703114646680e0b0227036c72111f19352f223d68252320092a
++      value: 22424703114646680e0b0227036c721106590d24253c3f
+       flags: 0
+     RecentlyUsedScenePath-3:
+-      value: 22424703114646680e0b0227036c731f171311242b1b2535232c5326ece92021
++      value: 22424703114646680e0b0227036c731f1415016439262f2434
+       flags: 0
+     RecentlyUsedScenePath-4:
+-      value: 22424703114646680e0b0227036c731f1415016439262f2434
++      value: 22424703114646680e0b0227036c7a1e131a016a0218057e38271427fb
+       flags: 0
+     RecentlyUsedScenePath-5:
+-      value: 22424703114646680e0b0227036c721106590d24253c3f
++      value: 22424703114646680e0b0227036c72111f19352f223d68252320092a
+       flags: 0
+     RecentlyUsedScenePath-6:
+       value: 22424703114646680e0b0227036c72151802563f22213229

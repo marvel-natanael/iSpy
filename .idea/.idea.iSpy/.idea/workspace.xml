@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5ec45947-933b-427a-92b9-80da6693f361" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/001 walk sheet-01_0.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/001 walk sheet-01_0.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/death.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/death.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Examples/AdditiveLevels/Scripts/Portal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Examples/AdditiveLevels/Scripts/Portal.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Examples/Basic/Scripts/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Examples/Basic/Scripts/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Examples/MultipleAdditiveScenes/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Examples/MultipleAdditiveScenes/Scripts/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Examples/MultipleMatches/Scripts/MatchController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Examples/MultipleMatches/Scripts/MatchController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Examples/Room/Scripts/NetworkRoomPlayerExt.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Examples/Room/Scripts/NetworkRoomPlayerExt.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Examples/Tanks/Scripts/FaceCamera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Examples/Tanks/Scripts/FaceCamera.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Particle System.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Particle System.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player/Weapon/Pistol.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player/Weapon/Pistol.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player/Weapon/Shotgun.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player/Weapon/Shotgun.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/SpawnablePrefabs/Player 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/SpawnablePrefabs/Player 1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/SpawnablePrefabs/Player 2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/SpawnablePrefabs/Player 2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/SpawnablePrefabs/Player 3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/SpawnablePrefabs/Player 3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/SpawnablePrefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/SpawnablePrefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Enemy NPC.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Enemy NPC.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Lobby.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Lobby.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Map.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Map.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainMenu/AudioManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/CircleShrink.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/CircleShrink.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/BulletNPC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/BulletNPC.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPC.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/Turret.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/Turret.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Item/ItemPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Item/ItemPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerShoot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerShoot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Gameplay/ShootButtonUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Gameplay/ShootButtonUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Gameplay/UIPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Gameplay/UIPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shader/Vfc.shadergraph" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shader/Vfc.shadergraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Weapons/senjata 1 side-01.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Weapons/senjata 1 side-01.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Weapons/senjata 2 side-01.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Weapons/senjata 2 side-01.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" show_ignored="true">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="main" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Back-up" />
+      </map>
+    </option>
+    <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7ebb9dc74040436998557fc331a964ba763a00/b8/5fe511e8/EditorSceneManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d3b66f0ad4e34a55b6ef91ab8487819313c000/5c/d5cd3630/Vector2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d3b66f0ad4e34a55b6ef91ab8487819313c000/ca/cecb534d/PlayerPrefs.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu/AudioManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../iSpy_clone_0/Assets/Scripts/Player/Bullets/Bullet.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/NPC/TurretAnimation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../iSpy_clone_0/Assets/Scripts/Player/PlayerManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d3b66f0ad4e34a55b6ef91ab8487819313c000/e4/4ad4d664/Transform.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7ebb9dc74040436998557fc331a964ba763a00/7b/50c60a55/EditorGUILayout.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../iSpy_clone_0/Assets/Scripts/Player/Item/ItemPlayer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../iSpy_clone_0/Assets/Scripts/NPC/TurretNPC.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7ebb9dc74040436998557fc331a964ba763a00/92/44fe552e/EditorApplication.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7273206767d421e83546c2b1e8d11691b800/06/d2d81a1a/Rigidbody2D.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7ebb9dc74040436998557fc331a964ba763a00/30/c8a4ec99/SerializedObject.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../iSpy_clone_0/Assets/Scripts/UI/Gameplay/ShootButtonUI.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7ebb9dc74040436998557fc331a964ba763a00/12/b0cbafd7/EditorGUI.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../iSpy_clone_0/Assets/Scripts/NPC/Soldier.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../iSpy_clone_0/Assets/Scripts/Player/PlayerAnimation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d3b66f0ad4e34a55b6ef91ab8487819313c000/16/fbbb3b25/Renderer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../iSpy_clone_0/Assets/Scripts/Map/CircleShrink.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="25dCGg8Let4OjUuylzsOy8Ks8fq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="rider.run.widget.enabled.cache" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Game\iSpy.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="D:\Project Unity\DMGO\iSpy\Game" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5ec45947-933b-427a-92b9-80da6693f361" name="Changes" comment="" />
+      <created>1645847482114</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1645847482114</updated>
+      <workItem from="1645847502446" duration="5022000" />
+      <workItem from="1645872123541" duration="9771000" />
+      <workItem from="1645962461203" duration="372000" />
+      <workItem from="1645965111002" duration="891000" />
+      <workItem from="1646003391926" duration="2884000" />
+      <workItem from="1646289631595" duration="237000" />
+      <workItem from="1646444475444" duration="5094000" />
+      <workItem from="1646472516946" duration="3998000" />
+      <workItem from="1646523035184" duration="682000" />
+      <workItem from="1646539176086" duration="5722000" />
+      <workItem from="1646572345740" duration="1558000" />
+      <workItem from="1646578164118" duration="2242000" />
+      <workItem from="1646627749345" duration="3639000" />
+      <workItem from="1646656545909" duration="1440000" />
+      <workItem from="1646697333011" duration="621000" />
+      <workItem from="1646702015772" duration="11797000" />
+      <workItem from="1646720991671" duration="17423000" />
+      <workItem from="1646789357532" duration="8855000" />
+      <workItem from="1647142244380" duration="468000" />
+      <workItem from="1647227324951" duration="3059000" />
+      <workItem from="1647249418107" duration="860000" />
+      <workItem from="1647335868257" duration="5666000" />
+      <workItem from="1647481191971" duration="2668000" />
+      <workItem from="1647851261964" duration="1099000" />
+      <workItem from="1647917349016" duration="2990000" />
+      <workItem from="1647997584589" duration="4637000" />
+      <workItem from="1648019025465" duration="641000" />
+      <workItem from="1648221471365" duration="666000" />
+      <workItem from="1648380624407" duration="2913000" />
+      <workItem from="1648433152973" duration="5132000" />
+      <workItem from="1648514811127" duration="3105000" />
+      <workItem from="1648863073764" duration="3017000" />
+      <workItem from="1648997185597" duration="2407000" />
+      <workItem from="1649084637796" duration="2200000" />
+      <workItem from="1649226500598" duration="996000" />
+      <workItem from="1649256380303" duration="2181000" />
+      <workItem from="1649271458894" duration="2669000" />
+      <workItem from="1649322151374" duration="1267000" />
+      <workItem from="1649343243323" duration="3109000" />
+      <workItem from="1649655050383" duration="1062000" />
+      <workItem from="1649742798848" duration="2212000" />
+      <workItem from="1649748042010" duration="1537000" />
+      <workItem from="1649756226802" duration="4753000" />
+      <workItem from="1649947890182" duration="6061000" />
+      <workItem from="1650089683037" duration="2953000" />
+      <workItem from="1650097360153" duration="1233000" />
+      <workItem from="1650110959693" duration="7287000" />
+      <workItem from="1650200690295" duration="3181000" />
+      <workItem from="1650268157095" duration="2215000" />
+      <workItem from="1650283082630" duration="1842000" />
+      <workItem from="1650373220277" duration="798000" />
+      <workItem from="1650397263473" duration="472000" />
+      <workItem from="1650618085811" duration="751000" />
+      <workItem from="1650647008599" duration="1409000" />
+      <workItem from="1650690842885" duration="743000" />
+      <workItem from="1650726778650" duration="704000" />
+      <workItem from="1650773926677" duration="1868000" />
+      <workItem from="1650896043905" duration="7908000" />
+      <workItem from="1650954497336" duration="6595000" />
+      <workItem from="1650973127483" duration="9496000" />
+      <workItem from="1651007270623" duration="1258000" />
+      <workItem from="1651060268090" duration="2260000" />
+      <workItem from="1651071833513" duration="8102000" />
+      <workItem from="1651147321013" duration="3299000" />
+      <workItem from="1651213409730" duration="645000" />
+      <workItem from="1651468435257" duration="3565000" />
+      <workItem from="1651484038069" duration="2120000" />
+      <workItem from="1651548351744" duration="2828000" />
+      <workItem from="1651587856662" duration="1044000" />
+      <workItem from="1651630916114" duration="2994000" />
+      <workItem from="1651676070081" duration="482000" />
+      <workItem from="1652060266775" duration="1212000" />
+      <workItem from="1652082868556" duration="1173000" />
+      <workItem from="1652229407810" duration="2287000" />
+      <workItem from="1652279183816" duration="845000" />
+      <workItem from="1652322377326" duration="882000" />
+      <workItem from="1652443578245" duration="1556000" />
+      <workItem from="1652570189526" duration="2031000" />
+      <workItem from="1652698551476" duration="1909000" />
+      <workItem from="1652794329140" duration="2284000" />
+      <workItem from="1653037988965" duration="628000" />
+      <workItem from="1653376594387" duration="1940000" />
+      <workItem from="1653924993712" duration="1017000" />
+      <workItem from="1653979017173" duration="7830000" />
+      <workItem from="1654048567534" duration="2766000" />
+      <workItem from="1654054685750" duration="6336000" />
+      <workItem from="1654154472691" duration="3479000" />
+    </task>
+    <task id="LOCAL-00001" summary="Set structure folder">
+      <created>1645849456179</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1645849456179</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fix Player Movement &amp; Shooting">
+      <created>1645852789632</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1645852789632</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fix Error Version Unity">
+      <created>1645874784367</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1645874784367</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Fix version unity">
+      <created>1645875266942</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1645875266942</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add Item Pick Up">
+      <created>1645884087725</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1645884087725</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add Script Weapon Swap">
+      <created>1646797623711</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1646797623711</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add scene player movement">
+      <created>1647249715684</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1647249715684</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix player">
+      <created>1647356789473</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1647356789473</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fix player">
+      <created>1647357133634</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1647357133634</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fix player">
+      <created>1647357356512</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1647357356512</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fix event system player">
+      <created>1647483251961</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1647483251961</updated>
+    </task>
+    <task id="LOCAL-00012" summary="setup network">
+      <created>1647997725794</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1647997725794</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add Scene Main Menu &amp; Assets NPC">
+      <created>1648517886687</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1648517886687</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Animation Player">
+      <created>1649256502860</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1649256502860</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Add NPC Animations">
+      <created>1649347136995</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1649347136995</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Animations Player">
+      <created>1649655231403</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1649655231403</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Bullet Trails">
+      <created>1649763207524</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1649763207524</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Bullet Vfx">
+      <created>1649949090029</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1649949090029</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add assets">
+      <created>1650112272753</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1650112272753</updated>
+    </task>
+    <task id="LOCAL-00020" summary="add assets">
+      <created>1650128179358</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1650128179358</updated>
+    </task>
+    <task id="LOCAL-00021" summary="update">
+      <created>1650268207303</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1650268207303</updated>
+    </task>
+    <task id="LOCAL-00022" summary="add assets animation weapon">
+      <created>1650618201617</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1650618201617</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Add assets in menu">
+      <created>1650647366523</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1650647366523</updated>
+    </task>
+    <task id="LOCAL-00024" summary="add assets">
+      <created>1650726859880</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1650726859880</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Set canvas in menu">
+      <created>1650775554396</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1650775554396</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Soldier &amp; Turret Shoot">
+      <created>1651072559308</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1651072559308</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Fix Bullet NPC">
+      <created>1651153179422</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1651153179422</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Add turret NPC">
+      <created>1651213449144</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1651213449144</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Turret NPC">
+      <created>1651676431938</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1651676431938</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Ring Particle System">
+      <created>1652322447835</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1652322447835</updated>
+    </task>
+    <task id="LOCAL-00031" summary="fix particle system">
+      <created>1652326105705</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1652326105705</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Stop Client">
+      <created>1652796584866</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1652796584866</updated>
+    </task>
+    <task id="LOCAL-00033" summary="fix lobby error">
+      <created>1653378497310</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1653378497310</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Add Item Pick Up" />
+    <MESSAGE value="Add Script Weapon Swap" />
+    <MESSAGE value="add scene player movement" />
+    <MESSAGE value="fix player" />
+    <MESSAGE value="fix event system player" />
+    <MESSAGE value="setup network" />
+    <MESSAGE value="Add Scene Main Menu &amp; Assets NPC" />
+    <MESSAGE value="Animation Player" />
+    <MESSAGE value="Add NPC Animations" />
+    <MESSAGE value="Animations Player" />
+    <MESSAGE value="Bullet Trails" />
+    <MESSAGE value="Bullet Vfx" />
+    <MESSAGE value="update" />
+    <MESSAGE value="add assets animation weapon" />
+    <MESSAGE value="Add assets in menu" />
+    <MESSAGE value="add assets" />
+    <MESSAGE value="Set canvas in menu" />
+    <MESSAGE value="Soldier &amp; Turret Shoot" />
+    <MESSAGE value="Fix Bullet NPC" />
+    <MESSAGE value="Add turret NPC" />
+    <MESSAGE value="Turret NPC" />
+    <MESSAGE value="Ring Particle System" />
+    <MESSAGE value="fix particle system" />
+    <MESSAGE value="Stop Client" />
+    <MESSAGE value="fix lobby error" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix lobby error" />
+  </component>
+</project>

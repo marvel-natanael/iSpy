@@ -18,6 +18,15 @@ namespace Player
 
         public string playerName;
 
+        [SerializeField] private AudioSource _source;
+
+        [SerializeField] private PlayerAnimation _animation;
+
+        public delegate void OnDeath();
+
+        public static event OnDeath onDeath;
+
+
         private void Awake()
         {
             //WeaponType = WeaponType.Pistol;
@@ -30,7 +39,6 @@ namespace Player
             };
 
             //ItemPlayer.amount = weapon.GetWeapon().amount;
-
         }
 
         private void Start()
@@ -42,9 +50,16 @@ namespace Player
             InGameUIManager.instance.PlayerUI.SetTargetPlayer(this);
         }
 
+        [TargetRpc]
+        private void RPCCheckHealth(NetworkConnection conn)
+        {
+            _animation.Death();
+            _source.PlayOneShot(_source.clip);
+        }
+
         private void Update()
         {
-            //Debug.Log("Health Player : "+ItemPlayer.health);
+            //GetHealth(connectionToClient);
         }
 
         //public Weapon GetWeapon()
@@ -86,10 +101,13 @@ namespace Player
         private void CmdTakeDamage(float damage)
         {
             ItemPlayer.health -= damage;
-            if(ItemPlayer.health <= 0)
+            // GetHealth(this.connectionToClient, ItemPlayer.health);
+            if (ItemPlayer.health <= 0)
             {
+                Debug.Log("Die CMD");
                 CmdDead(this);
             }
+
             RpcUpdateUI(ItemPlayer.health);
         }
 
@@ -101,6 +119,7 @@ namespace Player
         }
 
         #region Attack
+
         public void DamageTo(PlayerManager p, float dmg)
         {
             if (isServer) return;
@@ -121,9 +140,11 @@ namespace Player
             p.ItemPlayer.health -= dmg;
             RpcUpdateUIOtherPlayer(p.connectionToClient, p.ItemPlayer.health);
         }
+
         #endregion
 
         #region Heal
+
         public void Heal(float health)
         {
             if (isServer) return;
@@ -138,9 +159,11 @@ namespace Player
             ItemPlayer.health += health;
             RpcUpdateUI(ItemPlayer.health);
         }
+
         #endregion
 
         #region Bullet
+
         public void DecreaseAmountBullet()
         {
             Debug.Log(netId + " client amount : " + ItemPlayer.amount);
@@ -155,14 +178,27 @@ namespace Player
 
             RpcUpdateUI(ItemPlayer.health);
         }
+
         #endregion
 
         #region Lose
+
         public void CmdDead(PlayerManager p)
         {
+             _source.PlayOneShot(_source.clip);
             GameManager.instance.playersCount -= 1;
+
+            onDeath?.Invoke();
+
+            RPCCheckHealth(p.connectionToClient);
             RpcShowLoseText(p.connectionToClient);
             //GameManager.instance.GameOver();
+            StartCoroutine("Death", p);
+        }
+
+        IEnumerator Death(PlayerManager p)
+        {
+            yield return new WaitForSeconds(1);
             Destroy(p.gameObject);
         }
 
@@ -171,9 +207,11 @@ namespace Player
         {
             InGameUIManager.instance.LoseText.gameObject.SetActive(true);
         }
+
         #endregion
 
         #region RPC UI
+
         [TargetRpc]
         private void RpcUpdateUIOtherPlayer(NetworkConnection conn, float currHealth)
         {
@@ -185,8 +223,9 @@ namespace Player
         {
             InGameUIManager.instance.PlayerUI.UpdateUI(currHealth);
         }
+
         #endregion
-        
+
         public void UpdateSprite(SpriteRenderer spriteRenderer, Color color)
         {
             StartCoroutine(UpdateSpriteColor(spriteRenderer, color));

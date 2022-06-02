@@ -1,8 +1,9 @@
 using Mirror;
 using Player.Bullets;
-using Player.Item;
 using Player.Weapons;
 using UnityEngine;
+using UnityEngine.UI;
+using Color = System.Drawing.Color;
 
 namespace Player
 {
@@ -15,16 +16,20 @@ namespace Player
         private float _timer;
 
         [SyncVar][SerializeField] 
-        private bool _shoot;
+        private bool _shoot = false;
 
         //Component
         private Vector2 _position;
         private Weapon _selected;
 
+        [SerializeField]private AudioSource _audioSource;
+        [SerializeField] private AudioClip _clipSenjata1, _clipSenjata2;
+
         private WeaponSwap weapon;
 
         public bool GetShoot() => _shoot;
-
+        public WeaponSwap GetWeapon() => weapon;
+        
         private void Start()
         {
             weapon = GetComponent<WeaponSwap>();
@@ -41,6 +46,7 @@ namespace Player
             {
                 SetWeapon();
             }
+            
         }
 
         private void SetWeapon()
@@ -58,6 +64,9 @@ namespace Player
                     if ((!(_timer >= _selected.FireSpeed))) return;
 
                     if (_selected.amount <= 0) return;
+                    
+                    //sfx weapons
+                    SetSfx();
 
                     Fire(_selected.Speed, _selected.Damage);
 
@@ -69,6 +78,18 @@ namespace Player
                     _timer = 0f;
                 }
             }
+        }
+
+        private void SetSfx()
+        {
+            if (_selected.WeaponType == WeaponType.Pistol)
+            {
+                _audioSource.PlayOneShot(_clipSenjata1);                
+            }else if (_selected.WeaponType == WeaponType.Shotgun)
+            {
+                _audioSource.PlayOneShot(_clipSenjata1);    
+            }
+
         }
 
         private void Fire(float speed, float damage)

@@ -1,0 +1,19 @@
+Index: Assets/Scripts/NPC/NPC.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System.Collections;\r\nusing System.Collections.Generic;\r\nusing UnityEngine;\r\nusing Player.Bullets;\r\n\r\npublic class NPC : MonoBehaviour\r\n{\r\n    [Header(\"Target\")]\r\n    [SerializeField] protected GameObject targetPlayer;\r\n\r\n    [Header(\"Properties\")]\r\n    [SerializeField]\r\n    protected float delay;\r\n    protected float timerToDelay;\r\n\r\n    protected FieldOfView fov;\r\n\r\n    [SerializeField] private float fireSpeed;\r\n    private float timerToFire;\r\n\r\n    [Header(\"Shoot Properties\")]\r\n    [SerializeField] private float bulletSpeed;\r\n    [SerializeField] private float damage;\r\n\r\n    public virtual void Start()\r\n    {\r\n        fov = GetComponent<FieldOfView>();\r\n        timerToDelay = delay;\r\n    }\r\n\r\n    public virtual void Attack()\r\n    {\r\n        timerToFire += Time.deltaTime;\r\n        if (timerToFire < fireSpeed) return;\r\n\r\n        if (fov.playersInRange.Count == 0) return;\r\n\r\n        var bulletPool = BulletPool.Instance.GetBullet();\r\n        if (bulletPool == null) return;\r\n\r\n        bulletPool.SetActive(true);\r\n        bulletPool.transform.position = transform.position;\r\n\r\n        var dir = targetPlayer.transform.position - transform.position;\r\n        var bullet = bulletPool.GetComponent<Bullet>();\r\n        bullet.Move(dir, bulletSpeed);\r\n        bullet.Damage(damage);\r\n\r\n        timerToFire = 0;\r\n        Debug.Log(gameObject.name + \" attack!\");\r\n    }\r\n\r\n    public virtual void Routine()\r\n    {\r\n        //Debug.Log(gameObject.name + \" do routine!\");\r\n    }\r\n}\r\npublic enum NPCType\r\n{\r\n    Soldier,\r\n    Turret\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Assets/Scripts/NPC/NPC.cs b/Assets/Scripts/NPC/NPC.cs
+--- a/Assets/Scripts/NPC/NPC.cs	
++++ b/Assets/Scripts/NPC/NPC.cs	
+@@ -1,7 +1,5 @@
+-using System.Collections;
+-using System.Collections.Generic;
+-using UnityEngine;
+ using Player.Bullets;
++using UnityEngine;
+ 
+ public class NPC : MonoBehaviour
+ {

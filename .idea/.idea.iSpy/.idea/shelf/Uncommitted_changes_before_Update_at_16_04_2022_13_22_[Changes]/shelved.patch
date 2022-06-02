@@ -1,0 +1,15 @@
+Index: ProjectSettings/ProjectVersion.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>m_EditorVersion: 2020.3.17f1\r\nm_EditorVersionWithRevision: 2020.3.17f1 (a4537701e4ab)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ProjectSettings/ProjectVersion.txt b/ProjectSettings/ProjectVersion.txt
+--- a/ProjectSettings/ProjectVersion.txt	(revision be7bd55b3593d50dd13d02784b3eb4670e1326d5)
++++ b/ProjectSettings/ProjectVersion.txt	(date 1650090099595)
+@@ -1,2 +1,2 @@
+-m_EditorVersion: 2020.3.17f1
+-m_EditorVersionWithRevision: 2020.3.17f1 (a4537701e4ab)
++m_EditorVersion: 2020.3.29f1
++m_EditorVersionWithRevision: 2020.3.29f1 (2ff179115da0)

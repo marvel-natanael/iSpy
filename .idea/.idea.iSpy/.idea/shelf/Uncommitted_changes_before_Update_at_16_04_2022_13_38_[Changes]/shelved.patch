@@ -1,0 +1,38 @@
+Index: Assets/Scripts/Player/PlayerMovement.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using Mirror;\r\nusing UnityEngine;\r\nusing UnityEngine.UI;\r\n\r\nnamespace Player\r\n{\r\n    public class PlayerMovement : NetworkBehaviour\r\n    {\r\n        [Header(\"Components\")] \r\n        [SerializeField] private Joystick joystick;\r\n\r\n        //[SerializeField] private new Camera camera;\r\n        [SerializeField] private new Rigidbody2D rigidbody2D;\r\n        [SerializeField] private TouchField touch;\r\n\r\n        [Header(\"Properties\")] [SerializeField]\r\n        public Button btnShoot;\r\n        [SerializeField] private float speed;\r\n\r\n        private Vector2 _mousePosition;\r\n        private Vector2 _inputMovement;\r\n\r\n        private void Start()\r\n        {\r\n            Initialize();\r\n        }\r\n\r\n        private void Update()\r\n        {\r\n           \r\n            if (Input.GetKey(KeyCode.A))\r\n            {\r\n                if (btnShoot == null) return;\r\n\r\n                btnShoot.onClick.Invoke();\r\n                Debug.Log(\"Test\");\r\n                _inputMovement.x = 1;\r\n                \r\n                rigidbody2D.MovePosition(rigidbody2D.position + _inputMovement * speed * Time.fixedDeltaTime);\r\n\r\n            }\r\n            InputMovement();\r\n        }\r\n\r\n        private void InputMovement()\r\n        {\r\n            if (joystick == null && touch == null) return;\r\n\r\n            _inputMovement.x = joystick.Horizontal;\r\n            _inputMovement.y = joystick.Vertical;\r\n\r\n            _mousePosition.x -= touch.TouchDistance.x * 0.2f;\r\n        }\r\n\r\n        private void Movement()\r\n        {\r\n            if (!hasAuthority) return;\r\n\r\n            rigidbody2D.MovePosition(rigidbody2D.position + _inputMovement * speed * Time.fixedDeltaTime);\r\n\r\n            rigidbody2D.rotation = _mousePosition.x;\r\n        }\r\n\r\n        private void FixedUpdate()\r\n        {\r\n            Movement();\r\n        }\r\n\r\n        private void LateUpdate()\r\n        {\r\n            //var cameraTransform = camera.transform;\r\n            //var position = transform.position;\r\n            //cameraTransform.position = new Vector3(position.x, position.y, -10f);\r\n            //cameraTransform.rotation = Quaternion.identity;\r\n        }\r\n\r\n        private void Initialize()\r\n        {\r\n            if (!hasAuthority && !isLocalPlayer) return;\r\n\r\n            joystick = GameObject.Find(\"Fixed Joystick\").GetComponent<Joystick>();\r\n            touch = GameObject.Find(\"TouchField\").GetComponent<TouchField>();\r\n            btnShoot = GameObject.Find(\"BtnShoot\").GetComponent<Button>();\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Assets/Scripts/Player/PlayerMovement.cs b/Assets/Scripts/Player/PlayerMovement.cs
+--- a/Assets/Scripts/Player/PlayerMovement.cs	(revision be7bd55b3593d50dd13d02784b3eb4670e1326d5)
++++ b/Assets/Scripts/Player/PlayerMovement.cs	(date 1650091115207)
+@@ -20,6 +20,8 @@
+         private Vector2 _mousePosition;
+         private Vector2 _inputMovement;
+ 
++        public Vector2 GetInputMovement() => _inputMovement;
++
+         private void Start()
+         {
+             Initialize();
+Index: Assets/Scripts/Player/PlayerShoot.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using Mirror;\r\nusing Player.Bullets;\r\nusing Player.Item;\r\nusing Player.Weapons;\r\nusing UnityEngine;\r\n\r\nnamespace Player\r\n{\r\n    public class PlayerShoot : NetworkBehaviour\r\n    {\r\n        [Header(\"Properties\")] [SerializeField]\r\n        private float distance = 10f;\r\n\r\n        // Properties\r\n        private float _timer;\r\n        private bool _shoot;\r\n\r\n        //Component\r\n        private Vector2 _position;\r\n        private ItemPlayer _itemPlayer;\r\n        private Weapon _selected;\r\n\r\n        private PlayerManager playerManager;\r\n\r\n        private void Start()\r\n        {\r\n            if (!hasAuthority) return;\r\n\r\n            playerManager = GetComponent<PlayerManager>();\r\n            _selected = playerManager.GetWeapon();\r\n            _itemPlayer = playerManager.ItemPlayer;\r\n            _itemPlayer.amount = _selected.Amount; // update ui amount bullet weapon\r\n\r\n            InGameUIManager.instance.ShootButton.SetTargetPlayer(this);\r\n        }\r\n        \r\n        private void Update()\r\n        {\r\n            if (!hasAuthority) return;\r\n\r\n            if (_selected != null)\r\n            {\r\n                _position = _selected.OriginShoot.position;\r\n            }\r\n\r\n            // updated data from player manager\r\n            _itemPlayer = playerManager.ItemPlayer;\r\n            _selected = playerManager.GetWeapon();\r\n\r\n            Debug.DrawRay(_position, _selected.OriginShoot.TransformDirection(Vector2.up) * distance, Color.black);\r\n            var hit = Physics2D.Raycast(_position, _selected.OriginShoot.TransformDirection(Vector2.up), distance);\r\n\r\n            if (hit && _shoot)\r\n            {\r\n                Debug.Log(hit.collider.name);\r\n                SetWeapon();\r\n            }\r\n        }\r\n\r\n        private void SetWeapon()\r\n        {\r\n            _timer += Time.deltaTime;\r\n            if ((!(_timer >= _selected.FireSpeed))) return;\r\n\r\n            if (_itemPlayer.amount <= 0) return; // if amount bullet <= 0\r\n\r\n            Fire(_selected.Speed, _selected.Damage); // method for fire weapon\r\n\r\n            _itemPlayer.amount -= 1; // decrement amount bullet weapon\r\n\r\n            _timer = 0f;\r\n            \r\n            // set timer to 0\r\n        }\r\n\r\n        private void Fire(float speed, float damage)\r\n        {\r\n            var bulletPool = BulletPool.Instance.GetBullet(); // get object bullet pool\r\n            if (bulletPool == null) return; // return method if bullet pool equals null\r\n\r\n            bulletPool.SetActive(true); // set active \r\n            bulletPool.transform.position = _position;\r\n\r\n            var up = transform.up;\r\n            up = Vector3.MoveTowards(up, _position, distance * Time.deltaTime);\r\n\r\n            var bullet = bulletPool.GetComponent<Bullet>(); // get script bullet\r\n            bullet.SetOwner(this);\r\n            bullet.Move(up, speed); // call method move for moving bullet \r\n            bullet.Damage(damage); // set damage value\r\n\r\n            transform.up = up;\r\n        }\r\n\r\n        public void Shoot()\r\n        {\r\n            _shoot = !_shoot;\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Assets/Scripts/Player/PlayerShoot.cs b/Assets/Scripts/Player/PlayerShoot.cs
+--- a/Assets/Scripts/Player/PlayerShoot.cs	(revision be7bd55b3593d50dd13d02784b3eb4670e1326d5)
++++ b/Assets/Scripts/Player/PlayerShoot.cs	(date 1650091096896)
+@@ -22,6 +22,8 @@
+ 
+         private PlayerManager playerManager;
+ 
++        public bool GetShoot() => _shoot;
++
+         private void Start()
+         {
+             if (!hasAuthority) return;

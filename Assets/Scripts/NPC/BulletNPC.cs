@@ -1,3 +1,4 @@
+using System;
 using Mirror;
 using Player;
 using UnityEngine;
@@ -10,9 +11,18 @@ public class BulletNPC : NetworkBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            var target = col.gameObject.GetComponent<PlayerManager>();
+            try
+            {
+                PlayerManager target = col.GetComponent<PlayerManager>();
+                if (target == null) return;
+                target.GetComponent<PlayerManager>().DamageTo(target, _damage);
+                target.GetComponent<PlayerManager>().UpdateSprite(col.GetComponent<SpriteRenderer>(), Color.red);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
 
-            target.GetComponent<PlayerManager>().DamageTo(target, _damage);
             Destroy(gameObject);
         }
     }
