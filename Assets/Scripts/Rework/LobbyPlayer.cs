@@ -218,6 +218,7 @@ public class LobbyPlayer : NetworkRoomPlayer
     [Command]
     private void CmdSetDisplayName(string displayName)
     {
+        if (string.IsNullOrEmpty(displayName)) displayName = "nemo";
         DisplayName = displayName;
     }
 }
