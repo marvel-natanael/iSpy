@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System;
+using System.Threading.Tasks;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-room-manager
@@ -25,7 +26,60 @@ public class RoomNetManager : NetworkRoomManager
     public List<LobbyPlayer> lobbyPlayers = new List<LobbyPlayer>();
     public GameObject[] avatars = null;
     public GameObject playerSpawner = null;
-    public static event Action<NetworkConnection> onServerReadied;
+
+    public static event Action<NetworkConnection> OnServerReadied;
+
+    /// <summary>
+    /// Was this program was launched by matchmaker?
+    /// </summary>
+    private bool isMatchmakerLaunched = false;
+
+    private bool initSent = false;
+
+    private ushort port = 0;
+
+    private ServerDataEntry localEntry = null;
+
+    public override void Awake()
+    {
+        // Initialize Matchmaker Client
+        MatchmakerClient.Singleton.Initialize();
+
+        //Check if server is run by a matchmaker
+        var args = Environment.GetCommandLineArgs();
+        if (args.Contains<string>("-port"))
+        {
+            Debug.Log($"This Unity Server was ran by a matchmaker service!");
+            isMatchmakerLaunched = true;
+            try
+            {
+                // Get port assigned by matchmaker
+                ushort newPort = ushort.Parse(args[Array.FindIndex<string>(args, m => m == "-port") + 1]);
+                Debug.Log($"Unity Server port received in args : {newPort}");
+                port = newPort;
+
+                localEntry = new ServerDataEntry(newPort, maxConnections);
+                Debug.Log($"Created a new local entry with port {newPort} and max player connected = {maxConnections}");
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+        }
+        base.Awake();
+    }
+
+    public override void Start()
+    {
+        if (isMatchmakerLaunched)
+        {
+            MatchmakerClient.Singleton.Connect();
+            ChangePort(port);
+        }
+#if UNITY_SERVER
+        singleton.StartServer();
+#endif
+    }
 
     void GetActiveScene()
     {
@@ -40,47 +94,97 @@ public class RoomNetManager : NetworkRoomManager
     {
         Debug.Log("Server is on");
         spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
-        
-        InvokeRepeating("GetActiveScene", 5f, 3f);
+
+        // matchmaker
+        if (isMatchmakerLaunched && !initSent)
+        {
+            ServerSend.SendInit(localEntry);
+            initSent = true;
+        }
     }
 
     public override void OnServerReady(NetworkConnection conn)
     {
         base.OnServerReady(conn);
-        onServerReadied?.Invoke(conn);
+        OnServerReadied?.Invoke(conn);
     }
 
     /// <summary>
     /// This is called on the server when the server is stopped - including when a host is stopped.
     /// </summary>
-    public override void OnRoomStopServer() { }
+    public override void OnRoomStopServer()
+    { }
 
     /// <summary>
     /// This is called on the host when a host is started.
     /// </summary>
-    public override void OnRoomStartHost() { }
+    public override void OnRoomStartHost()
+    { }
 
     /// <summary>
     /// This is called on the host when the host is stopped.
     /// </summary>
-    public override void OnRoomStopHost() { }
+    public override void OnRoomStopHost()
+    { }
 
     /// <summary>
     /// This is called on the server when a new client connects to the server.
     /// </summary>
     /// <param name="conn">The new connection.</param>
-    public override void OnRoomServerConnect(NetworkConnection conn) { }
+    public override void OnRoomServerConnect(NetworkConnection conn)
+    {
+        // matchmaker: update localEntry playersCount
+        if (isMatchmakerLaunched)
+        {
+            localEntry.UpdateEntry(NetworkServer.connections.Count);
+            ServerSend.SendUpdate(localEntry);
+        }
+    }
 
     /// <summary>
     /// This is called on the server when a client disconnects.
     /// </summary>
     /// <param name="conn">The connection that disconnected.</param>
-    public override void OnRoomServerDisconnect(NetworkConnection conn) { }
+    public override void OnRoomServerDisconnect(NetworkConnection conn)
+    {
+        // update localEntry playersCount
+        if (isMatchmakerLaunched)
+        {
+            localEntry.UpdateEntry(NetworkServer.connections.Count);
+            ServerSend.SendUpdate(localEntry);
+        }
+    }
 
     /// <summary>
     /// This is called on the server when a networked scene finishes loading.
     /// </summary>
     /// <param name="sceneName">Name of the new scene.</param>
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        if (sceneName == GameplayScene)
+        {
+            GameObject spawnSystemInstance = Instantiate(playerSpawner);
+            NetworkServer.Spawn(spawnSystemInstance);
+
+            // matchmaker
+            if (isMatchmakerLaunched)
+            {
+                localEntry.UpdateEntry(true);
+                ServerSend.SendUpdate(localEntry);
+            }
+        }
+        if (sceneName == onlineScene)
+        {
+            // matchmaker
+            if (isMatchmakerLaunched)
+            {
+                localEntry.UpdateEntry(false);
+                ServerSend.SendUpdate(localEntry);
+            }
+        }
+
+        base.OnServerSceneChanged(sceneName);
+    }
 
     /// <summary>
     /// This allows customization of the creation of the room-player object on the server.
@@ -91,16 +195,6 @@ public class RoomNetManager : NetworkRoomManager
     public override GameObject OnRoomServerCreateRoomPlayer(NetworkConnection conn)
     {
         return base.OnRoomServerCreateRoomPlayer(conn);
-    }
-
-    public override void OnClientSceneChanged()
-    {
-        base.OnClientSceneChanged();
-    }
-
-    public void ResetGame()
-    {
-        ServerChangeScene(RoomScene);
     }
 
     public override void OnServerError(NetworkConnection conn, Exception exception)
@@ -165,7 +259,7 @@ public class RoomNetManager : NetworkRoomManager
     public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnection conn, GameObject roomPlayer, GameObject gamePlayer)
     {
         var lobbyPlayer = roomPlayer.GetComponent<LobbyPlayer>();
-        if(lobbyPlayer)
+        if (lobbyPlayer)
         {
             lobbyPlayer.OnGamePlay();
         }
@@ -185,25 +279,40 @@ public class RoomNetManager : NetworkRoomManager
     /// This is called on the server when CheckReadyToBegin finds that players are not ready
     /// <para>May be called multiple times while not ready players are joining</para>
     /// </summary>
-    public override void OnRoomServerPlayersNotReady() { }
-    #endregion
+    public override void OnRoomServerPlayersNotReady()
+    { }
+
+    public void ResetGame()
+    {
+        ServerChangeScene(RoomScene);
+        if (isMatchmakerLaunched)
+        {
+            localEntry.UpdateEntry(false);
+            ServerSend.SendUpdate(localEntry);
+        }
+    }
+
+    #endregion Server Callbacks
 
     #region Client Callbacks
 
     /// <summary>
     /// This is a hook to allow custom behaviour when the game client enters the room.
     /// </summary>
-    public override void OnRoomClientEnter() { }
+    public override void OnRoomClientEnter()
+    { }
 
     /// <summary>
     /// This is a hook to allow custom behaviour when the game client exits the room.
     /// </summary>
-    public override void OnRoomClientExit() { }
+    public override void OnRoomClientExit()
+    { }
 
     /// <summary>
     /// This is called on the client when it connects to server.
     /// </summary>
-    public override void OnRoomClientConnect() { }
+    public override void OnRoomClientConnect()
+    { }
 
     /// <summary>
     /// This is called on the client when disconnected from a server.
@@ -227,20 +336,23 @@ public class RoomNetManager : NetworkRoomManager
     /// <summary>
     /// This is called on the client when the client stops.
     /// </summary>
-    public override void OnRoomStopClient() { }
+    public override void OnRoomStopClient()
+    { }
 
     /// <summary>
     /// This is called on the client when the client is finished loading a new networked scene.
     /// </summary>
-    public override void OnRoomClientSceneChanged() { }
+    public override void OnRoomClientSceneChanged()
+    { }
 
     /// <summary>
     /// Called on the client when adding a player to the room fails.
     /// <para>This could be because the room is full, or the connection is not allowed to have more players.</para>
     /// </summary>
-    public override void OnRoomClientAddPlayerFailed() { }
+    public override void OnRoomClientAddPlayerFailed()
+    { }
 
-    #endregion
+    #endregion Client Callbacks
 
     #region Optional UI
 
@@ -249,5 +361,36 @@ public class RoomNetManager : NetworkRoomManager
         base.OnGUI();
     }
 
-    #endregion
+    #endregion Optional UI
+
+    #region Matchmaker Stuff
+
+    /// <summary>
+    /// Change the port for the current used transport
+    /// </summary>
+    /// <param name="_port">new port</param>
+    public static void ChangePort(int _port)
+    {
+        if (!singleton.gameObject.GetComponent<kcp2k.KcpTransport>()) { Debug.LogError($"Transport doesn't exist, cannot change port!"); return; }
+        if (_port > ushort.MaxValue & _port <= 0) { Debug.LogError($"port invalid"); return; }
+        singleton.gameObject.GetComponent<kcp2k.KcpTransport>().Port = (ushort)_port;
+        Debug.Log($"Transport's port is now {singleton.GetComponent<kcp2k.KcpTransport>().Port}");
+    }
+
+    public override void OnApplicationQuit()
+    {
+        if (MatchmakerClient.Singleton.IsConnected)
+        {
+            MatchmakerClient.Singleton.Disconnect();
+            Debug.Log("quit");
+        }
+        base.OnApplicationQuit();
+    }
+
+    [ContextMenu(nameof(TestConnect))]
+    private void TestConnect()
+    {
+    }
+
+    #endregion Matchmaker Stuff
 }

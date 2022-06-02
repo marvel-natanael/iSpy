@@ -9,6 +9,6 @@ public class ServerHandle : MonoBehaviour
 {
     public static void HandleTerminationReq(Packet _packet)
     {
-        // todo, Networking-Matchmaking: Handle termination request from matchmaker.
+        Application.Quit();
     }
 }

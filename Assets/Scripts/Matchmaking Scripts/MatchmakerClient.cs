@@ -6,35 +6,44 @@ using System.Net.Sockets;
 using UnityEngine;
 
 //This class is to handle client connection to the matchmaker
-public class MatchmakerClient : MonoBehaviour
+public class MatchmakerClient
 {
-    public static MatchmakerClient Singleton;
+    private static MatchmakerClient singleton;
+
+    public static MatchmakerClient Singleton
+    { get { if (singleton == null) singleton = new MatchmakerClient(); return singleton; } }
+
     public static int dataBufferSize = 4096;
 
     private readonly int id;
     public TCP transport = null;
-    private bool isConnected = false;
-    private bool isServer = false;
+    public bool IsConnected { get; private set; }
+
+    public static event Action OnMClientConnected;
+
+    public static event Action OnMClientDisconnected;
+
+    public static event Action OnMCFailedToConnect;
 
     public int ID => id;
 
-    private void Awake()
-    {
-        if (Singleton == null)
-        {
-            Singleton = this;
-        }
-        else if (Singleton != this)
-        {
-            Debug.Log($"Client instance already exists, destroying object");
-            Destroy(this);
-        }
-    }
+    //private void Awake()
+    //{
+    //    if (Singleton == null)
+    //    {
+    //        Singleton = this;
+    //    }
+    //    else if (Singleton != this)
+    //    {
+    //        Debug.Log($"Client instance already exists, destroying object");
+    //        Destroy(this);
+    //    }
+    //}
 
-    private void OnApplicationQuit()
-    {
-        Disconnect();
-    }
+    //private void Start()
+    //{
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
     /// <summary>
     /// Hidden
@@ -43,25 +52,49 @@ public class MatchmakerClient : MonoBehaviour
     {
     }
 
-    /// <summary>
-    /// Connect to the matchmaker program
-    /// </summary>
-    public void Connect(bool _isServer)
+    public void Initialize()
     {
-        if (transport != null) Disconnect();
-        isServer = _isServer;
+        if (singleton == null) return;
+        Debug.Log($"Matchmaker singleton initialized!");
+    }
 
-        transport = new TCP(_isServer);
-        try
+    /// <summary>
+    /// Connect to matchmaker service as a client
+    /// </summary>
+    /// <param name="address">matchmaker address</param>
+    /// <param name="port">matchmaker port</param>
+    /// <param name="_isServer">connect as server?</param>
+    public void Connect(string address, ushort port)
+    {
+        if (transport == null) transport = new TCP();
+        if (IsConnected) { Debug.LogWarning($"Transport already connected"); return; }
+        transport.Connect(address, port);
+    }
+
+    /// <summary>
+    /// Connect to matchmaker service as a server
+    /// </summary>
+    public void Connect()
+    {
+        if (transport == null) transport = new TCP(true);
+
+        if (IsConnected) { Debug.LogWarning($"Transport is already connected"); return; }
+        transport.Connect("127.0.0.1", 7777);
+    }
+
+    /// <summary>
+    /// Disconnects the matchmaker client from the matchmaker service
+    /// </summary>
+    public void Disconnect()
+    {
+        if (IsConnected)
         {
-            transport.Connect(LobbyNetworkManager.GetAddress(), 7777);
-            isConnected = true;
+            ClientSend.SendDisconnect();
+            transport.socket.Close();
+            IsConnected = false;
         }
-        catch (Exception e)
-        {
-            Debug.LogError($"Exception caught in Client.cs: {e}");
-            isConnected = false;
-        }
+        Debug.Log($"Disconnected from matchmaker");
+        ThreadManager.ExecuteOnMainThread(() => OnMClientDisconnected?.Invoke());
     }
 
     /// <summary>
@@ -70,10 +103,11 @@ public class MatchmakerClient : MonoBehaviour
     public class TCP
     {
         public TcpClient socket;
-        private NetworkStream stream;
-        private readonly bool isServer;
-        private int connectionAttempt = 0;
-        private int maxConnectionAttempt = 3;
+
+        private NetworkStream stream = null;
+        private readonly bool isServer = false;
+        private readonly int timeOut = 5000;
+        private bool isConnecting;
 
         private byte[] receiveBuffer;
         private Packet receivedPacket;
@@ -82,9 +116,14 @@ public class MatchmakerClient : MonoBehaviour
 
         private static Dictionary<int, PacketHandler> packetHandle;
 
-        public TCP(bool _isServer)
+        /// <summary>
+        /// Create a new TCP transport
+        /// </summary>
+        /// <param name="_isServer"><see langword="true"/>, if is a server</param>
+        public TCP(bool _isServer = false)
         {
             isServer = _isServer;
+            Debug.Log($"MatchmakerClient is server? = {isServer}");
             if (_isServer)
             {
                 InitializeServerMatchmakerPackets();
@@ -106,38 +145,69 @@ public class MatchmakerClient : MonoBehaviour
         /// <param name="_socket">Socket to connect to</param>
         public void Connect(string endPointAddress, int endpointPort)
         {
+            if (isConnecting) return;
             socket = new TcpClient()
             {
                 ReceiveBufferSize = dataBufferSize,
                 SendBufferSize = dataBufferSize
             };
-
             receiveBuffer = new byte[dataBufferSize];
-            socket.BeginConnect(endPointAddress, endpointPort, ConnectCallback, null);
+            Debug.Log($"Connecting to matchmaker ({endPointAddress}:{endpointPort})...");
+            isConnecting = true;
+            try
+            {
+                if (socket.ConnectAsync(endPointAddress, endpointPort).Wait(timeOut)) ConnectCallback();
+                else
+                {
+                    isConnecting = false;
+                    Debug.Log("Connection timeout...");
+                    return;
+                }
+            }
+            catch (AggregateException)
+            {
+                Debug.LogWarning($"Unable to connect to matchmaker!");
+                ThreadManager.ExecuteOnMainThread(() => OnMCFailedToConnect?.Invoke());
+                isConnecting = false;
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Caught exception in tcp: {e}");
+                isConnecting = false;
+            }
         }
 
         /// <summary>
         /// Called when <c>BeginRead</c> has finished
         /// </summary>
-        /// <param name="res"></param>
-        private void ConnectCallback(IAsyncResult res)
+        /// <param name="_res"></param>
+        private void ConnectCallback()
         {
-            socket.EndConnect(res);
-
+            //socket.EndConnect(_res);
+            isConnecting = false;
             if (!socket.Connected)
             {
-                if (connectionAttempt < maxConnectionAttempt)
-                {
-                    Debug.LogWarning($"Failed to connect to matchmaker service, retrying...");
-                }
                 return;
             }
+            else
+            {
+                try
+                {
+                    Debug.Log($"Connected to matchmaker!");
+                    singleton.IsConnected = true;
+                    ThreadManager.ExecuteOnMainThread(() => OnMClientConnected?.Invoke());
 
-            stream = socket.GetStream();
+                    stream = socket.GetStream();
 
-            receivedPacket = new Packet();
+                    receivedPacket = new Packet();
 
-            stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
+                    stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
         }
 
         /// <summary>
@@ -154,7 +224,9 @@ public class MatchmakerClient : MonoBehaviour
                 int _bytelength = stream.EndRead(_result);
                 if (_bytelength <= 0)
                 {
-                    Singleton.Disconnect();
+                    Debug.LogWarning("Disconnected");
+                    ThreadManager.ExecuteOnMainThread(() => OnMClientDisconnected?.Invoke());
+                    Disconnect();
                     return;
                 }
 
@@ -178,6 +250,7 @@ public class MatchmakerClient : MonoBehaviour
         /// <param name="dataStream">packet to be sent</param>
         public void SendData(Packet dataStream)
         {
+            if (!singleton.IsConnected) { Debug.LogError($"Matchmaker client is not connected to matchmaker, aborting..."); return; }
             try
             {
                 if (socket != null)
@@ -204,41 +277,39 @@ public class MatchmakerClient : MonoBehaviour
         /// <returns></returns>
         private bool HandleData(byte[] data)
         {
-            int packetLength = 0;
-
+            int _packetLength = 0;
             receivedPacket.SetBytes(data);
             if (receivedPacket.UnreadLength() >= 4)
             {
-                packetLength = receivedPacket.ReadInt();
-                if (packetLength <= 0)
+                _packetLength = receivedPacket.ReadInt();
+                if (_packetLength <= 0)
                 {
                     return true;
                 }
             }
 
-            while (packetLength > 0 & packetLength <= receivedPacket.UnreadLength())
+            while (_packetLength > 0 && _packetLength <= receivedPacket.UnreadLength())
             {
-                byte[] packetBytes = receivedPacket.ReadBytes(packetLength);
+                byte[] _packetBytes = receivedPacket.ReadBytes(_packetLength);
                 ThreadManager.ExecuteOnMainThread(() =>
                 {
-                    using (Packet _packet = new Packet(packetBytes))
-                    {
-                        int _packetID = _packet.ReadInt();
-                        packetHandle[_packetID](_packet);
-                    }
+                    using Packet _packet = new Packet(_packetBytes);
+                    int _packetID = _packet.ReadInt();
+                    Debug.Log($"Packet id = {_packetID}");
+                    packetHandle[_packetID](_packet);
                 });
 
-                packetLength = 0;
+                _packetLength = 0;
                 if (receivedPacket.UnreadLength() >= 4)
                 {
-                    packetLength = receivedPacket.ReadInt();
-                    if (packetLength <= 0)
+                    _packetLength = receivedPacket.ReadInt();
+                    if (_packetLength <= 0)
                     {
                         return true;
                     }
                 }
             }
-            if (packetLength <= 1)
+            if (_packetLength <= 1)
             {
                 return true;
             }
@@ -246,10 +317,14 @@ public class MatchmakerClient : MonoBehaviour
             return false;
         }
 
+        /// <summary>
+        /// Disconnects this transport
+        /// </summary>
         private void Disconnect()
         {
             Singleton.Disconnect();
 
+            singleton.IsConnected = false;
             stream = null;
             receiveBuffer = null;
             receivedPacket = null;
@@ -265,7 +340,7 @@ public class MatchmakerClient : MonoBehaviour
         {
             { (int) MatchmakerServerPackets.terminationRequest, ServerHandle.HandleTerminationReq }
         };
-            Debug.Log($"Initialized packets...");
+            Debug.Log($"Initialized server matchmaking packet handlers");
         }
 
         /// <summary>
@@ -275,19 +350,10 @@ public class MatchmakerClient : MonoBehaviour
         {
             packetHandle = new Dictionary<int, PacketHandler>()
         {
+            { (int) MatchmakerClientPackets.init, ClientHandle.HandleInit },
             { (int) MatchmakerClientPackets.updateReply, ClientHandle.HandleUpdate }
         };
-        }
-    }
-
-    public void Disconnect()
-    {
-        if (isConnected)
-        {
-            isConnected = false;
-            transport.socket.Close();
-
-            Debug.Log($"Disconnected from matchmaker");
+            Debug.Log($"Initialized client matchmaking packet handlers");
         }
     }
 }

@@ -65,7 +65,7 @@ public class LobbyPlayer : NetworkRoomPlayer
     /// </summary>
     public override void OnStartLocalPlayer()
     {
-        CmdSetDisplayName(PlayerNameInput.displayName);
+        CmdSetDisplayName(PlayerNameInput.DisplayName);
         lobbyUI.SetActive(true);
     }
 

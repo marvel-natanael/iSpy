@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// This class is to handle matchmaker-client packets
 /// </summary>
-public class ClientHandle : MonoBehaviour
+public class ClientHandle
 {
     public static void HandleInit(Packet _packet)
     {
@@ -15,11 +15,15 @@ public class ClientHandle : MonoBehaviour
         for (int i = 0; i < entryCount; i++)
         {
             // read port
-            var port = _packet.ReadInt();
+            var _port = _packet.ReadInt();
             // read max player count
-            var mPlrCount = _packet.ReadInt();
+            var _mPlrCount = _packet.ReadInt();
+            // read player count
+            var _plrCount = _packet.ReadInt();
+            // read running state
+            var _rState = _packet.ReadBool();
 
-            ServerEntries.Singleton.SetData(new ServerDataEntry(port, mPlrCount));
+            ServerEntries.Singleton.SetData(new ServerDataEntry(_port, _mPlrCount, _plrCount, _rState));
         }
     }
 
@@ -34,15 +38,15 @@ public class ClientHandle : MonoBehaviour
 
         for (int i = 0; i < _count; i++)
         {
-            // read entry index
-            var _index = _packet.ReadInt();
+            // read which port is updated
+            var _port = _packet.ReadInt();
             // read player count
             var _playerCount = _packet.ReadInt();
             // read server running state
             var _running = _packet.ReadBool();
 
             // update server entry
-            ServerEntries.Singleton.UpdateData(i, _playerCount, _running);
+            ServerEntries.Singleton.UpdateData(_port, _playerCount, _running);
         }
     }
 }

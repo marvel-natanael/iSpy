@@ -46,7 +46,7 @@ namespace Player
             if (!hasAuthority) return;
 
             CmdAddPlayerToServer();
-            AddName(PlayerNameInput.displayName);
+            AddName(PlayerNameInput.DisplayName);
             InGameUIManager.instance.PlayerUI.SetTargetPlayer(this);
         }
 
@@ -101,7 +101,6 @@ namespace Player
         private void CmdTakeDamage(float damage)
         {
             ItemPlayer.health -= damage;
-            // GetHealth(this.connectionToClient, ItemPlayer.health);
             if (ItemPlayer.health <= 0)
             {
                 Debug.Log("Die CMD");
@@ -124,7 +123,7 @@ namespace Player
         {
             if (isServer) return;
             if (!hasAuthority) return;
-            
+
             CmdDamageTo(p, dmg);
         }
 
@@ -141,7 +140,7 @@ namespace Player
             RpcUpdateUIOtherPlayer(p.connectionToClient, p.ItemPlayer.health);
         }
 
-        #endregion
+        #endregion Attack
 
         #region Heal
 
@@ -160,7 +159,7 @@ namespace Player
             RpcUpdateUI(ItemPlayer.health);
         }
 
-        #endregion
+        #endregion Heal
 
         #region Bullet
 
@@ -179,7 +178,7 @@ namespace Player
             RpcUpdateUI(ItemPlayer.health);
         }
 
-        #endregion
+        #endregion Bullet
 
         #region Lose
 
@@ -208,7 +207,7 @@ namespace Player
             InGameUIManager.instance.LoseText.gameObject.SetActive(true);
         }
 
-        #endregion
+        #endregion Lose
 
         #region RPC UI
 
@@ -224,7 +223,7 @@ namespace Player
             InGameUIManager.instance.PlayerUI.UpdateUI(currHealth);
         }
 
-        #endregion
+        #endregion RPC UI
 
         public void UpdateSprite(SpriteRenderer spriteRenderer, Color color)
         {

@@ -6,27 +6,28 @@ using UnityEngine.UI;
 
 public class EntryObject : MonoBehaviour
 {
-    public readonly int id;
-    private TextMeshProUGUI roomNumber;
+    public ushort PortID { get; private set; }
+    private TextMeshProUGUI portNum;
     private TextMeshProUGUI playerCount;
     private TextMeshProUGUI status;
-    private TextMeshProUGUI portAddress;
 
-    public string RoomNumber => roomNumber.text;
-    public string PortAddress => portAddress.text;
+    public string RoomNumber => portNum.text;
     public string PlayerCount => playerCount.text;
     public string Status => status.text;
 
-    private void Awake()
+    public void Awake()
     {
+        if (transform.childCount != 3) return;
+        portNum = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        playerCount = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        status = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
     }
 
     public void UpdateData(int _roomNumber, ServerDataEntry entry)
     {
-        roomNumber.text = _roomNumber.ToString();
-        portAddress.text = entry.Port.ToString();
+        portNum.text = _roomNumber.ToString();
         playerCount.text = $"Players: {entry.PlayerCount} / {entry.MaxPlayer}";
-        if (entry.Running | entry.PlayerCount >= entry.MaxPlayer)
+        if (entry.Running)
         {
             GetComponent<Button>().interactable = false;
             status.text = $"Status:\nRunning";
@@ -36,10 +37,20 @@ public class EntryObject : MonoBehaviour
             GetComponent<Button>().interactable = true;
             status.text = $"Status:\nWaiting";
         }
+        if (entry.PlayerCount == entry.MaxPlayer)
+        {
+            GetComponent<Button>().interactable = false;
+        }
     }
 
     public void SetSelected()
     {
-        ServerBrowserScript.Singleton.CurrentSelected = this;
+        ServerBrowserScript.CurrentSelected = this;
+    }
+
+    public void SetPortID(int _portID)
+    {
+        if (_portID < 1 || _portID > ushort.MaxValue) return;
+        PortID = (ushort)_portID;
     }
 }
