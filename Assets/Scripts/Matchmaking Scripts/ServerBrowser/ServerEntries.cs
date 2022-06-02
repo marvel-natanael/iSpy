@@ -9,7 +9,6 @@ using UnityEngine;
 public class ServerEntries
 {
     private static ServerEntries singleton;
-    private readonly Dictionary<int, ServerDataEntry> serverList = new Dictionary<int, ServerDataEntry>();
 
     /// <summary>
     /// The one and only entry database
@@ -20,9 +19,19 @@ public class ServerEntries
     /// <summary>
     /// The main database, contains the latest updated state for every server
     /// </summary>
-    public Dictionary<int, ServerDataEntry> Database => serverList;
+    public Dictionary<int, ServerDataEntry> Database { get; private set; }
 
     public static event Action OnDatabaseUpdate;
+
+    private ServerEntries()
+    {
+        MatchmakerClient.OnMClientDisconnected += OnMatchmakerClientDisconnected;
+    }
+
+    private void OnMatchmakerClientDisconnected()
+    {
+        Database.Clear();
+    }
 
     /// <summary>
     /// Inserts a new entry in the database
@@ -30,8 +39,9 @@ public class ServerEntries
     /// <param name="_entry">new entry</param>
     public void SetData(ServerDataEntry _entry)
     {
+        if (Database == null) Database = new Dictionary<int, ServerDataEntry>();
         // check if the entry doesn't exist
-        foreach (var e in serverList)
+        foreach (var e in Database)
         {
             if (_entry.Port == e.Value.Port)
             {
@@ -41,7 +51,7 @@ public class ServerEntries
         }
 
         // add the entry to server list
-        serverList.Add(_entry.Port, _entry);
+        Database.Add(_entry.Port, _entry);
         OnDatabaseUpdate?.Invoke();
     }
 
@@ -53,8 +63,8 @@ public class ServerEntries
     /// <param name="_isRunning">entry's new running state</param>
     public void UpdateData(int _port, int _PlayerCount, bool _isRunning)
     {
-        serverList[_port].UpdateEntry(_PlayerCount);
-        serverList[_port].UpdateEntry(_isRunning);
+        Database[_port].UpdateEntry(_PlayerCount);
+        Database[_port].UpdateEntry(_isRunning);
 
         OnDatabaseUpdate?.Invoke();
     }

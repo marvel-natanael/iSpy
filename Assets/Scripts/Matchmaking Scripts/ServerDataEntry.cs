@@ -15,7 +15,7 @@ public class ServerDataEntry
     public ushort Port => port;
     public bool Running => running;
 
-    public ServerDataEntry(int _port, int _playerCount, int _maxPlayer, bool _running)
+    public ServerDataEntry(int _port, int _maxPlayer, int _playerCount, bool _running)
     {
         port = (ushort)_port;
         playerCount = _playerCount;

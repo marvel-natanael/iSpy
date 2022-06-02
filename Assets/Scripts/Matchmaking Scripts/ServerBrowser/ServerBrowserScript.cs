@@ -8,24 +8,10 @@ using System.Threading.Tasks;
 
 public class ServerBrowserScript : MonoBehaviour
 {
-    public static ServerBrowserScript Singleton;
     private readonly List<GameObject> contentList = new List<GameObject>();
 
-    public EntryObject CurrentSelected;
+    public static EntryObject CurrentSelected;
     public GameObject EntryButtonPrefab;
-
-    private void Awake()
-    {
-        if (Singleton == null)
-        {
-            Singleton = this;
-        }
-        else if (Singleton != this)
-        {
-            Debug.LogWarning($"ServerBrowserScript already existed, destorying...");
-            Destroy(this);
-        }
-    }
 
     private void Start()
     {
@@ -103,5 +89,10 @@ public class ServerBrowserScript : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    private void OnDestroy()
+    {
+        ServerEntries.OnDatabaseUpdate -= OnDatabaseUpdate;
     }
 }

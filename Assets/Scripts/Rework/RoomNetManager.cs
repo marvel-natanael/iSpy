@@ -169,6 +169,15 @@ public class RoomNetManager : NetworkRoomManager
                 ServerSend.SendUpdate(localEntry);
             }
         }
+        if (sceneName == onlineScene)
+        {
+            // matchmaker
+            if (isMatchmakerLaunched)
+            {
+                localEntry.UpdateEntry(false);
+                ServerSend.SendUpdate(localEntry);
+            }
+        }
 
         base.OnServerSceneChanged(sceneName);
     }
@@ -352,12 +361,9 @@ public class RoomNetManager : NetworkRoomManager
 
     public override void OnApplicationQuit()
     {
-        if (MatchmakerClient.Singleton.transport != null && MatchmakerClient.Singleton.IsConnected)
+        if (MatchmakerClient.Singleton.IsConnected)
         {
-            ThreadManager.ExecuteOnMainThread(() =>
-            {
-                MatchmakerClient.Singleton.Disconnect();
-            });
+            MatchmakerClient.Singleton.Disconnect();
             Debug.Log("quit");
         }
         base.OnApplicationQuit();

@@ -359,6 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bb95a822ab2194a84820326a07d582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  failToConnectLabel: {fileID: 6791491822012600510, guid: 49f36a8f48087444e9c2957d52cbef03, type: 3}
   connLabel: {fileID: 1360834819351420161}
   switchButton: {fileID: 2782551438361923026}
   connButton: {fileID: 4517061163720346397}
@@ -1826,7 +1827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e07dadadf3fce41acdf6d92e08c12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentSelected: {fileID: 0}
   EntryButtonPrefab: {fileID: 2107715163475040316, guid: 232ecf5ac9643824c8f764ae502ffcf2, type: 3}
 --- !u!1 &8877172645720049466
 GameObject:

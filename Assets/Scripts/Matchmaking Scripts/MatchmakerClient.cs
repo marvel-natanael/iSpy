@@ -23,6 +23,8 @@ public class MatchmakerClient
 
     public static event Action OnMClientDisconnected;
 
+    public static event Action OnMCFailedToConnect;
+
     public int ID => id;
 
     //private void Awake()
@@ -88,13 +90,11 @@ public class MatchmakerClient
         if (IsConnected)
         {
             ClientSend.SendDisconnect();
-            IsConnected = false;
             transport.socket.Close();
-            OnMClientDisconnected.Invoke();
-
-            Debug.Log($"Disconnected from matchmaker");
-            ThreadManager.ExecuteOnMainThread(() => OnMClientDisconnected.Invoke());
+            IsConnected = false;
         }
+        Debug.Log($"Disconnected from matchmaker");
+        ThreadManager.ExecuteOnMainThread(() => OnMClientDisconnected?.Invoke());
     }
 
     /// <summary>
@@ -103,7 +103,6 @@ public class MatchmakerClient
     public class TCP
     {
         public TcpClient socket;
-        public bool IsConnected { get; private set; }
 
         private NetworkStream stream = null;
         private readonly bool isServer = false;
@@ -155,7 +154,6 @@ public class MatchmakerClient
             receiveBuffer = new byte[dataBufferSize];
             Debug.Log($"Connecting to matchmaker ({endPointAddress}:{endpointPort})...");
             isConnecting = true;
-            //socket.BeginConnect(endPointAddress, endpointPort, ConnectCallback, null);
             try
             {
                 if (socket.ConnectAsync(endPointAddress, endpointPort).Wait(timeOut)) ConnectCallback();
@@ -165,6 +163,12 @@ public class MatchmakerClient
                     Debug.Log("Connection timeout...");
                     return;
                 }
+            }
+            catch (AggregateException)
+            {
+                Debug.LogWarning($"Unable to connect to matchmaker!");
+                ThreadManager.ExecuteOnMainThread(() => OnMCFailedToConnect?.Invoke());
+                isConnecting = false;
             }
             catch (Exception e)
             {
@@ -191,7 +195,7 @@ public class MatchmakerClient
                 {
                     Debug.Log($"Connected to matchmaker!");
                     singleton.IsConnected = true;
-                    ThreadManager.ExecuteOnMainThread(() => OnMClientConnected.Invoke());
+                    ThreadManager.ExecuteOnMainThread(() => OnMClientConnected?.Invoke());
 
                     stream = socket.GetStream();
 
@@ -221,7 +225,7 @@ public class MatchmakerClient
                 if (_bytelength <= 0)
                 {
                     Debug.LogWarning("Disconnected");
-                    ThreadManager.ExecuteOnMainThread(() => OnMClientDisconnected.Invoke());
+                    ThreadManager.ExecuteOnMainThread(() => OnMClientDisconnected?.Invoke());
                     Disconnect();
                     return;
                 }

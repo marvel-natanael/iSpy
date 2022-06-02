@@ -7,29 +7,25 @@ using UnityEngine.UI;
 public class EntryObject : MonoBehaviour
 {
     public ushort PortID { get; private set; }
-    private TextMeshProUGUI roomNumber;
+    private TextMeshProUGUI portNum;
     private TextMeshProUGUI playerCount;
     private TextMeshProUGUI status;
-    private TextMeshProUGUI portAddress;
 
-    public string RoomNumber => roomNumber.text;
-    public string PortAddress => portAddress.text;
+    public string RoomNumber => portNum.text;
     public string PlayerCount => playerCount.text;
     public string Status => status.text;
 
     public void Awake()
     {
-        if (transform.childCount != 4) return;
-        roomNumber = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        if (transform.childCount != 3) return;
+        portNum = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         playerCount = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         status = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-        portAddress = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
     }
 
     public void UpdateData(int _roomNumber, ServerDataEntry entry)
     {
-        roomNumber.text = _roomNumber.ToString();
-        portAddress.text = entry.Port.ToString();
+        portNum.text = _roomNumber.ToString();
         playerCount.text = $"Players: {entry.PlayerCount} / {entry.MaxPlayer}";
         if (entry.Running)
         {
@@ -49,7 +45,7 @@ public class EntryObject : MonoBehaviour
 
     public void SetSelected()
     {
-        ServerBrowserScript.Singleton.CurrentSelected = this;
+        ServerBrowserScript.CurrentSelected = this;
     }
 
     public void SetPortID(int _portID)

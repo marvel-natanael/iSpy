@@ -7,12 +7,12 @@ using Mirror;
 
 public class BrowserConnScript : MonoBehaviour
 {
+    [SerializeField] private GameObject failToConnectLabel;
     [SerializeField] private TextMeshProUGUI connLabel;
     [SerializeField] private Button switchButton;
     [SerializeField] private Button connButton;
 
-    [SerializeField]
-    private string hostAddress;
+    [SerializeField] private string hostAddress;
 
     private bool isForeign = false;
 
@@ -26,12 +26,12 @@ public class BrowserConnScript : MonoBehaviour
     {
         MatchmakerClient.OnMClientConnected += OnClientConnected;
         MatchmakerClient.OnMClientDisconnected += OnClientDisconnected;
+        MatchmakerClient.OnMCFailedToConnect += OnClientFailToConnect;
     }
 
-    private void OnDestroy()
+    private void OnClientFailToConnect()
     {
-        MatchmakerClient.OnMClientConnected -= OnClientConnected;
-        MatchmakerClient.OnMClientDisconnected -= OnClientDisconnected;
+        Instantiate(failToConnectLabel, transform);
     }
 
     private void OnClientDisconnected()
@@ -74,5 +74,12 @@ public class BrowserConnScript : MonoBehaviour
             MatchmakerClient.Singleton.Connect(hostAddress, 7777);
         }
         else MatchmakerClient.Singleton.Connect("127.0.0.1", 7777);
+    }
+
+    private void OnDestroy()
+    {
+        MatchmakerClient.OnMClientConnected -= OnClientConnected;
+        MatchmakerClient.OnMClientDisconnected -= OnClientDisconnected;
+        MatchmakerClient.OnMCFailedToConnect -= OnClientFailToConnect;
     }
 }

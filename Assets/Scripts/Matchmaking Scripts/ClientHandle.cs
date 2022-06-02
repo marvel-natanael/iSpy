@@ -15,11 +15,15 @@ public class ClientHandle
         for (int i = 0; i < entryCount; i++)
         {
             // read port
-            var port = _packet.ReadInt();
+            var _port = _packet.ReadInt();
             // read max player count
-            var mPlrCount = _packet.ReadInt();
+            var _mPlrCount = _packet.ReadInt();
+            // read player count
+            var _plrCount = _packet.ReadInt();
+            // read running state
+            var _rState = _packet.ReadBool();
 
-            ServerEntries.Singleton.SetData(new ServerDataEntry(port, mPlrCount));
+            ServerEntries.Singleton.SetData(new ServerDataEntry(_port, _mPlrCount, _plrCount, _rState));
         }
     }
 
