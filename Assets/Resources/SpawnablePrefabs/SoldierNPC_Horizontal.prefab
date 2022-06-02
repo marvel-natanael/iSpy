@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 785091798488207782}
   - component: {fileID: 951827311310209765}
   - component: {fileID: 6349126073694626244}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SoldierNPC_Horizontal
   m_TagString: AI
   m_Icon: {fileID: 0}
@@ -388,7 +388,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!1 &8604490838154970005
 GameObject:
   m_ObjectHideFlags: 0

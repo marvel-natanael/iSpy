@@ -82,6 +82,7 @@ public class Soldier : NetworkBehaviour
             
             if (transform.position.magnitude > maxDistance)
             {
+                transform.position += -direction * speed * Time.deltaTime;
                 moveForward = false;
                 Flip(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
             }
@@ -92,6 +93,7 @@ public class Soldier : NetworkBehaviour
             
             if (transform.position.magnitude > maxDistance)
             {
+                transform.position += direction * speed * Time.deltaTime;
                 moveForward = true;
                 Flip(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
             }
@@ -121,6 +123,8 @@ public class Soldier : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "Player") return;
+
         moveForward = !moveForward;
         Flip(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
     }

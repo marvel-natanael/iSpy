@@ -1,11 +1,14 @@
 using System;
 using Mirror;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class DetectionPlayer : MonoBehaviour
 {
     [HideInInspector]public bool detection;
-    
+
+    private List<GameObject> playerInDetection = new List<GameObject>();
+
     private void Start()
     {
         detection = false;
@@ -16,6 +19,11 @@ public class DetectionPlayer : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             detection = true;
+
+            if (!playerInDetection.Contains(other.gameObject))
+            {
+                playerInDetection.Add(other.gameObject);
+            }
         }
     }
 
@@ -24,6 +32,16 @@ public class DetectionPlayer : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             detection = false;
+
+            if (playerInDetection.Contains(other.gameObject))
+            {
+                playerInDetection.Remove(other.gameObject);
+            }
         }
+    }
+
+    public List<GameObject> GetListPlayer()
+    {
+        return playerInDetection;
     }
 }
