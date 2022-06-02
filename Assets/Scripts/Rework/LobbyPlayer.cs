@@ -24,6 +24,7 @@ public class LobbyPlayer : NetworkRoomPlayer
 
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
     public string DisplayName = "Loading...";
+
     #region Start & Stop Callbacks
 
     /// <summary>
@@ -31,13 +32,15 @@ public class LobbyPlayer : NetworkRoomPlayer
     /// <para>This could be triggered by NetworkServer.Listen() for objects in the scene, or by NetworkServer.Spawn() for objects that are dynamically created.</para>
     /// <para>This will be called for objects on a "host" as well as for object on a dedicated server.</para>
     /// </summary>
-    public override void OnStartServer() { }
+    public override void OnStartServer()
+    { }
 
     /// <summary>
     /// Invoked on the server when the object is unspawned
     /// <para>Useful for saving object data in persistent storage</para>
     /// </summary>
-    public override void OnStopServer() { }
+    public override void OnStopServer()
+    { }
 
     /// <summary>
     /// Called on every NetworkBehaviour when it is activated on a client.
@@ -82,9 +85,10 @@ public class LobbyPlayer : NetworkRoomPlayer
     /// This is invoked on behaviours when authority is removed.
     /// <para>When NetworkIdentity.RemoveClientAuthority is called on the server, this will be called on the client that owns the object.</para>
     /// </summary>
-    public override void OnStopAuthority() { }
+    public override void OnStopAuthority()
+    { }
 
-    #endregion
+    #endregion Start & Stop Callbacks
 
     #region Room Client Callbacks
 
@@ -108,14 +112,14 @@ public class LobbyPlayer : NetworkRoomPlayer
     /// </summary>
     public override void OnClientExitRoom()
     {
-        if(SceneManager.GetActiveScene().name.StartsWith("Map"))
+        if (SceneManager.GetActiveScene().name.StartsWith("Map"))
         {
             lobbyUI.SetActive(false);
         }
         UpdateDisplay();
     }
 
-    #endregion
+    #endregion Room Client Callbacks
 
     #region SyncVar Hooks
 
@@ -136,11 +140,11 @@ public class LobbyPlayer : NetworkRoomPlayer
 
     public void HandleDisplayNameChanged(string oldValue, string newValue) => UpdateDisplay();
 
-    #endregion
+    #endregion SyncVar Hooks
 
     #region Optional UI
 
-    void UpdateDisplay()
+    private void UpdateDisplay()
     {
         RoomNetManager room = NetworkManager.singleton as RoomNetManager;
         if (room)
@@ -209,7 +213,7 @@ public class LobbyPlayer : NetworkRoomPlayer
         base.OnGUI();
     }
 
-    #endregion
+    #endregion Optional UI
 
     [Command]
     private void CmdSetDisplayName(string displayName)

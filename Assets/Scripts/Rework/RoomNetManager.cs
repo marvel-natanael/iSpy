@@ -81,10 +81,11 @@ public class RoomNetManager : NetworkRoomManager
 #endif
     }
 
-    void GetActiveScene()
+    private void GetActiveScene()
     {
         Debug.Log(SceneManager.GetActiveScene().name);
     }
+
     #region Server Callbacks
 
     /// <summary>
@@ -106,7 +107,7 @@ public class RoomNetManager : NetworkRoomManager
     public override void OnServerReady(NetworkConnection conn)
     {
         base.OnServerReady(conn);
-        OnServerReadied?.Invoke(conn);
+        ThreadManager.ExecuteOnMainThread(() => OnServerReadied?.Invoke(conn));
     }
 
     /// <summary>
@@ -212,15 +213,6 @@ public class RoomNetManager : NetworkRoomManager
     public override void ServerChangeScene(string newSceneName)
     {
         base.ServerChangeScene(newSceneName);
-    }
-
-    public override void OnServerSceneChanged(string sceneName)
-    {
-        if (sceneName == GameplayScene)
-        {
-            GameObject spawnSystemInstance = Instantiate(playerSpawner);
-            NetworkServer.Spawn(spawnSystemInstance);
-        }
     }
 
     /// <summary>

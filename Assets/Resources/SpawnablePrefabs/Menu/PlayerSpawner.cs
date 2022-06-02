@@ -19,16 +19,21 @@ public class PlayerSpawner : NetworkBehaviour
     {
         AddSpawnPoint(transform, VerSoldierSpawnPoints);
     }
+
     public static void AddTurretSpawnPoint(Transform transform)
     {
         AddSpawnPoint(transform, TurretSpawnPoints);
     }
+
     public static void AddHorSoldierSpawnPoint(Transform transform)
     {
         AddSpawnPoint(transform, HorSoldierSpawnPoints);
     }
+
     public static void RemoveVerSoldierSpawnPoint(Transform transform) => VerSoldierSpawnPoints.Remove(transform);
+
     public static void RemoveHorSoldierSpawnPoint(Transform transform) => HorSoldierSpawnPoints.Remove(transform);
+
     public static void RemoveTurretSpawnPoint(Transform transform) => TurretSpawnPoints.Remove(transform);
 
     public static void AddSpawnPoint(Transform transform, List<Transform> list)
@@ -36,6 +41,7 @@ public class PlayerSpawner : NetworkBehaviour
         list.Add(transform);
         list = list.OrderBy(x => x.GetSiblingIndex()).ToList();
     }
+
     public static void RemoveSpawnPoint(Transform transform, List<Transform> list)
     {
         list.Remove(transform);
@@ -43,13 +49,13 @@ public class PlayerSpawner : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        RoomNetManager.onServerReadied += SpawnNPC;
+        RoomNetManager.OnServerReadied += SpawnNPC;
     }
 
     [ServerCallback]
     private void OnDestroy()
     {
-        RoomNetManager.onServerReadied -= SpawnNPC;
+        RoomNetManager.OnServerReadied -= SpawnNPC;
     }
 
     [Server]
@@ -64,7 +70,7 @@ public class PlayerSpawner : NetworkBehaviour
             SpawnVer();
         for (int i = horIndex; i < HorSoldierSpawnPoints.Count; i++)
             SpawnHor();
-        
+
         /*
         for (int i = verIndex; i < VerSoldierSpawnPoints.Count; i++)
             Spawn(VerSoldierSpawnPoints, npcs[1],verIndex);
@@ -74,7 +80,6 @@ public class PlayerSpawner : NetworkBehaviour
         //Spawn(NPCspawnPoints, npcs[2]);
         //turret
         //Spawn(TurretSpawnPoints, npcs[1]);
-
     }
 
     public virtual void SpawnTurret()
@@ -94,6 +99,7 @@ public class PlayerSpawner : NetworkBehaviour
         NetworkServer.Spawn(npcInstance);
         turIndex++;
     }
+
     public virtual void SpawnVer()
     {
         if (!NetworkServer.active) { return; }
@@ -111,6 +117,7 @@ public class PlayerSpawner : NetworkBehaviour
         NetworkServer.Spawn(npcInstance);
         verIndex++;
     }
+
     public virtual void SpawnHor()
     {
         if (!NetworkServer.active) { return; }
