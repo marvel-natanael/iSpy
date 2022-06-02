@@ -42,7 +42,6 @@ public class RoomNetManager : NetworkRoomManager
 
     public override void Awake()
     {
-        // Initialize Matchmaker Client
         MatchmakerClient.Singleton.Initialize();
 
         //Check if server is run by a matchmaker
@@ -108,6 +107,7 @@ public class RoomNetManager : NetworkRoomManager
     {
         base.OnServerReady(conn);
         ThreadManager.ExecuteOnMainThread(() => OnServerReadied?.Invoke(conn));
+        //OnServerReadied?.Invoke(conn);
     }
 
     /// <summary>
@@ -148,7 +148,8 @@ public class RoomNetManager : NetworkRoomManager
     /// <param name="conn">The connection that disconnected.</param>
     public override void OnRoomServerDisconnect(NetworkConnection conn)
     {
-        // update localEntry playersCount
+        //Debug.Log($"{conn.address} disconnected...");
+        //// update localEntry playersCount
         if (isMatchmakerLaunched)
         {
             localEntry.UpdateEntry(NetworkServer.connections.Count);
@@ -377,11 +378,6 @@ public class RoomNetManager : NetworkRoomManager
             Debug.Log("quit");
         }
         base.OnApplicationQuit();
-    }
-
-    [ContextMenu(nameof(TestConnect))]
-    private void TestConnect()
-    {
     }
 
     #endregion Matchmaker Stuff

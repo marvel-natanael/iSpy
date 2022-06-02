@@ -12,21 +12,27 @@ public class GameManager : NetworkBehaviour
 
     [SyncVar]
     public int playersCount = 2, returningPlayer;
+
     [SyncVar(hook = nameof(Hook_GameOver))]
     public bool gameOver = false;
+
     [SyncVar]
     public List<string> playerNames = new List<string>();
-    [SyncVar(hook =nameof(Hook_WinnerNameFound))]
+
+    [SyncVar(hook = nameof(Hook_WinnerNameFound))]
     public string winnerName = "Loading...";
 
     [SerializeField]
-    int pCount;
+    private int pCount;
+
     [SerializeField]
-    bool counting, starting;
+    private bool counting, starting;
+
     [SerializeField]
-    GameObject winPanel;
+    private GameObject winPanel;
+
     [SerializeField]
-    TextMeshProUGUI winText;
+    private TextMeshProUGUI winText;
 
     [SerializeField] private GameObject losePanel;
 
@@ -47,16 +53,16 @@ public class GameManager : NetworkBehaviour
 
     public void Hook_WinnerNameFound(string oldVal, string newVal)
     {
-        if(newVal != null)
+        if (newVal != null)
         {
             Debug.Log(newVal);
-            if(isClient)
+            if (isClient)
             {
                 try
                 {
                     winText.text = newVal;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     // show a detailed error and let the user know what went wrong
                     if (e.Source.Equals("Mirror"))
@@ -87,13 +93,13 @@ public class GameManager : NetworkBehaviour
     }
 
     [ServerCallback]
-    void getPlayersPos()
+    private void getPlayersPos()
     {
-        if(players == null) { return; }
-        foreach(GameObject player in players)
+        if (players == null) { return; }
+        foreach (GameObject player in players)
         {
-            if(player != null)
-            Debug.Log(player.name + player.transform.position);
+            if (player != null)
+                Debug.Log(player.name + player.transform.position);
         }
     }
 
@@ -101,16 +107,17 @@ public class GameManager : NetworkBehaviour
     {
         pCount = GameObject.FindGameObjectsWithTag("Player").Length;
     }
+
     private void Update()
     {
         if (pCount <= 1 && starting)
         {
             if (!gameOver) GameOver();
-            //StartCoroutine(ClearRoom());   
+            //StartCoroutine(ClearRoom());
         }
         if (returningPlayer == pCount && returningPlayer != 0 || pCount == 0 && starting)
         {
-            if(!counting) ServerReturnToLobbyCoroutine();
+            if (!counting) ServerReturnToLobbyCoroutine();
         }
         //StartCoroutine(ClearRoom());
         //yield return new WaitForSeconds(2f);
@@ -125,7 +132,6 @@ public class GameManager : NetworkBehaviour
                 Debug.Log("STOP CLIENT");
                 manager.StopClient();
             }
-
             else if (isServer)
             {
                 Debug.Log("Conn Count : " + NetworkServer.connections.Count);
@@ -146,17 +152,17 @@ public class GameManager : NetworkBehaviour
 
         if (isClient && pCount <= 1)
         {
-            if(!winPanel.activeInHierarchy)
-            winPanel.SetActive(true);
-            
-           losePanel.SetActive(false);
+            if (!winPanel.activeInHierarchy)
+                winPanel.SetActive(true);
+
+            losePanel.SetActive(false);
         }
         if (isServer)
         {
             Debug.Log("Conn Count : " + NetworkServer.connections.Count);
 
             var winner = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
-            if(winner != null)
+            if (winner != null)
             {
                 winnerName = winner.playerName;
             }
@@ -211,8 +217,7 @@ public class GameManager : NetworkBehaviour
         if (isServer) { return; }
         Debug.Log("Test 2");
         manager.StopClient();
-        
+
         Debug.Log("Test 3");
     }
-    
 }

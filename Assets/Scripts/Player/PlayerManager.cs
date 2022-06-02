@@ -26,7 +26,6 @@ namespace Player
 
         public static event OnDeath onDeath;
 
-
         private void Awake()
         {
             //WeaponType = WeaponType.Pistol;
@@ -184,7 +183,7 @@ namespace Player
 
         public void CmdDead(PlayerManager p)
         {
-             _source.PlayOneShot(_source.clip);
+            _source.PlayOneShot(_source.clip);
             GameManager.instance.playersCount -= 1;
 
             onDeath?.Invoke();
@@ -192,10 +191,10 @@ namespace Player
             RPCCheckHealth(p.connectionToClient);
             RpcShowLoseText(p.connectionToClient);
             //GameManager.instance.GameOver();
-            StartCoroutine("Death", p);
+            StartCoroutine(nameof(Death), p);
         }
 
-        IEnumerator Death(PlayerManager p)
+        private IEnumerator Death(PlayerManager p)
         {
             yield return new WaitForSeconds(1);
             Destroy(p.gameObject);
