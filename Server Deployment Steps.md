@@ -1,3 +1,16 @@
+# AWS Lightsail Desployment Steps #
+[![image.png](https://i.postimg.cc/bJzCDYhw/image.png)](https://postimg.cc/sBN9brxk)
+1. Make AWS account as root user and login
+2. Choose Lightsail -> Create Instance
+3. Configure your VM spesification
+4. After done, choose your created VM -> Networking [![image.png](https://i.postimg.cc/sDkvVvY7/image.png)](https://postimg.cc/hf0Ss43t)
+5. Add neceessary ports and protocols
+6. Download the public key
+7. Build your server
+8. Upload using downloaded key, use [PuttyGen](https://www.puttygen.com/) or [WinSCP](https://winscp.net/eng/download.php)
+9. Mark uploaded file as executable
+10. Run the instance in the console
+
 # Azure Deployment Steps #
 1. Make Microsoft Account and login in Azure
 2. In portal.azure.com choose virtual machine
