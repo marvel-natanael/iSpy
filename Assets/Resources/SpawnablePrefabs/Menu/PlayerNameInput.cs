@@ -10,7 +10,7 @@ public class PlayerNameInput : MonoBehaviour
     private TMP_InputField nameInputField;
 
     [SerializeField] private TMP_Text messageError;
-    private const string PlayerPrefsNameKey = "PlayerName";
+    private const string PlayerPrefsNameKey = "nemo";
     public static string DisplayName { get; private set; }
 
     private void Start()

@@ -321,10 +321,8 @@ public class RoomNetManager : NetworkRoomManager
     /// </summary>
     public override void OnRoomStartClient()
     {
-        spawnPrefabs.Clear();
-        spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
-
-        foreach (var prefab in spawnPrefabs)
+        var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
+        foreach (var prefab in spawnablePrefabs)
         {
             NetworkClient.RegisterPrefab(prefab);
         }
