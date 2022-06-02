@@ -93,6 +93,8 @@ public class RoomNetManager : NetworkRoomManager
     public override void OnRoomStartServer()
     {
         Debug.Log("Server is on");
+
+        spawnPrefabs.Clear();
         spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
         // matchmaker
@@ -319,8 +321,10 @@ public class RoomNetManager : NetworkRoomManager
     /// </summary>
     public override void OnRoomStartClient()
     {
-        var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
-        foreach (var prefab in spawnablePrefabs)
+        spawnPrefabs.Clear();
+        spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
+
+        foreach (var prefab in spawnPrefabs)
         {
             NetworkClient.RegisterPrefab(prefab);
         }
