@@ -1471,7 +1471,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/MainMenu.unity
   onlineScene: Assets/Scenes/Lobby.unity
   transport: {fileID: 812024206}
-  networkAddress: localhost
+  networkAddress: 18.141.237.252
   maxConnections: 4
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 4607003322616202644, guid: 32bb5e8d489938b43bf89b4086f52793, type: 3}
@@ -1960,6 +1960,8 @@ MonoBehaviour:
   serverBrowserUI: {fileID: 1253953874}
   bg: {fileID: 1856999776}
   sfx: {fileID: 1583257845}
+  failedConnect: {fileID: 251988069071388116, guid: 49f36a8f48087444e9c2957d52cbef03, type: 3}
+  AWSserver: 18.141.237.252
   mainMenu: {fileID: 270543454}
   serverMenu: {fileID: 1253953875}
 --- !u!114 &1042165022
@@ -2316,6 +2318,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -3277,7 +3280,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1042165021}
         m_TargetAssemblyTypeName: MainMenu.MainMenu, Assembly-CSharp
-        m_MethodName: B_ShowServerBrowser
+        m_MethodName: B_ConnectMatchmaker
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

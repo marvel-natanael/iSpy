@@ -13,14 +13,40 @@ namespace MainMenu
         [SerializeField] private Slider bg;
         [SerializeField] private Slider sfx;
 
+        // Matchmaker fields
+
+        [SerializeField] private GameObject failedConnect;
+        [SerializeField] private string AWSserver;
+
         private bool isSBShown = false;
 
         public RectTransform mainMenu, serverMenu;
 
         private void Start()
         {
+            MatchmakerClient.OnMClientConnected += OnConnectedToMatchmaker;
+            MatchmakerClient.OnMClientDisconnected += OnDisconnectedFromMatchmaker;
+            MatchmakerClient.OnMCFailedToConnect += OnFailedToConnectToMatchmaker;
             SetMenu(true, false, false, false);
             B_HideServerBrowser();
+        }
+
+        private void OnFailedToConnectToMatchmaker()
+        {
+            Instantiate(failedConnect, transform);
+        }
+
+        private void OnDisconnectedFromMatchmaker()
+        {
+            Back();
+        }
+
+        private void OnConnectedToMatchmaker()
+        {
+            mainMenu.DOAnchorPos(new Vector2(-2000, 0), 1.0f);
+            serverMenu.DOAnchorPos(new Vector2(0, 0), 1.0f);
+            isSBShown = true;
+            serverBrowserUI.SetActive(true);
         }
 
         private void Update()
@@ -67,13 +93,10 @@ namespace MainMenu
             SetMenu(false, false, true, false);
         }
 
-        public void B_ShowServerBrowser()
+        public void B_ConnectMatchmaker()
         {
             if (isSBShown) return;
-            mainMenu.DOAnchorPos(new Vector2(-2000, 0), 1.0f);
-            serverMenu.DOAnchorPos(new Vector2(0, 0), 1.0f);
-            isSBShown = true;
-            serverBrowserUI.SetActive(true);
+            MatchmakerClient.Singleton.Connect(AWSserver, 7777);
         }
 
         public void B_HideServerBrowser()
@@ -83,6 +106,13 @@ namespace MainMenu
             serverMenu.DOAnchorPos(new Vector2(2000, 0), 1.0f);
             isSBShown = false;
             serverBrowserUI.SetActive(false);
+        }
+
+        private void OnDestroy()
+        {
+            MatchmakerClient.OnMClientConnected -= OnConnectedToMatchmaker;
+            MatchmakerClient.OnMClientDisconnected -= OnDisconnectedFromMatchmaker;
+            MatchmakerClient.OnMCFailedToConnect -= OnFailedToConnectToMatchmaker;
         }
     }
 }
