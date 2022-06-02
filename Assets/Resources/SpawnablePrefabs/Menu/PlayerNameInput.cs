@@ -24,12 +24,5 @@ public class PlayerNameInput : MonoBehaviour
         if (nameInputField.text == "") { messageError.text = "Username must be filled"; return; }
         DisplayName = nameInputField.text;
         PlayerPrefs.SetString(PlayerPrefsNameKey, DisplayName);
-        //OnClicked();
-
-        if (SceneManager.GetActiveScene().name == "Menu")
-        {
-            SceneManager.LoadScene("MainMenu");
-            Debug.Log(DisplayName);
-        }
     }
 }

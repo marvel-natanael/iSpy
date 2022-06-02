@@ -67,7 +67,7 @@ namespace Player
                 Idle();
             }
 
-            Debug.Log("Health " + InGameUIManager.instance.PlayerUI.curHealth);
+            //Debug.Log("Health " + InGameUIManager.instance.PlayerUI.curHealth);
 
             /*if (pm.ItemPlayer.health <= 0)
             {

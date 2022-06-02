@@ -3,6 +3,7 @@ using Mirror;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-room-player
@@ -218,7 +219,23 @@ public class LobbyPlayer : NetworkRoomPlayer
     [Command]
     private void CmdSetDisplayName(string displayName)
     {
-        if (string.IsNullOrEmpty(displayName)) displayName = "nemo";
-        DisplayName = displayName;
+        try
+        {
+            Debug.Log(displayName);
+            if (string.IsNullOrEmpty(displayName)) displayName = "nemo";
+            DisplayName = displayName;
+        }
+        catch (Exception e)
+        {
+            // show a detailed error and let the user know what went wrong
+            if (e.Source.Equals("Mirror"))
+            {
+                Debug.LogError("OnDeserialize failed for: object=" + e);
+            }
+            else
+            {
+                Debug.LogError(e);
+            }
+        }
     }
 }
