@@ -41,3 +41,8 @@ Player will control their Spy with the following controls :
 
 
 ## Server Documentation
+### Deployment
+https://github.com/marvel-natanael/iSpy/commit/be19f1c88d7d3a238351959b621fee3160b2f5a8
+
+### Usage
+https://github.com/LeonardBrowntail/iSpy-Matchmaker/blob/main/README.md
