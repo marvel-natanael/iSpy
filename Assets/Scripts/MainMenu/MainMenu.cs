@@ -17,6 +17,7 @@ namespace MainMenu
 
         [SerializeField] private GameObject failedConnect;
         [SerializeField] private string AWSserver;
+        private bool connected = false;
 
         private bool isSBShown = false;
 
@@ -38,11 +39,14 @@ namespace MainMenu
 
         private void OnDisconnectedFromMatchmaker()
         {
+            connected = false;
+            B_HideServerBrowser();
             Back();
         }
 
         private void OnConnectedToMatchmaker()
         {
+            connected = true;
             mainMenu.DOAnchorPos(new Vector2(-2000, 0), 1.0f);
             serverMenu.DOAnchorPos(new Vector2(0, 0), 1.0f);
             isSBShown = true;
@@ -96,7 +100,8 @@ namespace MainMenu
         public void B_ConnectMatchmaker()
         {
             if (isSBShown) return;
-            MatchmakerClient.Singleton.Connect(AWSserver, 7777);
+            if (!MatchmakerClient.Singleton.IsConnected) MatchmakerClient.Singleton.Connect(AWSserver, 7777);
+            if (connected) OnConnectedToMatchmaker();
         }
 
         public void B_HideServerBrowser()
