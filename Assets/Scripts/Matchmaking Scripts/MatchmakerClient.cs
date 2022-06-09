@@ -237,6 +237,10 @@ public class MatchmakerClient
 
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
             }
+            catch (ObjectDisposedException)
+            {
+                return;
+            }
             catch (Exception e)
             {
                 Console.WriteLine($"Exception thrown: {e}");

@@ -50,20 +50,13 @@ public class RoomNetManager : NetworkRoomManager
         {
             Debug.Log($"This Unity Server was ran by a matchmaker service!");
             isMatchmakerLaunched = true;
-            try
-            {
-                // Get port assigned by matchmaker
-                ushort newPort = ushort.Parse(args[Array.FindIndex<string>(args, m => m == "-port") + 1]);
-                Debug.Log($"Unity Server port received in args : {newPort}");
-                port = newPort;
+            // Get port assigned by matchmaker
+            ushort newPort = ushort.Parse(args[Array.FindIndex<string>(args, m => m == "-port") + 1]);
+            Debug.Log($"Unity Server port received in args : {newPort}");
+            port = newPort;
 
-                localEntry = new ServerDataEntry(newPort, maxConnections);
-                Debug.Log($"Created a new local entry with port {newPort} and max player connected = {maxConnections}");
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
+            localEntry = new ServerDataEntry(newPort, maxConnections);
+            Debug.Log($"Created a new local entry with port {newPort} and max player connected = {maxConnections}");
         }
         base.Awake();
     }
